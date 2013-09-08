@@ -1,9 +1,9 @@
 
-# Put your own Google API developer key in a file called custom_key.py.
-# The file should contain the statement:
+# Put your own Google API developer data in a file called custom_key.py.
+# The file should contain the statements:
 #    myKey      = 'yourGoogleApiDeveloperKey';
 #    mySearchId = 'yourSearchEngineID';
-# If you don't have it, don't expect this line to work:
+# If you don't have this file, don't expect this line to work:
 import custom_key
 
 import html_parser.extract_anchor as Extractor

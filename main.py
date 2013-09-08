@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python
 # Put your own Google API developer data in a file called custom_key.py.
 # The file should contain the statements:
 #    myKey      = 'yourGoogleApiDeveloperKey';

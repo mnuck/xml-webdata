@@ -1,7 +1,8 @@
 
 # Put your own Google API developer key in a file called custom_key.py.
 # The file should contain the statement:
-#    myKey = 'yourGoogleApiDeveloperKey';
+#    myKey      = 'yourGoogleApiDeveloperKey';
+#    mySearchId = 'yourSearchEngineID';
 # If you don't have it, don't expect this line to work:
 import custom_key
 
@@ -12,8 +13,10 @@ import urllib2
 
 def main():
    queryText = 'Secure+XML';
-   queryUrl = 'https://www.googleapis.com/customsearch/v1?key=' + custom_key.myKey + '&cx=017576662512468239146:omuauf_lfve&';
-   queryUrl = queryUrl + 'q=' + queryText;
+   queryUrl = 'https://www.googleapis.com/customsearch/v1';
+   queryUrl = queryUrl + '?key=' + custom_key.myKey;
+   queryUrl = queryUrl + '&cx=' + custom_key.mySearchId;
+   queryUrl = queryUrl + '&q=' + queryText;
    data = urllib2.urlopen(queryUrl)
    data = json.load(data)
 

@@ -4,32 +4,29 @@
 #    myKey      = 'yourGoogleApiDeveloperKey';
 #    mySearchId = 'yourSearchEngineID';
 # If you don't have this file, don't expect this line to work:
+# the first line of main can be switched between HTTPSSearch and EmbeddedAPISearch
+# with no functional changes, one class searches using the embedded API approace
+# and the other does it via a standard HTTPS search
+
 import custom_key
-
-import html_parser.extract_anchor as Extractor
-
-import json
 import urllib2
 
+import html_parser.extract_anchor as Extractor
+import search.HTTPSSearch as HTTPSSearch
+import search.EmbeddedAPISearch as EmbeddedAPISearch
+
 def main():
-   queryText = 'Secure+XML';
-   queryUrl = 'https://www.googleapis.com/customsearch/v1';
-   queryUrl = queryUrl + '?key=' + custom_key.myKey;
-   queryUrl = queryUrl + '&cx=' + custom_key.mySearchId;
-   queryUrl = queryUrl + '&q=' + queryText;
-   data = urllib2.urlopen(queryUrl)
-   data = json.load(data)
+   searchObj = HTTPSSearch.HTTPSSearch(custom_key.myKey, custom_key.mySearchId);
+   urls      = searchObj.FindURLs('Secure+XML');
 
-   for i in data['items']:
-      # print "Title: ", i['title'];
-      # print "    Display Link: ", i['displayLink'];
-      # print "   Formatted URL: ", i['formattedUrl'];
-      # print "            Link: ", i['link'];
-
-      link = i['link'];
-
-      if link.find('.html') != -1:
-         request = urllib2.urlopen(link);
+   print "List of Found URLs:\n";
+   searchObj.ShowFoundURLs();
+   
+   print "\nAttributes of URLs with .html in name:\n";
+   for url in urls:
+      
+      if url.find('.html') != -1:
+         request = urllib2.urlopen(url);
          htmlPage = request.read();
 
          # Simple little test driver for our Anchor Extractor:

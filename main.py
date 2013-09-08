@@ -11,7 +11,7 @@ import json
 import urllib2
 
 def main():
-   queryText = 'webSQL';
+   queryText = 'Secure+XML';
    queryUrl = 'https://www.googleapis.com/customsearch/v1?key=' + custom_key.myKey + '&cx=017576662512468239146:omuauf_lfve&';
    queryUrl = queryUrl + 'q=' + queryText;
    data = urllib2.urlopen(queryUrl)

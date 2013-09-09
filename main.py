@@ -3,21 +3,31 @@
 # The file should contain the statements:
 #    myKey      = 'yourGoogleApiDeveloperKey';
 #    mySearchId = 'yourSearchEngineID';
-# If you don't have this file, don't expect this line to work:
-# the first line of main can be switched between HTTPSSearch and EmbeddedAPISearch
-# with no functional changes, one class searches using the embedded API approace
-# and the other does it via a standard HTTPS search
+# If you don't have this file, don't expect this line to work!
+#
+# The first line of main can be switched between HTTPSSearch and EmbeddedAPISearch
+# with no functional changes, one class searches using the embedded API approach
+# and the other does it via a standard HTTPS search.
 
 import custom_key
 import urllib2
+import argparse
 
 import html_parser.extract_anchor as Extractor
 import search.HTTPSSearch as HTTPSSearch
 import search.EmbeddedAPISearch as EmbeddedAPISearch
 
 def main():
+
+   argParser = argparse.ArgumentParser()
+   argParser.add_argument("query",
+                          help="The query string. This string will be passed to the Google API.")
+   args = argParser.parse_args()
+
+   queryString = args.query;
+
    searchObj = HTTPSSearch.HTTPSSearch(custom_key.myKey, custom_key.mySearchId);
-   urls      = searchObj.FindURLs('Secure+XML');
+   urls      = searchObj.FindURLs(queryString);
 
    print "List of Found URLs:\n";
    searchObj.ShowFoundURLs();

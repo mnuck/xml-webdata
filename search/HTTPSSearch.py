@@ -1,16 +1,17 @@
 # class to search for URLs given a search string
 # using the google API via a standard HTTPS search
 
-from SearchInterface import SearchInterface
+from SearchObject import SearchObject
 
 import json
+import urllib
 import urllib2
 
-class HTTPSSearch(SearchInterface):
+class HTTPSSearch(SearchObject):
    # Simple class constructor.
    def __init__(self, apiKey, searchID):
       # Call the base class constructor
-      SearchInterface.__init__(self, apiKey, searchID);
+      SearchObject.__init__(self, apiKey, searchID);
 
    # implement FindURLs method using HTTPS call
    def FindURLs(self, searchString):
@@ -18,7 +19,15 @@ class HTTPSSearch(SearchInterface):
       queryUrl = 'https://www.googleapis.com/customsearch/v1';
       queryUrl = queryUrl + '?key=' + self.apiKey;
       queryUrl = queryUrl + '&cx=' + self.searchID;
-      queryUrl = queryUrl + '&q=' + searchString;
+
+      searchComponents = { 'q'   : searchString  };
+
+      encodedSearch = urllib.urlencode(searchComponents);
+
+      queryUrl = queryUrl + "&" + encodedSearch; 
+
+      print "Executing search using: ";
+      print "    ", queryUrl;
 
       #perform search
       self.results = urllib2.urlopen(queryUrl)

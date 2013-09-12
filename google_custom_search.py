@@ -22,7 +22,9 @@ def main():
       q='Secure+XML',
       cx=personal_data.mySearchID,
     ).execute()
-  pprint.pprint(res)
+
+  print res;
+#  pprint.pprint(res)
 
 if __name__ == "__main__":
   main()

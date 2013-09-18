@@ -1,0 +1,28 @@
+Design a small WebSQL prototype to run WEBSQL queries.
+
+Implement these 3 queries: 
+
+Q1. Starting from the Department of Computer Science home page (you can use any), 
+    find all documents that are linked through paths of length two or less containing only local links. 
+    Keep only the documents containing the string ‘faculty’ in their title.
+
+Q2. "SELECT d2.base, d2.label 
+     FROM document d1 anchor d2 
+     SUCH THAT d1 MENTIONS XML 
+     WHERE d1.length > 100"
+
+
+Q3.   SELECT d.url 
+      FROM document d SUCH THAT "http://the.starting.doc" ->* d, 
+           document d1 SUCH THAT d=>|->=>d1 
+           anchor a SUCH THAT base = d1 
+      WHERE a.href = “your server";
+
+Recommended Implementation: Java Servlets
+
+How to submit: 
+You are required to submit the HW using blackboard, and setup a time for demo. 
+The demo should be over by 29th Sept. You must submit the HW by the due date 
+and no more changes are allowed after your submission.
+
+Due date is 25th Sept.

@@ -9,7 +9,7 @@
 # with no functional changes, one class searches using the embedded API approach
 # and the other does it via a standard HTTPS search.
 
-import custom_key
+import personal_data as custom_key
 import urllib2
 import argparse
 

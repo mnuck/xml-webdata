@@ -12,27 +12,38 @@ import urllib2
 import argparse
 import sqlite3
 
-import html_parser.extract_html as Extractor
+from BeautifulSoup import BeautifulSoup
 #import search.EmbeddedAPISearch as EmbeddedAPISearch
-
 #import personal_data as custom_key
 
 
 def parse_from_url(url):
-   req = urllib2.urlopen(url)
-   contents = req.read()
-   parser = Extractor.HTMLAnchorAndTitleExtractor()
-   parser.feed(contents)
-   anchors = parser.GetAnchorAttributes()
-   url = req.geturl()  # account for redirects
-   title = parser.GetTitle()
-   length = len(contents)
-   content_type = req.info()['content-type'] if 'content-type' in req.info().keys() else ""
-   modified = req.info()['last-modified'] if 'last-modified' in req.info().keys() else ""
-   return {'url': url, 'title': title,
-           'contents': contents, 'content-type': content_type,
-           'length': length, 'modified': modified,
-           'anchors': anchors}
+  req = urllib2.urlopen(url)
+  contents = req.read()
+  url = req.url
+  length = len(contents)
+  content_type = ""
+  if 'content-type' in req.info().keys():
+    content_type = req.info()['content-type']
+  modified = ""
+  if 'last-modified' in req.info().keys():
+    modified = req.info()['last-modified']
+
+  soup = BeautifulSoup(contents)
+  title = soup.title.string
+  potential_anchors = soup.findAll('a')
+  anchors = []
+  for anchor in potential_anchors:
+    attrs = dict(anchor.attrs)
+    if 'href' in attrs:
+      href = attrs['href']
+      base = req.url
+      label = anchor.text
+      anchors.append((base, label, href))
+  return {'url': url, 'title': title,
+          'contents': contents, 'content-type': content_type,
+          'length': length, 'modified': modified,
+          'anchors': anchors}
 
 
 def main():
@@ -56,6 +67,7 @@ def main():
    # paths of length two or less containing only local links.
    # Keep only the documents containing the string 'faculty' in their title.
    print parse_from_url(queryString)['title']
+
 
 if __name__ == "__main__":
    main()

@@ -8,17 +8,34 @@
 # The first line of main can be switched between HTTPSSearch and EmbeddedAPISearch
 # with no functional changes, one class searches using the embedded API approach
 # and the other does it via a standard HTTPS search.
-
-import personal_data as custom_key
 import urllib2
 import argparse
+import sqlite3
 
-import html_parser.extract_anchor as Extractor
-import search.HTTPSSearch as HTTPSSearch
+import html_parser.extract_html as Extractor
+#import search.EmbeddedAPISearch as EmbeddedAPISearch
+
+#import personal_data as custom_key
+
+
+def parse_from_url(url):
+   req = urllib2.urlopen(url)
+   contents = req.read()
+   parser = Extractor.HTMLAnchorAndTitleExtractor()
+   parser.feed(contents)
+   anchors = parser.GetAnchorAttributes()
+   url = req.geturl()  # account for redirects
+   title = parser.GetTitle()
+   length = len(contents)
+   content_type = req.info()['content-type'] if 'content-type' in req.info().keys() else ""
+   modified = req.info()['last-modified'] if 'last-modified' in req.info().keys() else ""
+   return {'url': url, 'title': title,
+           'contents': contents, 'content-type': content_type,
+           'length': length, 'modified': modified,
+           'anchors': anchors}
 
 
 def main():
-
    argParser = argparse.ArgumentParser()
    argParser.add_argument("query",
                           help="The query string. This string will be passed to the Google API.")
@@ -26,29 +43,19 @@ def main():
 
    queryString = args.query
 
-   searchObj = HTTPSSearch.HTTPSSearch(custom_key.myKey, custom_key.mySearchId)
-   urls = searchObj.FindURLs(queryString)
+   conn = sqlite3.connect(":memory:")
+   cur = conn.cursor()
+   cur.execute("CREATE TABLE Documents (url text, title text, contents text, content_type text, length integer, modified text)")
+   cur.execute("CREATE TABLE Anchors (base text, href text, label text)")
 
-   print "List of Found URLs:\n"
-   searchObj.ShowFoundURLs()
+   #searchObj = EmbeddedAPISearch.EmbeddedAPISearch(custom_key.myKey, custom_key.mySearchId)
+   #urls = searchObj.FindURLs(queryString)
 
-   print "\nAttributes of URLs with .html in name:\n"
-   for url in urls:
-
-      if url.find('.html') != -1:
-         request = urllib2.urlopen(url)
-         htmlPage = request.read()
-
-         # Simple little test driver for our Anchor Extractor:
-         anchorParser = Extractor.HTMLAnchorExtractor()
-
-         # Feed the extractor a simple test string.
-         anchorParser.feed(htmlPage)
-
-         # 'attributes' is a list of tuples.
-         attributes = anchorParser.GetAnchorAttributes()
-
-         print attributes
+   # Starting from the Department of Computer Science home page
+   # (you can use any), find all documents that are linked through
+   # paths of length two or less containing only local links.
+   # Keep only the documents containing the string 'faculty' in their title.
+   print parse_from_url(queryString)['title']
 
 if __name__ == "__main__":
    main()

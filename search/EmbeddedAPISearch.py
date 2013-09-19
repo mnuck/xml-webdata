@@ -24,5 +24,5 @@ class EmbeddedAPISearch(SearchObject):
       #construct list of URLs
       del self.urls[:]
       for url in self.results['items']:
-         self.urls.append(url['link'])
+         self.urls.append(url)
       return self.urls

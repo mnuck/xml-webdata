@@ -99,6 +99,20 @@ def load_anchors_and_page_from_result_q2(result, cur, filter_length):
         pass
 
 
+def load_anchors_and_page_from_result(result, cur):
+  for anchor in result['anchors']:
+    try:
+      cur.execute("INSERT INTO Anchors VALUES (?,?,?)", anchor)
+    except sqlite3.IntegrityError:
+      pass
+  data = (result['url'], result['title'], result['contents'],
+          result['content-type'], result['length'], result['modified'])
+  try:
+    cur.execute("INSERT INTO Documents VALUES (?,?,?,?,?,?)", data)
+  except sqlite3.IntegrityError:
+    pass
+
+
 def question1():
   # Starting from the Department of Computer Science home page (you can use
   # any), find all documents that are linked through paths of length two or
@@ -129,7 +143,7 @@ def question1():
           continue
         load_anchors_and_page_from_result_q1(result, cur, "faculty")
 
-  print "Results for Question 1:"
+  print "\nResults for Question 1:"
   for row in cur.execute("SELECT * from Documents"):
     print row
   print "Question 1 COMPLETE\n"
@@ -148,6 +162,7 @@ def question2():
   conn, cur = startDB("question2.db")
   conn.text_factory = str
   search_string = "XML"
+  min_length = 100
 
   service = build("customsearch", "v1", developerKey=custom_key.myKey)
   result = service.cse().list(q=search_string, cx=custom_key.mySearchId).execute()
@@ -155,9 +170,9 @@ def question2():
   for item in result['items']:
     url = item['link']
     result = parse_from_url(url)
-    load_anchors_and_page_from_result_q2(result, cur, 100)
+    load_anchors_and_page_from_result_q2(result, cur, min_length)
 
-  print "Results for Question 2:"
+  print "\nResults for Question 2:"
   for row in cur.execute("SELECT base, label FROM Anchors"):
     print row
   print "Question 2 COMPLETE\n"
@@ -173,16 +188,97 @@ def question3():
   #     document d1 SUCH THAT d=>|->=>d1
   #     anchor a SUCH THAT base = d1
   # WHERE a.href = "your server";
+  # plain-ish english: find the URL for all pages that satisfy the following:
+  #   the page must be reachable via any number of only local links
+  #   (on the same server) starting from "http://the.starting.doc"
+  #  AND
+  #   the page must link to (via one global link OR one local and one global)
+  #   a page that links to "your server"
   conn, cur = startDB("question3.db")
+  starting_doc = "http://web.mst.edu/~mannr4"
+  your_server = "http://www.mst.edu"
+
+  service = build("customsearch", "v1", developerKey=custom_key.myKey)
+
+  documents = dict()
+  # find all pages that are reachable from starting_doc via only local links
+  what_is_local = urlparse(starting_doc).netloc
+  frontier = [starting_doc]
+  closed = set()
+  while frontier:
+    current = frontier.pop()
+    if current not in documents:
+      documents[current] = parse_from_url(current)
+    result = documents[current]
+    if result is None:
+      continue
+    for anchor_tuple in result['anchors']:
+      href = anchor_tuple[1]
+      if urlparse(href).netloc == what_is_local:
+        if href not in closed:
+          frontier.append(href)
+          closed.add(href)
+  local_reachable = closed
+
+  # documents reachable from local_reachable in one global link, also get one local
+  one_global = set()
+  one_local = set()
+  for page in local_reachable:
+    if page not in documents:
+      documents[page] = parse_from_url(page)
+    if documents[page] is None:
+      continue
+    for anchor_tuple in documents[page]['anchors']:
+      href = anchor_tuple[1]
+      if urlparse(href).netloc == what_is_local:
+        one_local.add(href)
+      else:
+        one_global.add(href)
+
+  # documents reachable from local_reachable in one local followed by one global
+  two_steps = set()
+  for page in one_local:
+    if page not in documents:
+      documents[page] = parse_from_url(page)
+    if documents[page] is None:
+      continue
+    for anchor_tuple in documents[page]['anchors']:
+      href = anchor_tuple[1]
+      if urlparse(href).netloc != what_is_local:
+        two_steps.add(href)
+
+  criteria1options = one_global ^ two_steps
+
+  # urls for pages that link to "your server"
+  search_string = "link:%s" % your_server
+  result = service.cse().list(q=search_string, cx=custom_key.mySearchId).execute()
+  criteria2options = set([x['link'] for x in result['items']])
+
+  # document URLs that satisfy both criteria
+  results = criteria1options & criteria2options
+
+  for key in results:
+    result = documents[key]
+    data = (result['url'], result['title'], result['contents'],
+            result['content-type'], result['length'], result['modified'])
+    try:
+      cur.execute("INSERT INTO Documents VALUES (?,?,?,?,?,?)", data)
+    except sqlite3.IntegrityError:
+      pass
+
+  print "\nResults for Question 3:"
+  for row in cur.execute("SELECT url FROM Documents"):
+    print row
+  print "Question 3 COMPLETE\n"
 
   conn.commit()
   conn.close()
 
 
 def main():
-  #question1()
+  question1()
   question2()
-  #question3()
+  question3()
   pass
 
 

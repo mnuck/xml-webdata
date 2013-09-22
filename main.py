@@ -9,12 +9,10 @@
 # with no functional changes, one class searches using the embedded API approach
 # and the other does it via a standard HTTPS search.
 import urllib2
-import argparse
 import sqlite3
 from urlparse import urlparse, urlunparse
 
 from BeautifulSoup import BeautifulSoup
-import search.EmbeddedAPISearch as EmbeddedAPISearch
 from apiclient.discovery import build
 import personal_data as custom_key
 
@@ -35,13 +33,16 @@ def parse_from_url(url):
   if 'last-modified' in req.info().keys():
     modified = req.info()['last-modified']
 
+  anchors = []
+  potential_anchors = []
+  title = ""
   try:
     soup = BeautifulSoup(contents)
     title = soup.title.string
-  except:
-    return None  # some pages are not really pages
-  potential_anchors = soup.findAll('a')
-  anchors = []
+    potential_anchors = soup.findAll('a')
+  except:  # not html
+    pass
+
   for anchor in potential_anchors:
     attrs = dict(anchor.attrs)
     if 'href' in attrs:
@@ -68,13 +69,28 @@ def startDB(filename):
   return conn, cur
 
 
-def load_anchors_and_page_from_result(result, cur):
+def load_anchors_and_page_from_result_q1(result, cur, filter_string):
   for anchor in result['anchors']:
     try:
       cur.execute("INSERT INTO Anchors VALUES (?,?,?)", anchor)
     except sqlite3.IntegrityError:
       pass
-  if "faculty" in result['title']:
+  if filter_string in result['title'].lower():
+      data = (result['url'], result['title'], result['contents'],
+              result['content-type'], result['length'], result['modified'])
+      try:
+        cur.execute("INSERT INTO Documents VALUES (?,?,?,?,?,?)", data)
+      except sqlite3.IntegrityError:
+        pass
+
+
+def load_anchors_and_page_from_result_q2(result, cur, filter_length):
+  for anchor in result['anchors']:
+    try:
+      cur.execute("INSERT INTO Anchors VALUES (?,?,?)", anchor)
+    except sqlite3.IntegrityError:
+      pass
+  if result['length'] > filter_length:
       data = (result['url'], result['title'], result['contents'],
               result['content-type'], result['length'], result['modified'])
       try:
@@ -95,7 +111,7 @@ def question1():
   visited = set([start])
 
   result = parse_from_url(start)
-  load_anchors_and_page_from_result(result, cur)
+  load_anchors_and_page_from_result_q1(result, cur, "faculty")
 
   for i in xrange(2):
     cur.execute('SELECT href FROM Anchors')
@@ -111,7 +127,12 @@ def question1():
         result = parse_from_url(url)
         if result is None:
           continue
-        load_anchors_and_page_from_result(result, cur)
+        load_anchors_and_page_from_result_q1(result, cur, "faculty")
+
+  print "Results for Question 1:"
+  for row in cur.execute("SELECT * from Documents"):
+    print row
+  print "Question 1 COMPLETE\n"
 
   conn.commit()
   conn.close()
@@ -125,10 +146,21 @@ def question2():
   # plain english: give me the referer and link label for every link on the web
   # that points to a page that mentions XML, so long as that page length > 100
   conn, cur = startDB("question2.db")
+  conn.text_factory = str
   search_string = "XML"
 
   service = build("customsearch", "v1", developerKey=custom_key.myKey)
   result = service.cse().list(q=search_string, cx=custom_key.mySearchId).execute()
+
+  for item in result['items']:
+    url = item['link']
+    result = parse_from_url(url)
+    load_anchors_and_page_from_result_q2(result, cur, 100)
+
+  print "Results for Question 2:"
+  for row in cur.execute("SELECT base, label FROM Anchors"):
+    print row
+  print "Question 2 COMPLETE\n"
 
   #urls = searchObj.FindURLs(queryString)
   conn.commit()
@@ -140,7 +172,7 @@ def question3():
   # FROM document d SUCH THAT "http://the.starting.doc" ->* d,
   #     document d1 SUCH THAT d=>|->=>d1
   #     anchor a SUCH THAT base = d1
-  # WHERE a.href = “your server";
+  # WHERE a.href = "your server";
   conn, cur = startDB("question3.db")
 
   conn.commit()

@@ -15,6 +15,7 @@ from urlparse import urlparse, urlunparse
 
 from BeautifulSoup import BeautifulSoup
 import search.EmbeddedAPISearch as EmbeddedAPISearch
+from apiclient.discovery import build
 import personal_data as custom_key
 
 
@@ -57,30 +58,17 @@ def parse_from_url(url):
           'anchors': anchors}
 
 
-def main():
-  argParser = argparse.ArgumentParser()
-  argParser.add_argument("query",
-                         help="The query string. This string will be passed to the Google API.")
-  args = argParser.parse_args()
-
-  queryString = args.query
-  if not (queryString.startswith("http://") or queryString.startswith("https://")):
-    queryString = "http://" + queryString
-
-  conn = sqlite3.connect("question1.db")
+def startDB(filename):
+  conn = sqlite3.connect(filename)
   cur = conn.cursor()
+  cur.execute("DROP TABLE IF EXISTS Documents")
+  cur.execute("DROP TABLE IF EXISTS Anchors")
   cur.execute("CREATE TABLE Documents (url text, title text, contents text, content_type text, length integer, modified text, primary key (url))")
   cur.execute("CREATE TABLE Anchors (base text, href text, label text, primary key (base, href, label))")
+  return conn, cur
 
-  # Starting from the Department of Computer Science home page (you can use
-  # any), find all documents that are linked through paths of length two or
-  # less containing only local links. Keep only the documents containing the
-  # string 'faculty' in their title.
-  start = "http://cs.mst.edu"
-  what_is_local = "cs.mst.edu"
 
-  visited = set([queryString])
-  result = parse_from_url(start)
+def load_anchors_and_page_from_result(result, cur):
   for anchor in result['anchors']:
     try:
       cur.execute("INSERT INTO Anchors VALUES (?,?,?)", anchor)
@@ -94,45 +82,76 @@ def main():
       except sqlite3.IntegrityError:
         pass
 
-  def grab_all_links():
+
+def question1():
+  # Starting from the Department of Computer Science home page (you can use
+  # any), find all documents that are linked through paths of length two or
+  # less containing only local links. Keep only the documents containing the
+  # string 'faculty' in their title.
+  conn, cur = startDB("question1.db")
+
+  start = "http://cs.mst.edu"
+  what_is_local = urlparse(start).netloc
+  visited = set([start])
+
+  result = parse_from_url(start)
+  load_anchors_and_page_from_result(result, cur)
+
+  for i in xrange(2):
     cur.execute('SELECT href FROM Anchors')
     rows = cur.fetchall()
     for row in rows:
       url = row[0]
       if urlparse(url).scheme not in ['http', 'https']:
         continue
-      if what_is_local not in urlparse(url).netloc:
+      if what_is_local != urlparse(url).netloc:
         continue
       if not url in visited:
         visited.add(url)
         result = parse_from_url(url)
         if result is None:
           continue
-        for anchor in result['anchors']:
-          try:
-            cur.execute("INSERT INTO Anchors VALUES (?,?,?)", anchor)
-          except sqlite3.IntegrityError:
-            pass
-        if "faculty" in result['title']:
-            data = (result['url'], result['title'], result['contents'],
-                    result['content-type'], result['length'], result['modified'])
-            try:
-              cur.execute("INSERT INTO Documents VALUES (?,?,?,?,?,?)", data)
-            except sqlite3.IntegrityError:
-              pass
+        load_anchors_and_page_from_result(result, cur)
 
-  grab_all_links()
-  grab_all_links()
+  conn.commit()
+  conn.close()
 
-  #searchObj = EmbeddedAPISearch.EmbeddedAPISearch(custom_key.myKey, custom_key.mySearchId)
+
+def question2():
+  # "SELECT d2.base, d2.label
+  #   FROM document d1 anchor d2
+  #   SUCH THAT d1 MENTIONS XML
+  #   WHERE d1.length > 100";
+  # plain english: give me the referer and link label for every link on the web
+  # that points to a page that mentions XML, so long as that page length > 100
+  conn, cur = startDB("question2.db")
+  search_string = "XML"
+
+  service = build("customsearch", "v1", developerKey=custom_key.myKey)
+  result = service.cse().list(q=search_string, cx=custom_key.mySearchId).execute()
+
   #urls = searchObj.FindURLs(queryString)
+  conn.commit()
+  conn.close()
 
-  # Starting from the Department of Computer Science home page
-  # (you can use any), find all documents that are linked through
-  # paths of length two or less containing only local links.
-  # Keep only the documents containing the string 'faculty' in their title.
-  #derp = parse_from_url(queryString)
-  #pprint(derp)
+
+def question3():
+  # SELECT d.url
+  # FROM document d SUCH THAT "http://the.starting.doc" ->* d,
+  #     document d1 SUCH THAT d=>|->=>d1
+  #     anchor a SUCH THAT base = d1
+  # WHERE a.href = “your server";
+  conn, cur = startDB("question3.db")
+
+  conn.commit()
+  conn.close()
+
+
+def main():
+  #question1()
+  question2()
+  #question3()
+  pass
 
 
 if __name__ == "__main__":

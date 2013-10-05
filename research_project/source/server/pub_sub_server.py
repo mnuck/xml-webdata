@@ -24,8 +24,11 @@ def main():
 
    # Once per second, push the subscription data to
    # the clients
+   # TODO: Instead of pushing every second, push data to the
+   #       clients only when they request it?
    reactor.callLater(1, PushData, pubFactory, subFactory);
 
+   # Start the main loop.
    reactor.run();
 
 if '__main__' == __name__:

@@ -11,5 +11,12 @@ class PubProtocol(basic.LineReceiver):
         self.factory.clients.remove(self)
 
     def lineReceived(self, line):
-        for c in self.factory.clients:
-            c.sendLine("<{}> {}".format(self.transport.getHost(), line))
+       print "Publisher sent: ", line
+
+       # Publisher on this port writes: <topic> <url>
+       # Note: later wrap this in XML.  For now, just
+       # text strings and insert them into the db.
+       # (yes, this is bad for NOW!)
+       strs = line.split();
+       # BAD BAD BAD: assume [0] = topic, [1] = url
+       self.factory.pubdb.InsertDocument(strs[0], strs[1]);

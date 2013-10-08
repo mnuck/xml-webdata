@@ -19,10 +19,32 @@ class Node(object):
       return stringRep;
           
    def __repr__(self):
-      return str(self);
+      return "<Tree Node ", self.tag, " with ", len(self.children), " children>";
 
    def Peek(self, field):
-      pass;
+      if self.IsField(field):
+         return self.fields[field];
+      else:
+         return None;
 
    def IsField(self, field):
-      pass; 
+      return self.fields.has_key(field);
+
+   # WebOQL operators: 
+   #    Head, Tail, Arc, Prime, Hang, etc.
+   def Head(self, nHead=1):
+      pass;
+
+   def Tail(self, nTail=1):
+      pass;
+
+   def Arc(self):
+      # TODO: Dunno how to specify which arc to fetch.
+      pass;
+
+   def Prime(self, nPrime=1):
+      pass;
+
+   def Hang(self, node):
+      pass;
+

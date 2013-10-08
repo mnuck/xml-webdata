@@ -1,7 +1,7 @@
 class Node(object):
    def __init__(self, tag=None, text=None):
        self.tag = tag
-       self.text = text;
+       self.fields = {};
        self.prev = None;
        self.children = [];
 
@@ -20,3 +20,9 @@ class Node(object):
           
    def __repr__(self):
       return str(self);
+
+   def Peek(self, field):
+      pass;
+
+   def IsField(self, field):
+      pass; 

@@ -18,9 +18,4 @@ def BuildTree(inputSoup, parent=None):
       parent.children.append(childNode);
 
    return parent;
-       
-def Show(root):
-   print root.tag;
-   for child in root.children:
-      print str(child);
 

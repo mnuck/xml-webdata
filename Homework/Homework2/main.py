@@ -8,7 +8,7 @@
 #  Homework 2,
 
 from hypertree import Node
-from hypertree import tree
+from hypertree.tree import BuildTree
 from BeautifulSoup import BeautifulSoup
 
 import urllib2
@@ -26,9 +26,8 @@ def main():
       pass
 
    if soup != None:
-      hyperTreeRoot = Node(tag='html');
-      tree.BuildTree(soup, hyperTreeRoot);
-      tree.Show(hyperTreeRoot);
+      hyperTreeRoot = BuildTree(soup);
+      print hyperTreeRoot;
    else:
       print 'Some exception raised building the soup!';
 

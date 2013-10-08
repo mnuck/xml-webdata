@@ -1,3 +1,4 @@
+from copy import copy as copy
 from copy import deepcopy as deepcopy
 
 class Node(object):
@@ -8,8 +9,11 @@ class Node(object):
        self.children = [];
 
    def __copy__(self):
-      # Must use deepcopy.  TODO: Allow shallow copy of tag and fields?!
-      raise NotImplementedError('Use deepcopy to copy the tree!');
+      # Make a shallow copy (children are not copied)
+      newNode = type(self)();
+      newNode.tag = self.tag;
+      newNode.fields = self.fields;
+      return newNode;
 
    def __deepcopy__(self, memo):
       # Create the new node
@@ -26,6 +30,7 @@ class Node(object):
 
       # Finally, return the copied node
       return newNode;
+
    def __repr__(self):
       return str(type(self)) + "(tag=\'" + str(self.tag) + "\')";
 
@@ -54,18 +59,48 @@ class Node(object):
    # WebOQL operators: 
    #    Head, Tail, Arc, Prime, Hang, etc.
    def Head(self, nHead=1):
-      pass;
+      if nHead <= len(self.children):
+         newRoot = copy(self);
+         newRoot.children = deepcopy(self.children[0 : nHead]);
+         for child in newNode.children:
+            child.prev = newRoot;
+         return newRoot;
+      else:
+         return deepcopy(self);
 
    def Tail(self, nTail=1):
-      pass;
+      if nTail < len(self.children):
+         newRoot = copy(self);
+         newRoot.children = deepcopy(self.children[nTail :]);
+         for child in newNode.children:
+            child.prev = newRoot;
+         return newRoot;
+      else:
+         return deepcopy(self);
 
    def Arc(self):
       # TODO: Dunno how to specify which arc to fetch.
       pass;
 
-   def Prime(self, nPrime=1):
-      pass;
+   def Prime(self, nPrime=0):
+       if len(self.children) == 0:
+          return None;
 
-   def Hang(self, arc):
-      return 
+       if nPrime > 0:
+          return self.children[0].Prime(nPrime - 1);
+       else:
+          return deepcopy(self.children[nPrime]);
+
+   def Hang(self, tag, fields):
+      newRoot = copy(self);
+      newRoot.childreen = deepcopy(self);
+      for child in newNode.children:
+         child.prev = newRoot;
+      return newRoot;
+
+   def Concatenate(self, otherTrees):
+      newRoot = type(self)();
+      # TODO: check this is appending the lists and not embedding.
+      newRoot.children = [deepcopy(self.children)] + [deepcopy(otherTrees)];
+      return newRoot; 
 

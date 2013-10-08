@@ -14,6 +14,9 @@ from BeautifulSoup import BeautifulSoup
 import urllib2
 from urlparse import urlparse, urlunparse
 
+# For copying tree nodes.  Calls Node.__deepcopy__
+from copy import deepcopy as deepcopy
+
 def main():
 
    req = urllib2.urlopen('http://www.cs.toronto.edu')

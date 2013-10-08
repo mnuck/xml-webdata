@@ -1,9 +1,23 @@
+from copy import deepcopy as deepcopy
+
 class Node(object):
    def __init__(self, tag=None, text=None):
        self.tag = tag
        self.fields = {};
        self.prev = None;
        self.children = [];
+
+   def __copy__(self):
+      raise NotImplementedError('Use deepcopy to copy the tree!');
+
+   def __deepcopy__(self, memo):
+      newNode = type(self)();
+      newNode.__dict__.update(self.__dict__);
+      newNode.prev = None;
+      newNode.children = deepcopy(self.children, memo);
+      for child in newNode.children:
+         child.prev = newNode;
+      return newNode;
 
    def __str__(self, indent=''):
       if self.tag == None:
@@ -19,7 +33,7 @@ class Node(object):
       return stringRep;
           
    def __repr__(self):
-      return "<Tree Node ", self.tag, " with ", len(self.children), " children>";
+      return "<Tree Node " + str(self.tag) + " with " + str(len(self.children)) +" children>";
 
    def Peek(self, field):
       if self.IsField(field):
@@ -45,6 +59,6 @@ class Node(object):
    def Prime(self, nPrime=1):
       pass;
 
-   def Hang(self, node):
-      pass;
+   def Hang(self, arc):
+      return 
 

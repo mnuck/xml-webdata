@@ -7,6 +7,10 @@ def BuildTree(inputSoup):
       parent.tag = str(inputSoup.name);
    else:
       parent.tag = 'None';
+
+   # TODO: Extract more from the soup per node than
+   #       just the name/tag.
+
    for child in inputSoup.findChildren():
       childNode = BuildTree(child);
       childNode.prev = parent;

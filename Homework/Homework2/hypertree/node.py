@@ -1,23 +1,33 @@
 from copy import deepcopy as deepcopy
 
 class Node(object):
-   def __init__(self, tag=None, text=None):
+   def __init__(self, tag=None):
        self.tag = tag
        self.fields = {};
        self.prev = None;
        self.children = [];
 
    def __copy__(self):
+      # Must use deepcopy.  TODO: Allow shallow copy of tag and fields?!
       raise NotImplementedError('Use deepcopy to copy the tree!');
 
    def __deepcopy__(self, memo):
+      # Create the new node
       newNode = type(self)();
+
+      # Take care of anything that can be shallow copied
       newNode.__dict__.update(self.__dict__);
+
+      # now explicitly copy anything that must be deep copied
       newNode.prev = None;
       newNode.children = deepcopy(self.children, memo);
       for child in newNode.children:
          child.prev = newNode;
+
+      # Finally, return the copied node
       return newNode;
+   def __repr__(self):
+      return str(type(self)) + "(tag=\'" + str(self.tag) + "\')";
 
    def __str__(self, indent=''):
       if self.tag == None:
@@ -31,9 +41,6 @@ class Node(object):
          stringRep = stringRep + childStr;
 
       return stringRep;
-          
-   def __repr__(self):
-      return "<Tree Node " + str(self.tag) + " with " + str(len(self.children)) +" children>";
 
    def Peek(self, field):
       if self.IsField(field):

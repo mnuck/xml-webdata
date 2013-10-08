@@ -1,19 +1,14 @@
 from node import Node
 
-def BuildTree(inputSoup, parent=None):
-   if parent == None:
-      parent = Node();
+def BuildTree(inputSoup):
+   parent = Node();
 
-   # Assume the soup is the current node and all
-   # children of the soup should be child nodes
-   # of the hypertree.
    if inputSoup.name != None:
       parent.tag = str(inputSoup.name);
    else:
       parent.tag = 'None';
    for child in inputSoup.findChildren():
-      childNode = Node();
-      BuildTree(child, childNode);
+      childNode = BuildTree(child);
       childNode.prev = parent;
       parent.children.append(childNode);
 

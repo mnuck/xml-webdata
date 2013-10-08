@@ -18,16 +18,22 @@ def main():
    hyperTreeRoot = Node(tag='html');
    req = urllib2.urlopen('http://www.cs.toronto.edu')
    contents = req.read()
+
+   soup = None;
    try:
+
       soup = BeautifulSoup(contents)
 
-      t = Tree(hyperTreeRoot);
-      t.BuildTree(soup);
- 
    except:  # not html
       pass
 
-   t.Show();
+   if soup != None:
+      t = Tree(hyperTreeRoot);
+      t.BuildTree(soup);
+
+      t.Show();
+   else:
+      print 'Some exception raised building the soup!';
 
 if __name__ == '__main__':
    main();

@@ -15,7 +15,7 @@ class Tree(object):
          node.tag = str(inputSoup.name);
       else:
          node.tag = 'None';
-      for child in soup.findChildren():
+      for child in inputSoup.findChildren():
          childNode = Node();
          self.BuildTree(child, childNode);
          childNode.prev = node;
@@ -24,5 +24,5 @@ class Tree(object):
    def Show(self):
       print self.root.tag;
       for child in self.root.children:
-         print child;
+         print str(child);
 

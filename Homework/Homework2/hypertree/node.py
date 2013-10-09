@@ -87,14 +87,16 @@ class Node(object):
       # TODO: Dunno how to specify which arc to fetch.
       pass;
 
-   def Prime(self, nPrime=0):
+   def Prime(self, nPrime=1):
        if len(self.children) == 0:
           return None;
 
-       if nPrime > 0:
+       if nPrime > 1:
           return self.children[0].Prime(nPrime - 1);
+       elif nPrime == 1:
+          return deepcopy(self.children[0]);
        else:
-          return deepcopy(self.children[nPrime]);
+          return None;
 
    def Hang(self, tag, fields):
       newRoot = copy(self);

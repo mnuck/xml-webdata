@@ -63,6 +63,10 @@ def Test1():
    for operation in ['Head', 'Tail', 'Prime']:
       print operation,"of the tree:";
       print eval('r.' + operation + '()');
+   
+   print "Prime 2 of the tree:";
+   print r.Prime(2);
+
 
 def main():
    # For later:

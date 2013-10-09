@@ -17,8 +17,7 @@ from urlparse import urlparse, urlunparse
 # For copying tree nodes.  Calls Node.__deepcopy__
 from copy import deepcopy as deepcopy
 
-def main():
-
+def CreateTestTree():
    # Build a simple test tree:
    root = Node('root');
    r = root;
@@ -53,29 +52,38 @@ def main():
    n.fields['Text'] = '3';
    r.children.append(n);
 
+   return root;
+
+def Test1():
+   r = CreateTestTree();
+
    print "The tree:"
    print r;
 
    for operation in ['Head', 'Tail', 'Prime']:
       print operation,"of the tree:";
-      print eval('r.'+operation+'()');
+      print eval('r.' + operation + '()');
 
+def main():
    # For later:
-   # req = urllib2.urlopen('http://www.cs.toronto.edu')
-   # contents = req.read()
+   req = urllib2.urlopen('http://www.cs.toronto.edu')
+   contents = req.read()
 
-   # soup = None;
-   # try:
-   #    soup = BeautifulSoup(contents)
-   # except:
-   #    pass
+   soup = None;
+   try:
+      soup = BeautifulSoup(contents)
+   except:
+      pass
 
-   # if soup != None:
-      # hyperTreeRoot = BuildTree(soup);
-      # print hyperTreeRoot;
-   # else:
-   #    print 'Some exception raised building the soup!';
+   if soup != None:
+      hyperTreeRoot = BuildTree(soup);
+      print hyperTreeRoot;
+   else:
+      print 'Some exception raised building the soup!';
+
+   pass;
 
 if __name__ == '__main__':
-   main();
+   # main();
+   Test1();
 

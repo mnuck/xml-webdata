@@ -38,14 +38,19 @@ class Node(object):
       if self.tag == None:
          return '<empty node>';
 
-      stringRep = indent + self.tag + '\n';
+      stringRep = indent + str(self.tag).strip() + '\n';
 
       indent = indent + '   ';
       for child in self.children:
-         childStr = child.__str__(indent) + '\n';
+         childStr = child.__str__(indent);
          stringRep = stringRep + childStr;
 
       return stringRep;
+
+   def __add__(self, otherNode):
+      newRoot = copy(self);
+      newRoot.children = deepcopy(self.children) + [deepcopy(otherNode)];
+      return newRoot; 
 
    def Peek(self, field):
       if self.IsField(field):
@@ -76,7 +81,7 @@ class Node(object):
             child.prev = newRoot;
          return newRoot;
       else:
-         return deepcopy(self);
+         return None;
 
    def Arc(self):
       # TODO: Dunno how to specify which arc to fetch.
@@ -98,9 +103,7 @@ class Node(object):
          child.prev = newRoot;
       return newRoot;
 
-   def Concatenate(self, otherTrees):
-      newRoot = type(self)();
-      # TODO: check this is appending the lists and not embedding.
-      newRoot.children = [deepcopy(self.children)] + [deepcopy(otherTrees)];
-      return newRoot; 
+   def Concatenate(self, otherNode):
+      # Use overloaded addition operator.
+      return self + otherNode;
 

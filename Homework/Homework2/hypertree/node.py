@@ -11,8 +11,8 @@ class Node(object):
    def __copy__(self):
       # Make a shallow copy (children are not copied)
       newNode = type(self)();
-      newNode.tag = self.tag;
-      newNode.fields = self.fields;
+      newNode.tag = copy(self.tag);
+      newNode.fields = copy(self.fields);
       return newNode;
 
    def __deepcopy__(self, memo):

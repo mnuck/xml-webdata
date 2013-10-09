@@ -62,7 +62,7 @@ class Node(object):
       if nHead <= len(self.children):
          newRoot = copy(self);
          newRoot.children = deepcopy(self.children[0 : nHead]);
-         for child in newNode.children:
+         for child in newRoot.children:
             child.prev = newRoot;
          return newRoot;
       else:
@@ -72,7 +72,7 @@ class Node(object):
       if nTail < len(self.children):
          newRoot = copy(self);
          newRoot.children = deepcopy(self.children[nTail :]);
-         for child in newNode.children:
+         for child in newRoot.children:
             child.prev = newRoot;
          return newRoot;
       else:
@@ -94,7 +94,7 @@ class Node(object):
    def Hang(self, tag, fields):
       newRoot = copy(self);
       newRoot.childreen = deepcopy(self);
-      for child in newNode.children:
+      for child in newRoot.children:
          child.prev = newRoot;
       return newRoot;
 

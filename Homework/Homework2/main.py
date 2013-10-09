@@ -19,35 +19,62 @@ from copy import deepcopy as deepcopy
 
 def main():
 
-   # A test HTML document:
-   contents = """<table border="1">
-                 <tr>
-                   <td>100</td>
-                   <td>200</td>
-                   <td>300</td>
-                 </tr>
-                 <tr>
-                   <td>400</td>
-                   <td>500</td>
-                   <td>600</td>
-                 </tr>
-                 </table>""";
+   # Build a simple test tree:
+   root = Node('root');
+   r = root;
+
+   n = Node('Label1');
+   n.fields['Text'] = '1';
+   r.children.append(n);
+
+   r = n;
+   n = Node('A1');
+   n.fields['Text'] = '1';
+   r.children.append(n);
+
+   n = Node('A2');
+   n.fields['Text'] = '2';
+   r.children.append(n);
+
+   r = root;
+
+   n = Node('Label2');
+   n.fields['Text'] = '2';
+   r.children.append(n);
+
+   r = n;
+   n = Node('B1');
+   n.fields['Text'] = '1';
+   r.children.append(n);
+
+   r = root;
+
+   n = Node('Label3');
+   n.fields['Text'] = '3';
+   r.children.append(n);
+
+   print "The tree:"
+   print r;
+
+   for operation in ['Head', 'Tail', 'Prime']:
+      print operation,"of the tree:";
+      print eval('r.'+operation+'()');
 
    # For later:
    # req = urllib2.urlopen('http://www.cs.toronto.edu')
    # contents = req.read()
 
-   soup = None;
-   try:
-      soup = BeautifulSoup(contents)
-   except:
-      pass
+   # soup = None;
+   # try:
+   #    soup = BeautifulSoup(contents)
+   # except:
+   #    pass
 
-   if soup != None:
-      hyperTreeRoot = BuildTree(soup);
-      print hyperTreeRoot;
-   else:
-      print 'Some exception raised building the soup!';
+   # if soup != None:
+      # hyperTreeRoot = BuildTree(soup);
+      # print hyperTreeRoot;
+   # else:
+   #    print 'Some exception raised building the soup!';
 
 if __name__ == '__main__':
    main();

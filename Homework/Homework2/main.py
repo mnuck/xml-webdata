@@ -19,8 +19,23 @@ from copy import deepcopy as deepcopy
 
 def main():
 
-   req = urllib2.urlopen('http://www.cs.toronto.edu')
-   contents = req.read()
+   # A test HTML document:
+   contents = """<table border="1">
+                 <tr>
+                   <td>100</td>
+                   <td>200</td>
+                   <td>300</td>
+                 </tr>
+                 <tr>
+                   <td>400</td>
+                   <td>500</td>
+                   <td>600</td>
+                 </tr>
+                 </table>""";
+
+   # For later:
+   # req = urllib2.urlopen('http://www.cs.toronto.edu')
+   # contents = req.read()
 
    soup = None;
    try:

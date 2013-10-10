@@ -1,9 +1,9 @@
 class Arc(object):
-   def __init__(self, tag=None, parent=None):
+   def __init__(self, tag=None, parent=None, child=None):
        self.tag = tag;
        self.fields = {};
        self.parent = parent;
-       self.childNode = None;
+       self.childNode = child;
   
    def Show(self, indent=None):
       #print all fields in this arc

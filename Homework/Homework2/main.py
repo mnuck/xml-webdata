@@ -63,8 +63,8 @@ def CreateNewTestTree():
    node1 = NewNode();
    node2 = NewNode();
    node3 = NewNode();
-   Arc1 = Arc(None, root);
-   Arc2 = Arc(None, root);
+   Arc1 = Arc(None, root, node1);
+   Arc2 = Arc(None, root, node2);
    Arc3 = Arc(None, root);
    Arc4 = Arc(None, node1);
    Arc5 = Arc(None, node1);
@@ -85,8 +85,6 @@ def CreateNewTestTree():
    node1.AddArc(Arc4);
    node1.AddArc(Arc5);
    node2.AddArc(Arc6);
-   Arc1.SetChildNode(node1);
-   Arc2.SetChildNode(node2);
    root.AddArc(Arc1);
    root.AddArc(Arc2);
    root.AddArc(Arc3);

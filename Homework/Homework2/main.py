@@ -125,9 +125,11 @@ def Test2():
 
 def main():
    # For later:
-   req = urllib2.urlopen('http://www.cs.toronto.edu')
+#   req = urllib2.urlopen('http://www.cs.toronto.edu')
+   req = urllib2.urlopen('http://help.websiteos.com/websiteos/example_of_a_simple_html_page.htm')
    contents = req.read()
-
+   #print contents;
+  
    soup = None;
    try:
       soup = BeautifulSoup(contents)
@@ -143,7 +145,7 @@ def main():
    pass;
 
 if __name__ == '__main__':
-  # main();
+   main();
    # Test1();
-   Test2();
+   #Test2();
 

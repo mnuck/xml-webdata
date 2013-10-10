@@ -1,8 +1,8 @@
 class Arc(object):
    def __init__(self, tag=None, parent=None, child=None):
        self.tag = tag;
-       self.fields = {};
-       self.parent = parent;
+       self.attributes = [];
+       self.parentNode = parent;
        self.childNode = child;
   
    def Show(self, indent=None):
@@ -10,11 +10,11 @@ class Arc(object):
       if indent != None:
          print(indent),;
       print 'Tag: ', self.tag;
-      #print all fields in this arc
-      for field in self.fields.keys():
+      #print all attributes in this arc
+      for attribute in self.attributes:
          if indent != None:
             print(indent),;
-         print field, ": ", self.fields[field];
+         print attribute[0], ": ", attribute[1];
 
       #indent, then show data from the node this arc points to
       if self.childNode != None:

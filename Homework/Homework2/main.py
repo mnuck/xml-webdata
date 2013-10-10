@@ -8,6 +8,8 @@
 #  Homework 2,
 
 from hypertree import Node
+from hypertree import Arc
+from hypertree import NewNode
 from hypertree.tree import BuildTree
 from BeautifulSoup import BeautifulSoup
 
@@ -54,6 +56,43 @@ def CreateTestTree():
 
    return root;
 
+def CreateNewTestTree():
+   # Build a simple test tree
+   #create objects for tree
+   root = NewNode();
+   node1 = NewNode();
+   node2 = NewNode();
+   node3 = NewNode();
+   Arc1 = Arc(None, root);
+   Arc2 = Arc(None, root);
+   Arc3 = Arc(None, root);
+   Arc4 = Arc(None, node1);
+   Arc5 = Arc(None, node1);
+   Arc6 = Arc(None, node2);
+
+   #fill out arc data (plus some extra data for testing)
+   Arc1.fields['Text'] = 'Label1';
+   Arc2.fields['Text'] = 'Label2';
+   Arc3.fields['Text'] = 'Label3';
+   Arc3.fields['Date'] = '9 Oct 2013';
+   Arc4.fields['Text'] = 'A1';
+   Arc4.fields['URL'] = 'www.ilovexml.com';
+   Arc5.fields['Text'] = 'A2';
+   Arc6.fields['Text'] = 'B1';
+   Arc6.fields['Publisher'] = 'NGP';
+
+   #build tree
+   node1.AddArc(Arc4);
+   node1.AddArc(Arc5);
+   node2.AddArc(Arc6);
+   Arc1.SetChildNode(node1);
+   Arc2.SetChildNode(node2);
+   root.AddArc(Arc1);
+   root.AddArc(Arc2);
+   root.AddArc(Arc3);
+
+   return root;
+
 def Test1():
    r = CreateTestTree();
 
@@ -67,6 +106,24 @@ def Test1():
    print "Prime 2 of the tree:";
    print r.Prime(2);
 
+   print "Tail 2 of the tree:";
+   print r.Tail(2);
+
+def Test2():
+   tree = CreateNewTestTree();
+
+   print "The tree:"
+   tree.Show();
+
+   #for operation in ['Head', 'Tail', 'Prime']:
+   #   print operation,"of the tree:";
+   #   print eval('r.' + operation + '()');
+   
+   #print "Prime 2 of the tree:";
+   #print r.Prime(2);
+
+   #print "Tail 2 of the tree:";
+   #print r.Tail(2);
 
 def main():
    # For later:
@@ -89,5 +146,6 @@ def main():
 
 if __name__ == '__main__':
    # main();
-   Test1();
+   # Test1();
+   Test2();
 

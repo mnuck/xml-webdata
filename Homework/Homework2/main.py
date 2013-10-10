@@ -136,14 +136,14 @@ def main():
 
    if soup != None:
       hyperTreeRoot = BuildTree(soup);
-      print hyperTreeRoot;
+      hyperTreeRoot.Show();
    else:
       print 'Some exception raised building the soup!';
 
    pass;
 
 if __name__ == '__main__':
-   # main();
+  # main();
    # Test1();
    Test2();
 

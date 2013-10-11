@@ -2,8 +2,9 @@ from hypertree.tree import BuildTree
 from BeautifulSoup import BeautifulSoup
 
 def Test(tests=None):
-   for test in tests:
-      eval(test + '()');
+   if tests != None:
+      for test in tests:
+         eval(test + '()');
 
 def SimpleHyperTreeTest():
    doc = ['<html><head><title>Page title</title></head>',

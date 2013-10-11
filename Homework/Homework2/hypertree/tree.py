@@ -12,8 +12,7 @@ def BuildTree(inputSoup,parentArc=None):
    newNode = NewNode(parentArc);
 
    for child in inputSoup.contents:
-      if type(child) != NavigableString and type(child) != Declaration and \
-      type(child) != Comment and type(child) != CData and type(child) != ProcessingInstruction:
+      if type(child) not in [NavigableString, Declaration, Comment, CData, ProcessingInstruction]:
          #create the arc for this child, with it's parent as newNode
          newArc = Arc(str(child.name), newNode, None);
          #store attributes

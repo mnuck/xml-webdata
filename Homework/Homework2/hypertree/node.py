@@ -1,4 +1,4 @@
-class NewNode(object):
+class Node(object):
    def __init__(self, parent=None,arcs=None):
       if arcs == None:
          self.arcs = [];

@@ -9,7 +9,6 @@
 
 from hypertree import Node
 from hypertree import Arc
-from hypertree import NewNode
 from hypertree.tree import BuildTree
 from BeautifulSoup import BeautifulSoup
 

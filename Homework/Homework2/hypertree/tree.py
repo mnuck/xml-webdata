@@ -1,4 +1,4 @@
-from newNode import NewNode
+from node import Node
 from arc import Arc
 from BeautifulSoup import NavigableString
 from BeautifulSoup import Declaration
@@ -9,7 +9,7 @@ from BeautifulSoup import CData
 def BuildTree(inputSoup,parentArc=None):
    
    #create new node
-   newNode = NewNode(parentArc);
+   newNode = Node(parentArc);
 
    for child in inputSoup.contents:
       if type(child) not in [NavigableString, Declaration, Comment, CData, ProcessingInstruction]:

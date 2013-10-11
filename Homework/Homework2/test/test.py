@@ -5,6 +5,8 @@ def Test(tests=None):
    if tests != None:
       for test in tests:
          eval(test + '()');
+         raw_input('\nPress Enter to continue test:');
+      print "\nTests complete\n"
 
 def SimpleHyperTreeTest():
    doc = ['<html><head><title>Page title</title></head>',
@@ -19,6 +21,7 @@ def SimpleHyperTreeTest():
    hyperTreeRoot = BuildTree(soup);
    print "\nHyperTree:";
    hyperTreeRoot.Show();
+   print "\nSimpleHyperTreeTest complete"
 
 def TailTest():
    doc = ['<html><head><title>Page title</title></head>',
@@ -36,6 +39,7 @@ def TailTest():
    hyperTreeRoot.Tail();
    hyperTreeRoot.Show();
 
+   raw_input('\nPress Enter to continue test:');
    doc = ['<head><title>Page title</title></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
        '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
@@ -51,11 +55,13 @@ def TailTest():
    hyperTreeRoot.Tail();
    hyperTreeRoot.Show();
 
+   raw_input('\nPress Enter to continue test:');
    print "\nTail 2 HyperTree 2:";
    hyperTreeRoot = BuildTree(soup);
    hyperTreeRoot.Tail(2);
    hyperTreeRoot.Show();
 
+   raw_input('\nPress Enter to continue test:');
    doc = ['<head><title>Page title</title></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
        '<p id="secondpara" align="blah">This is paragraph <b>two</b>.</body>',
@@ -69,15 +75,19 @@ def TailTest():
    hyperTreeRoot.Tail();
    hyperTreeRoot.Show();
 
+   raw_input('\nPress Enter to continue test:');
    print "\nTail 2 HyperTree 3:";
    hyperTreeRoot = BuildTree(soup);
    hyperTreeRoot.Tail(2);
    hyperTreeRoot.Show();
 
+   raw_input('\nPress Enter to continue test:');
    print "\nTail 3 HyperTree 3:";
    hyperTreeRoot = BuildTree(soup);
    hyperTreeRoot.Tail(3);
    hyperTreeRoot.Show();
+
+   print "\nTailTest complete"
 
 def HeadTest():
    doc = ['<html><head><title>Page title</title></head>',
@@ -95,6 +105,8 @@ def HeadTest():
    hyperTreeRoot.Head();
    hyperTreeRoot.Show();
 
+   raw_input('\nPress Enter to continue test:');
+
    doc = ['<head><title>Page title</title></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
        '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
@@ -110,10 +122,14 @@ def HeadTest():
    hyperTreeRoot.Head();
    hyperTreeRoot.Show();
 
+   raw_input('\nPress Enter to continue test:');
+
    print "\nHead 2 HyperTree 2:";
    hyperTreeRoot = BuildTree(soup);
    hyperTreeRoot.Head(2);
    hyperTreeRoot.Show();
+
+   raw_input('\nPress Enter to continue test:');
 
    doc = ['<head><title>Page title</title></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
@@ -128,15 +144,18 @@ def HeadTest():
    hyperTreeRoot.Head();
    hyperTreeRoot.Show();
 
+   raw_input('\nPress Enter to continue test:');
    print "\nHead 2 HyperTree 3:";
    hyperTreeRoot = BuildTree(soup);
    hyperTreeRoot.Head(2);
    hyperTreeRoot.Show();
 
+   raw_input('\nPress Enter to continue test:');
    print "\nHead 3 HyperTree 3:";
    hyperTreeRoot = BuildTree(soup);
    hyperTreeRoot.Head(3);
    hyperTreeRoot.Show();
+   print "\nHeadTest complete";
 
 def PrimeTest():
    doc = ['<html><head><title>Page title</title></head>',
@@ -153,17 +172,20 @@ def PrimeTest():
    print "\nPrime HyperTree:";
    prime = hyperTreeRoot.Prime();
    prime.Show();
+   raw_input('\nPress Enter to continue test:');
 
    print "\nPrime 2 HyperTree:";
    prime = hyperTreeRoot.Prime(2);
    prime.Show();
 
+   raw_input('\nPress Enter to continue test:');
    print "\nPrime 3 HyperTree:";
    prime = hyperTreeRoot.Prime(3);
    if prime != None:
       prime.Show();
    else:
       print 'None';
+   raw_input('\nPress Enter to continue test:');
 
    doc = ['<head></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
@@ -180,10 +202,12 @@ def PrimeTest():
    prime = hyperTreeRoot.Prime();
    prime.Show();
 
+   raw_input('\nPress Enter to continue test:');
    print "\nPrime 2 HyperTree 2:";
    prime = hyperTreeRoot.Prime(2);
    prime.Show();
 
+   raw_input('\nPress Enter to continue test:');
    print "\nPrime 3 HyperTree 2:";
    prime = hyperTreeRoot.Prime(3);
    if prime != None:
@@ -191,6 +215,7 @@ def PrimeTest():
    else:
       print 'None';
 
+   raw_input('\nPress Enter to continue test:');
    doc = ['<head></head>',
        '<body><p id="firstpara" align="center">This is paragraph.',
        '<p id="secondpara" align="blah">This is paragraph <b>two</b>.</body>'];
@@ -203,16 +228,20 @@ def PrimeTest():
    prime = hyperTreeRoot.Prime();
    prime.Show();
 
+   raw_input('\nPress Enter to continue test:');
    print "\nPrime 2 HyperTree 3:";
    prime = hyperTreeRoot.Prime(2);
    prime.Show();
 
+   raw_input('\nPress Enter to continue test:');
    print "\nPrime 3 HyperTree 3:";
    prime = hyperTreeRoot.Prime(3);
    if prime != None:
       prime.Show();
    else:
       print 'None';
+
+   print "\nPrimeTest complete";
 
 def CombinedTest():
 
@@ -231,24 +260,31 @@ def CombinedTest():
    primeTree = hyperTreeRoot.Prime();
    primeTree.Show();
 
+   raw_input('\nPress Enter to continue test:');
    print "\nHyperTree Prime, Prime:";
    primeTree = primeTree.Prime();
    primeTree.Show();
 
+   raw_input('\nPress Enter to continue test:');
    print "\nHyperTree Prime, Tail:";
    primeTailTree = hyperTreeRoot.Prime();
    primeTailTree.Tail();
    primeTailTree.Show();
 
+   raw_input('\nPress Enter to continue test:');
    print "\nHyperTree Prime, Tail, Prime:";
    primeTailPrimeTree = primeTailTree.Prime();
    primeTailPrimeTree.Show();
 
+   raw_input('\nPress Enter to continue test:');
    print "\nHyperTree Prime, Tail, Prime, Prime:";
    primeTailPrimePrimeTree = primeTailPrimeTree.Prime();
    primeTailPrimePrimeTree.Show();
 
+   raw_input('\nPress Enter to continue test:');
    print "\nHyperTree Prime, Tail, Prime, Head:";
    primeTailPrimeTree.Head();
    primeTailPrimeTree.Show();
+
+   print "\nCombinedTest complete";
 

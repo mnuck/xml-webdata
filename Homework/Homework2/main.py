@@ -46,7 +46,7 @@ def main():
 def RunTests():
    #valid strings to put in TestsToRun list include:
    #SimpleHyperTreeTest, TailTest, HeadTest, PrimeTest, CombinedTest
-   TestsToRun = ['CombinedTest'];
+   TestsToRun = ['SimpleHyperTreeTest', 'TailTest', 'HeadTest', 'PrimeTest', 'CombinedTest'];
    Test(TestsToRun);
 
 if __name__ == '__main__':

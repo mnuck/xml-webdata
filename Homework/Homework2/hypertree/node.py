@@ -18,7 +18,7 @@ class Node(object):
    def __deepcopy__(self, memo):
       newNode = type(self)();
       newNode.arcs = deepcopy(self.arcs);
-      newNode.parentArc = deepcopy(self.parentArc);
+      #newNode.parentArc = deepcopy(self.parentArc);
       for arc in newNode.arcs:
          arc.parentNode = newNode;
       return newNode;

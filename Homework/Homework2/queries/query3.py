@@ -11,7 +11,7 @@ def Query3(doc=None,searchText=None,concatTag=None,concatText=None):
       print 'Insufficient data to perform query';
    else:
       print 'doc:\n', doc;
-      print '\nSelect y\' from y in doc\' + [Tag: "', concatTag,'", Text: "', concatText,'"] as New Doc, where y\'.text ~ "',searchText,'"';
+      print ''.join(['\nSelect y\' from y in doc\' + [Tag: "', concatTag,'", Text: "', concatText,'"] as New Doc, where y\'.text ~ "',searchText,'"']);
 
       #parse html and store in hyper tree
       soup = BeautifulSoup(''.join(doc))

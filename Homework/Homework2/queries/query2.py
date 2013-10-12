@@ -11,7 +11,7 @@ def Query2(doc=None, text=None):
       print 'No doc and search string provided';
    else:
       print 'doc:\n', doc;
-      print '\nSelect y from y in doc\', where y\'.text ~ "', text, '"';
+      print ''.join(['\nSelect y from y in doc\', where y\'.text ~ "', text, '"']);
 
       #parse html and store in hyper tree
       soup = BeautifulSoup(''.join(doc))

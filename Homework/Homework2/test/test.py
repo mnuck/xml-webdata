@@ -6,7 +6,7 @@ prompt = lambda: raw_input('\nPress Enter to continue test:');
 def RunTests():
    # put any test below in the list of tests to run
    pause=False;
-   TestsToRun = [CombinedTest];
+   TestsToRun = [SimpleHyperTreeTest];
    if TestsToRun != None:
       for test in TestsToRun:
          test(pause);

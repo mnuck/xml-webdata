@@ -23,7 +23,7 @@ def Query2(doc=None, text=None):
 
       #search all arcs of y for text like para
       results = [];
-      SearchAllArcsForText(y, text, results);
+      SearchAllChildArcsForText(y, text, results);
 
       for result in results:
          print 'Tree arc:';
@@ -32,7 +32,7 @@ def Query2(doc=None, text=None):
          result.ShowAsHtml();
          print;
 
-def SearchAllArcsForText(node=None, text=None, results=None):
+def SearchAllChildArcsForText(node=None, text=None, results=None):
    found = False;
    if node != None and text != None and results != None:
       #DFS all ars from the node provided looking for text

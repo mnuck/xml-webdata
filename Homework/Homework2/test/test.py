@@ -5,13 +5,14 @@ prompt = lambda: raw_input('\nPress Enter to continue test:');
 
 def RunTests():
    # put any test below in the list of tests to run
+   pause=False;
    TestsToRun = [ConcatenateTest, SimpleHyperTreeTest, TailTest];
    if TestsToRun != None:
       for test in TestsToRun:
-         test();
+         test(pause);
          print "\nTest complete\n"
 
-def SimpleHyperTreeTest():
+def SimpleHyperTreeTest(pause=None):
    doc = ['<html><head><title>Page title</title></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
        '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
@@ -26,7 +27,7 @@ def SimpleHyperTreeTest():
    hyperTreeRoot.Show();
    print "\nSimpleHyperTreeTest complete"
 
-def TailTest():
+def TailTest(pause=None):
    doc = ['<html><head><title>Page title</title></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
        '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
@@ -42,7 +43,8 @@ def TailTest():
    hyperTreeRoot.Tail();
    hyperTreeRoot.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    doc = ['<head><title>Page title</title></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
        '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
@@ -58,13 +60,15 @@ def TailTest():
    hyperTreeRoot.Tail();
    hyperTreeRoot.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    print "\nTail 2 HyperTree 2:";
    hyperTreeRoot = BuildTree(soup);
    hyperTreeRoot.Tail(2);
    hyperTreeRoot.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    doc = ['<head><title>Page title</title></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
        '<p id="secondpara" align="blah">This is paragraph <b>two</b>.</body>',
@@ -78,13 +82,15 @@ def TailTest():
    hyperTreeRoot.Tail();
    hyperTreeRoot.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    print "\nTail 2 HyperTree 3:";
    hyperTreeRoot = BuildTree(soup);
    hyperTreeRoot.Tail(2);
    hyperTreeRoot.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    print "\nTail 3 HyperTree 3:";
    hyperTreeRoot = BuildTree(soup);
    hyperTreeRoot.Tail(3);
@@ -92,7 +98,7 @@ def TailTest():
 
    print "\nTailTest complete"
 
-def HeadTest():
+def HeadTest(pause=None):
    doc = ['<html><head><title>Page title</title></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
        '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
@@ -108,7 +114,8 @@ def HeadTest():
    hyperTreeRoot.Head();
    hyperTreeRoot.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
 
    doc = ['<head><title>Page title</title></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
@@ -125,14 +132,16 @@ def HeadTest():
    hyperTreeRoot.Head();
    hyperTreeRoot.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
 
    print "\nHead 2 HyperTree 2:";
    hyperTreeRoot = BuildTree(soup);
    hyperTreeRoot.Head(2);
    hyperTreeRoot.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
 
    doc = ['<head><title>Page title</title></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
@@ -147,20 +156,22 @@ def HeadTest():
    hyperTreeRoot.Head();
    hyperTreeRoot.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    print "\nHead 2 HyperTree 3:";
    hyperTreeRoot = BuildTree(soup);
    hyperTreeRoot.Head(2);
    hyperTreeRoot.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    print "\nHead 3 HyperTree 3:";
    hyperTreeRoot = BuildTree(soup);
    hyperTreeRoot.Head(3);
    hyperTreeRoot.Show();
    print "\nHeadTest complete";
 
-def PrimeTest():
+def PrimeTest(pause=None):
    doc = ['<html><head><title>Page title</title></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
        '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
@@ -175,20 +186,22 @@ def PrimeTest():
    print "\nPrime HyperTree:";
    prime = hyperTreeRoot.Prime();
    prime.Show();
-   prompt();
+   if pause==True:
+      prompt();
 
    print "\nPrime 2 HyperTree:";
    prime = hyperTreeRoot.Prime(2);
    prime.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    print "\nPrime 3 HyperTree:";
    prime = hyperTreeRoot.Prime(3);
    if prime != None:
       prime.Show();
    else:
       print 'None';
-   prompt();
+   prompt(pause=None);
 
    doc = ['<head></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
@@ -205,12 +218,14 @@ def PrimeTest():
    prime = hyperTreeRoot.Prime();
    prime.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    print "\nPrime 2 HyperTree 2:";
    prime = hyperTreeRoot.Prime(2);
    prime.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    print "\nPrime 3 HyperTree 2:";
    prime = hyperTreeRoot.Prime(3);
    if prime != None:
@@ -218,7 +233,8 @@ def PrimeTest():
    else:
       print 'None';
 
-   prompt();
+   if pause==True:
+      prompt();
    doc = ['<head></head>',
        '<body><p id="firstpara" align="center">This is paragraph.',
        '<p id="secondpara" align="blah">This is paragraph <b>two</b>.</body>'];
@@ -231,12 +247,14 @@ def PrimeTest():
    prime = hyperTreeRoot.Prime();
    prime.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    print "\nPrime 2 HyperTree 3:";
    prime = hyperTreeRoot.Prime(2);
    prime.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    print "\nPrime 3 HyperTree 3:";
    prime = hyperTreeRoot.Prime(3);
    if prime != None:
@@ -246,7 +264,7 @@ def PrimeTest():
 
    print "\nPrimeTest complete";
 
-def CombinedTest():
+def CombinedTest(pause=None):
 
    doc = ['<html><head><title>Page title</title></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
@@ -263,35 +281,40 @@ def CombinedTest():
    primeTree = hyperTreeRoot.Prime();
    primeTree.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    print "\nHyperTree Prime, Prime:";
    primeTree = primeTree.Prime();
    primeTree.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    print "\nHyperTree Prime, Tail:";
    primeTailTree = hyperTreeRoot.Prime();
    primeTailTree.Tail();
    primeTailTree.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    print "\nHyperTree Prime, Tail, Prime:";
    primeTailPrimeTree = primeTailTree.Prime();
    primeTailPrimeTree.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    print "\nHyperTree Prime, Tail, Prime, Prime:";
    primeTailPrimePrimeTree = primeTailPrimeTree.Prime();
    primeTailPrimePrimeTree.Show();
 
-   prompt();
+   if pause==True:
+      prompt();
    print "\nHyperTree Prime, Tail, Prime, Head:";
    primeTailPrimeTree.Head();
    primeTailPrimeTree.Show();
 
    print "\nCombinedTest complete";
 
-def ConcatenateTest():
+def ConcatenateTest(pause=None):
    doc = ['<head><title>Page title</title></head>'];
 
    soup = BeautifulSoup(''.join(doc))

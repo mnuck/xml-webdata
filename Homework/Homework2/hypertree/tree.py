@@ -33,10 +33,11 @@ def BuildTree(inputSoup,parentArc=None):
       else:
          #put navigable string with previous tab
          if parentArc != None:
-            if 'Text' in parentArc.attributes.keys():
-               parentArc.attributes['Text'].append(str(child));
+            key = 'Text';
+            if key in parentArc.attributes.keys():
+               parentArc.attributes[key].append(str(child));
             else:
-               parentArc.attributes['Text'] = [str(child)];
+               parentArc.attributes[key] = [str(child)];
 
    return newNode;
 

@@ -312,3 +312,4 @@ def ConcatenateTest():
    print "\nConcatenate HyperTree1 and HyperTree2:";
    hyperTree1Root.Concatenate(hyperTree2Root);
    hyperTree1Root.Show();
+

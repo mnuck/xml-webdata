@@ -6,6 +6,13 @@ class Node(object):
          self.arcs = arcs;
       self.parentArc=parent;
 
+   def ShowAsHtml(self, indent=None):
+      if len(self.arcs) == 0 and self.parentArc == None:
+         print "<html>\n</html>"; # Empty document!
+      else:
+         for arc in self.arcs:
+            arc.ShowAsHtml(indent);     
+
    def Show(self, indent=None):
       # show all data in this node's arcs
       if len(self.arcs) == 0 and self.parentArc == None:

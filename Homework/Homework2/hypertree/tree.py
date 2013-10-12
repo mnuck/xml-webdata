@@ -1,5 +1,6 @@
 from node import Node
 from arc import Arc
+from arc import TextBlock
 from BeautifulSoup import NavigableString
 from BeautifulSoup import Declaration
 from BeautifulSoup import Comment
@@ -29,15 +30,17 @@ def BuildTree(inputSoup,parentArc=None):
 
          #set the child node of this arc to node created from 
          #recurse call to BuildTree
-         newArc.SetChildNode(BuildTree(child, newArc));
+         childNode = BuildTree(child, newArc);
+         newArc.SetChildNode(childNode);
+
+         if newArc and newArc.listOfText:
+            l = len(newArc.listOfText) - 1;
+            newArc.listOfText[l].node = childNode;
+
       else:
          #put navigable string with previous tab
          if parentArc != None:
-            key = 'Text';
-            if key in parentArc.attributes.keys():
-               parentArc.attributes[key].append(str(child));
-            else:
-               parentArc.attributes[key] = [str(child)];
+            parentArc.listOfText.append(TextBlock(str(child), None));
 
    return newNode;
 

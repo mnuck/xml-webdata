@@ -288,8 +288,7 @@ def CombinedTest():
    print "\nCombinedTest complete";
 
 def RunTests():
-   #valid strings to put in TestsToRun list include:
-   #SimpleHyperTreeTest, TailTest, HeadTest, PrimeTest, CombinedTest
+   # put any function from above into here:
    TestsToRun = [SimpleHyperTreeTest, TailTest, HeadTest, PrimeTest, CombinedTest];
    Test(TestsToRun);
 

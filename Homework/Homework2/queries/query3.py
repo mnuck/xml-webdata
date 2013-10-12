@@ -60,7 +60,6 @@ def SearchAllArcsForText(node=None, text=None, results=None):
             else:
                SearchAllArcsForText(arc.childNode, text, results);
                arc.childNode = None;
-         #TODO this may need to change based on changes to Arc class
          #check for text and append to results if found
          for arcText in arc.listOfText:
             if arcText.text.find(text) != -1:

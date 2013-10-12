@@ -14,7 +14,7 @@ from BeautifulSoup import BeautifulSoup
 from test import RunTests
 from queries import Query1
 from queries import Query2
-#from queries import Query3
+from queries import Query3
 
 import urllib2
 from urlparse import urlparse, urlunparse
@@ -67,7 +67,16 @@ def main():
        '<more><p id="firstpara" align="center">Another paragraph </more>',
        '</html>'];
 
-   Query2(doc,'para');
+   #Query2(doc,'para');
+
+   doc = ['<html><head><title>Page title</title></head>',
+      '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
+      '<p id="secondpara" align="blah">This is paragraph <b>two</b>.</body>',
+       '<extra><p id="stuff" align="left">This is extra </extra>',
+       '<more><p id="firstpara" align="center">Another paragraph </more>',
+       '</html>'];
+
+   Query3(doc);
 
 if __name__ == '__main__':
    main();

@@ -1,15 +1,16 @@
 from hypertree import Arc
 from hypertree import Node
+from hypertree.arc import TextBlock
 from hypertree.tree import BuildTree
 from BeautifulSoup import BeautifulSoup
 
-def Query2(doc=None, text=None):
+def Query3(doc=None):
 
-   if not (doc and text):
-      print 'No doc and search string provided';
+   if not doc:
+      print 'No doc provided';
    else:
       print 'doc:\n', doc;
-      print '\nSelect y from y in doc\', where y\'.text ~ "', text, '"';
+      print '\nSelect y\' from y in doc\' + [Tag: "H3", Text: "New Paragraph"] as New Doc, where y\'.text ~ "Another"';
 
       #parse html and store in hyper tree
       soup = BeautifulSoup(''.join(doc))
@@ -21,19 +22,34 @@ def Query2(doc=None, text=None):
       #prime doc
       y = hyperTreeRoot.Prime();
 
+      #prime doc
+      y = hyperTreeRoot.Prime();
+
       #search all arcs of y for text like para
       results = [];
-      SearchAllChildArcsForText(y, text, results);
+      SearchAllArcsForText(y, 'Another', results);
 
+      newRoot = Node();
       for result in results:
-         print 'Tree arc:';
-         result.Show();
-         print 'HTML:';
-         result.ShowAsHtml();
-         print;
+         newRoot.AddArc(result);
 
-def SearchAllChildArcsForText(node=None, text=None, results=None):
-   found = False;
+      #create new node to concatenate onto query result
+      newNode = Node();
+      newArc = Arc('H3', newNode);
+      textBlock = TextBlock('New Paragraph');
+      newArc.listOfText.append(textBlock);
+      newNode.AddArc(newArc);
+
+      newRoot.Concatenate(newNode);
+
+      print 'New Doc:';
+      newRoot.Show();
+      print 'HTML:';
+      newRoot.ShowAsHtml();
+      print;
+
+def SearchAllArcsForText(node=None, text=None, results=None):
+
    if node != None and text != None and results != None:
       #DFS all ars from the node provided looking for text
       for arc in node.arcs:
@@ -49,10 +65,5 @@ def SearchAllChildArcsForText(node=None, text=None, results=None):
             if arcText.text.find(text) != -1:
                #found text in this arc
                #return parent arc and end loop
-               results.append(arc.parentNode.parentArc);
-               found = True;
+               results.append(arc);
                break;
-
-         if found:
-            break;
-

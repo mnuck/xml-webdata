@@ -6,7 +6,7 @@ prompt = lambda: raw_input('\nPress Enter to continue test:');
 def RunTests():
    # put any test below in the list of tests to run
    pause=False;
-   TestsToRun = [ConcatenateTest, SimpleHyperTreeTest, TailTest];
+   TestsToRun = [CombinedTest];
    if TestsToRun != None:
       for test in TestsToRun:
          test(pause);
@@ -312,6 +312,19 @@ def CombinedTest(pause=None):
    primeTailPrimeTree.Head();
    primeTailPrimeTree.Show();
 
+   doc = ['<html><head><title>Page title</title></head>',
+       '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
+       '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
+       '</html>'];
+
+   soup = BeautifulSoup(''.join(doc))
+   hyperTreeRoot = BuildTree(soup);
+
+   print "\nHyperTree Prime, Tail, Prime, Head, Concatenate with Original HyperTree:";
+   primeTailPrimeTree.Concatenate(hyperTreeRoot);
+   primeTailPrimeTree.Show();
+
+
    print "\nCombinedTest complete";
 
 def ConcatenateTest(pause=None):
@@ -335,4 +348,39 @@ def ConcatenateTest(pause=None):
    print "\nConcatenate HyperTree1 and HyperTree2:";
    hyperTree1Root.Concatenate(hyperTree2Root);
    hyperTree1Root.Show();
+
+   if pause==True:
+      prompt();
+
+   doc = ['<head><title>Page title</title></head>'];
+
+   soup = BeautifulSoup(''.join(doc))
+   hyperTree1Root = BuildTree(soup);
+
+   print "\nHyperTree1:";
+   hyperTree1Root.Show();
+
+   doc = ['<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
+       '<p id="secondpara" align="blah">This is paragraph <b>two</b>.'];
+
+   soup = BeautifulSoup(''.join(doc))
+   hyperTree2Root = BuildTree(soup);
+
+   print "\nHyperTree2:";
+   hyperTree2Root.Show();
+
+   doc = ['<extra><p id="stuff" align="left">This is extra </extra>'];
+
+   soup = BeautifulSoup(''.join(doc))
+   hyperTree3Root = BuildTree(soup);
+
+   print "\nHyperTree3:";
+   hyperTree3Root.Show();
+      
+   print "\nConcatenate HyperTree1, HyperTree2, and HyperTree3:";
+   hyperTree1Root.Concatenate(hyperTree2Root);
+   hyperTree1Root.Concatenate(hyperTree3Root);
+   hyperTree1Root.Show();
+
+   print "\nConcatenateTest complete";
 

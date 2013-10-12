@@ -11,7 +11,7 @@ from hypertree import Node
 from hypertree import Arc
 from hypertree.tree import BuildTree
 from BeautifulSoup import BeautifulSoup
-from test import *
+from test import RunTests
 
 import urllib2
 from urlparse import urlparse, urlunparse
@@ -43,12 +43,7 @@ def main():
 
    pass;
 
-def RunTests():
-   #valid strings to put in TestsToRun list include:
-   #SimpleHyperTreeTest, TailTest, HeadTest, PrimeTest, CombinedTest
-   TestsToRun = ['SimpleHyperTreeTest', 'TailTest', 'HeadTest', 'PrimeTest', 'CombinedTest'];
-   Test(TestsToRun);
-
 if __name__ == '__main__':
    #main();
    RunTests();
+

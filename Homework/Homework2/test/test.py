@@ -4,8 +4,7 @@ from BeautifulSoup import BeautifulSoup
 def Test(tests=None):
    if tests != None:
       for test in tests:
-         eval(test + '()');
-         raw_input('\nPress Enter to continue test:');
+         test();
       print "\nTests complete\n"
 
 def SimpleHyperTreeTest():
@@ -287,4 +286,10 @@ def CombinedTest():
    primeTailPrimeTree.Show();
 
    print "\nCombinedTest complete";
+
+def RunTests():
+   #valid strings to put in TestsToRun list include:
+   #SimpleHyperTreeTest, TailTest, HeadTest, PrimeTest, CombinedTest
+   TestsToRun = [SimpleHyperTreeTest, TailTest, HeadTest, PrimeTest, CombinedTest];
+   Test(TestsToRun);
 

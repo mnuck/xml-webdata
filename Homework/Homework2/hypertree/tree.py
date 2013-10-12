@@ -17,7 +17,12 @@ def BuildTree(inputSoup,parentArc=None):
          newArc = Arc(str(child.name), newNode, None);
          #store attributes
          for attribute in child.attrs:
-            newArc.attributes.append((attribute[0], attribute[1]));
+            key = str(attribute[0]);
+            val = str(attribute[1]);
+            if key in newArc.attributes.keys():
+               newArc.attributes[key].append(val);
+            else:
+               newArc.attributes[key] = [val];
 
          #add the arc to the newNOde
          newNode.AddArc(newArc);
@@ -28,7 +33,10 @@ def BuildTree(inputSoup,parentArc=None):
       else:
          #put navigable string with previous tab
          if parentArc != None:
-            parentArc.attributes.append(('Text' , str(child)));
+            if 'Text' in parentArc.attributes.keys():
+               parentArc.attributes['Text'].append(str(child));
+            else:
+               parentArc.attributes['Text'] = [str(child)];
 
    return newNode;
 

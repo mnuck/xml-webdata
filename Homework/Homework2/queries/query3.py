@@ -3,14 +3,15 @@ from hypertree import Node
 from hypertree.arc import TextBlock
 from hypertree.tree import BuildTree
 from BeautifulSoup import BeautifulSoup
+from copy import deepcopy
 
-def Query3(doc=None):
+def Query3(doc=None,searchText=None,concatTag=None,concatText=None):
 
-   if not doc:
-      print 'No doc provided';
+   if not (doc and searchText and concatTag and concatText):
+      print 'Insufficient data to perform query';
    else:
       print 'doc:\n', doc;
-      print '\nSelect y\' from y in doc\' + [Tag: "H3", Text: "New Paragraph"] as New Doc, where y\'.text ~ "Another"';
+      print '\nSelect y\' from y in doc\' + [Tag: "', concatTag,'", Text: "', concatText,'"] as New Doc, where y\'.text ~ "',searchText,'"';
 
       #parse html and store in hyper tree
       soup = BeautifulSoup(''.join(doc))
@@ -22,12 +23,12 @@ def Query3(doc=None):
       #prime doc
       y = hyperTreeRoot.Prime();
 
-      #prime doc
-      y = hyperTreeRoot.Prime();
+      ##prime doc
+      #y = hyperTreeRoot.Prime();
 
       #search all arcs of y for text like para
       results = [];
-      SearchAllArcsForText(y, 'Another', results);
+      SearchAllArcsForText(y, searchText, results);
 
       newRoot = Node();
       for result in results:
@@ -35,8 +36,8 @@ def Query3(doc=None):
 
       #create new node to concatenate onto query result
       newNode = Node();
-      newArc = Arc('H3', newNode);
-      textBlock = TextBlock('New Paragraph');
+      newArc = Arc(concatTag, newNode);
+      textBlock = TextBlock(concatText);
       newArc.listOfText.append(textBlock);
       newNode.AddArc(newArc);
 
@@ -65,5 +66,5 @@ def SearchAllArcsForText(node=None, text=None, results=None):
             if arcText.text.find(text) != -1:
                #found text in this arc
                #return parent arc and end loop
-               results.append(arc);
+               results.append(deepcopy(arc));
                break;

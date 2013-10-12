@@ -1,6 +1,3 @@
-from copy import copy as copy
-from copy import deepcopy as deepcopy
-
 class Node(object):
    def __init__(self, parent=None,arcs=None):
       if arcs == None:
@@ -8,20 +5,6 @@ class Node(object):
       else:
          self.arcs = arcs;
       self.parentArc=parent;
-
-   def __copy__(self):
-      newNode = type(self)();
-      newNode.arcs = copy(self.arcs);
-      newNode.parentArc = None;
-      return newNode;
-
-   def __deepcopy__(self, memo):
-      newNode = type(self)();
-      newNode.arcs = deepcopy(self.arcs);
-      newNode.parentArc = deepcopy(self.parentArc);
-      for arc in newNode.arcs:
-         arc.parentNode = newNode;
-      return newNode;
 
    def ShowAsHtml(self, indent=None):
       if len(self.arcs) == 0 and self.parentArc == None:

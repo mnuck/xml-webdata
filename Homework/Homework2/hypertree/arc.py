@@ -1,6 +1,3 @@
-from copy import copy as copy
-from copy import deepcopy as deepcopy
-
 class TextBlock(object):
    def __init__(self, text=None, node=None):
       self.text = text;
@@ -16,30 +13,6 @@ class Arc(object):
        self.listOfText = [];
        self.parentNode = parent;
        self.childNode = child;
-
-   def __copy__(self):
-      # Make a shallow copy (child is not copied)
-      newArc = type(self)();
-      newArc.tag = copy(self.tag);
-      newArc.attributes = copy(self.attributes);
-      newArc.listOfText = copy(self.listOfText);
-      newArc.parentNode = None;
-      newArc.childNode = None;
-      return newArc;
-
-   def __deepcopy__(self, memo):
-      # Create the new arc
-      newArc = type(self)()
-
-      # Take care of anything that can be shallow copied
-      newArc.__dict__.update(self.__dict__)
-
-      # now explicitly copy anything that must be deep copied
-      newArc.parentNode = None
-      newArc.childNode = deepcopy(self.childNode, memo)
-
-      # Finally, return the copied arc
-      return newArc
 
    def IsField(self, field):
       return field in self.attributes.keys();

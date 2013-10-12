@@ -41,7 +41,7 @@ def SearchAllChildArcsForText(node=None, text=None, results=None):
             if len(arc.childNode.arcs) == 0:
                arc.childNode = None;
             else:
-               SearchAllArcsForText(arc.childNode, text, results);
+               SearchAllChildArcsForText(arc.childNode, text, results);
                arc.childNode = None;
          #TODO this may need to change based on changes to Arc class
          #check for text and append to results if found

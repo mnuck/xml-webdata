@@ -3,13 +3,13 @@ from hypertree import Node
 from hypertree.tree import BuildTree
 from BeautifulSoup import BeautifulSoup
 
-def Query1(doc=None):
+def Query1(doc=None, field1=None, field2=None):
 
-   if doc == None:
-      print 'No doc provided';
+   if not (doc and field1 and field2):
+      print 'Insufficient data to perform query';
    else:
       print 'doc:\n', doc;
-      print '\nSelect [y.id, y.align] From x in doc\'!, y in x\'\'';
+      print '\nSelect [y.', field1, 'y.', field2,'] From x in doc\'!, y in x\'\'';
 
       #parse html and store in hyper tree
       soup = BeautifulSoup(''.join(doc))
@@ -33,8 +33,8 @@ def Query1(doc=None):
 
          #check all of y's arcs for id and align
          for arc in y.arcs:
-            idDat = arc.Peek('id');
-            alignData = arc.Peek('align');
+            idDat = arc.Peek(field1);
+            alignData = arc.Peek(field2);
 
             if idData != None or alignData != None:
                results.append((idData, alignData));
@@ -43,7 +43,7 @@ def Query1(doc=None):
          # and continue searching
          hyperTreeRoot.Tail();
 
-      print 'id,       align';
+      print field1,',       ', field2;
       #TODO: make this look good under id and align columns above
       print results;
 

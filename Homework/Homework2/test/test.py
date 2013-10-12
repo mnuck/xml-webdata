@@ -3,11 +3,13 @@ from BeautifulSoup import BeautifulSoup
 
 prompt = lambda: raw_input('\nPress Enter to continue test:');
 
-def Test(tests=None):
-   if tests != None:
-      for test in tests:
+def RunTests():
+   # put any test below in the list of tests to run
+   TestsToRun = [ConcatenateTest, SimpleHyperTreeTest, TailTest];
+   if TestsToRun != None:
+      for test in TestsToRun:
          test();
-      print "\nTests complete\n"
+         print "\nTest complete\n"
 
 def SimpleHyperTreeTest():
    doc = ['<html><head><title>Page title</title></head>',
@@ -289,8 +291,24 @@ def CombinedTest():
 
    print "\nCombinedTest complete";
 
-def RunTests():
-   # put any function from above into here:
-   TestsToRun = [SimpleHyperTreeTest, TailTest, HeadTest, PrimeTest, CombinedTest];
-   Test(TestsToRun);
+def ConcatenateTest():
+   doc = ['<head><title>Page title</title></head>'];
 
+   soup = BeautifulSoup(''.join(doc))
+   hyperTree1Root = BuildTree(soup);
+
+   print "\nHyperTree1:";
+   hyperTree1Root.Show();
+
+   doc = ['<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
+       '<p id="secondpara" align="blah">This is paragraph <b>two</b>.'];
+
+   soup = BeautifulSoup(''.join(doc))
+   hyperTree2Root = BuildTree(soup);
+
+   print "\nHyperTree2:";
+   hyperTree2Root.Show();
+
+   print "\nConcatenate HyperTree1 and HyperTree2:";
+   hyperTree1Root.Concatenate(hyperTree2Root);
+   hyperTree1Root.Show();

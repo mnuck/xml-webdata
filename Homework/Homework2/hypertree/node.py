@@ -57,6 +57,7 @@ class Node(object):
       else:
          return None;
 
-
-
+   def Concatenate(self, nodeToConcat):
+      for newArc in nodeToConcat.arcs:
+         self.arcs.append(newArc);
 

@@ -76,7 +76,7 @@ def main():
        '<more><p id="firstpara" align="center">Another paragraph </more>',
        '</html>'];
 
-   Query3(doc,'extra','H2','XML data');
+   Query3(doc,'Another','H3','New Paragraph');
 
 if __name__ == '__main__':
    main();

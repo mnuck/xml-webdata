@@ -2,6 +2,8 @@ from hypertree import Arc
 from hypertree import Node
 from hypertree.tree import BuildTree
 from BeautifulSoup import BeautifulSoup
+from copy import deepcopy
+from copy import copy
 
 def Query2(doc=None, text=None):
 
@@ -49,7 +51,7 @@ def SearchAllChildArcsForText(node=None, text=None, results=None):
             if arcText.text.find(text) != -1:
                #found text in this arc
                #return parent arc and end loop
-               results.append(arc.parentNode.parentArc);
+               results.append(deepcopy(arc.parentNode.parentArc));
                found = True;
                break;
 

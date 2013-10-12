@@ -4,7 +4,6 @@ class Arc(object):
 
    def __init__(self, tag=None, parent=None, child=None):
        self.tag = tag;
-       # self.attributes = [];
        self.attributes = {};
        self.parentNode = parent;
        self.childNode = child;

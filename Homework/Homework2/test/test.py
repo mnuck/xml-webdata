@@ -27,6 +27,21 @@ def SimpleHyperTreeTest(pause=None):
    hyperTreeRoot.Show();
    print "\nSimpleHyperTreeTest complete"
 
+def HyperTreeToHTMLTest(pause=None):
+   doc = ['<html><head><title>Page title</title></head>',
+       '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
+       '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
+       '</html>'];
+
+   soup = BeautifulSoup(''.join(doc))
+
+   print "Original HTML as soup tree:";
+   print soup.prettify();
+   hyperTreeRoot = BuildTree(soup);
+   print "\nHyperTree as HTML:";
+   hyperTreeRoot.ShowAsHtml();
+   print "\nSimpleHyperTreeTest complete"
+
 def TailTest(pause=None):
    doc = ['<html><head><title>Page title</title></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',

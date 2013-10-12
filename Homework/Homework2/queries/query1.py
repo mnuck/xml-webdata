@@ -25,19 +25,17 @@ def Query1(doc=None):
          #head to get first simple tree
          simpleTree = hyperTreeRoot.Head();
 
+         if not simpleTree:
+            break;
+
          #prime twice to get y
          y = simpleTree.Prime(2);
 
          #check all of y's arcs for id and align
          for arc in y.arcs:
-            if arc.isField('id'):
-               idData = arc.Peek('id');
-            else:
-               idData = None;
-            if arc.isField('align'):
-               alignData = arc.Peek('align');
-            else:
-               alignData = None;
+            idDat = arc.Peek('id');
+            alignData = arc.Peek('align');
+
             if idData != None or alignData != None:
                results.append((idData, alignData));
 

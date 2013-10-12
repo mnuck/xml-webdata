@@ -14,6 +14,15 @@ class Arc(object):
        self.parentNode = parent;
        self.childNode = child;
 
+   def IsField(self, field):
+      return field in self.attributes.keys();
+
+   def Peek(self, field):
+      if self.IsField(field):
+         return self.attributes[field];
+      else:
+         return None;
+
    def ShowAsHtml(self, indent=None):
       if indent:
          print indent,

@@ -64,7 +64,7 @@ class Arc(object):
       #indent, then show data from the node this arc points to
       if self.childNode:
          if len(self.childNode.arcs) > 0:
-            if indent:
+            if not indent:
                indent = Arc.defaultIndent;
             else:
                indent = indent +  Arc.defaultIndent;

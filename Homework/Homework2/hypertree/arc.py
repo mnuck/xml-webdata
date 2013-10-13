@@ -1,3 +1,10 @@
+#  Thomas Guenther
+#  Matthew Nuckolls
+#  Aaron Powers
+#
+#  CS 437 - Web Data and XML
+#  Homework 2,
+
 from copy import copy as copy
 from copy import deepcopy as deepcopy
 
@@ -46,7 +53,8 @@ class Arc(object):
 
    def Peek(self, field):
       if self.IsField(field):
-         return str(self.attributes[field]);
+         listOfStrings = [str(x) for x in self.attributes[field]];
+         return listOfStrings;
       else:
          return None;
 

@@ -23,36 +23,6 @@ from urlparse import urlparse, urlunparse
 from copy import deepcopy as deepcopy
 
 def main():
-   # For later:
-   #req = urllib2.urlopen('http://www.cs.toronto.edu')
-   #req = urllib2.urlopen('http://help.websiteos.com/websiteos/example_of_a_simple_html_page.htm')
-   #contents = req.read()
-   #print contents;
-
-   #contents = ['<html><head><title>Page title</title></head>',
-   #    '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
-   #    '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
-   #    '</html>'];
-  
-   #soup = None;
-   #try:
-   #   soup = BeautifulSoup(contents)
-   #except:
-   #   pass
-
-   #if soup != None:
-   #   print "Original HTML:";
-   #   print soup.prettify();
-   #   hyperTreeRoot = BuildTree(soup);
-   #   print "\nHyperTree:";
-   #   hyperTreeRoot.Show();
-
-   #   #query one
-   #else:
-   #   print 'Some exception raised building the soup!';
-
-   #pass;
-
    doc = ['<html><head><title>Page title</title></head>',
       '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
       '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
@@ -67,7 +37,7 @@ def main():
        '<more><p id="firstpara" align="center">Another paragraph </more>',
        '</html>'];
 
-   #Query2(doc,'para');
+   Query2(doc,'para');
 
    doc = ['<html><head><title>Page title</title></head>',
       '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
@@ -76,9 +46,8 @@ def main():
        '<more><p id="firstpara" align="center">Another paragraph </more>',
        '</html>'];
 
-   #Query3(doc,'Another','H3','New Paragraph');
+   Query3(doc,'Another','H3','New Paragraph');
 
 if __name__ == '__main__':
    main();
-   #RunTests();
 

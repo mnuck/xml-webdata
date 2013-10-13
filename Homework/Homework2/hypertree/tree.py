@@ -1,3 +1,10 @@
+#  Thomas Guenther
+#  Matthew Nuckolls
+#  Aaron Powers
+#
+#  CS 437 - Web Data and XML
+#  Homework 2,
+
 from node import Node
 from arc import Arc
 from arc import TextBlock

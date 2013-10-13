@@ -1,3 +1,10 @@
+#  Thomas Guenther
+#  Matthew Nuckolls
+#  Aaron Powers
+#
+#  CS 437 - Web Data and XML
+#  Homework 2,
+
 from copy import copy as copy
 from copy import deepcopy as deepcopy
 

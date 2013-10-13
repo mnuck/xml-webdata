@@ -1,3 +1,10 @@
+#  Thomas Guenther
+#  Matthew Nuckolls
+#  Aaron Powers
+#
+#  CS 437 - Web Data and XML
+#  Homework 2,
+
 from hypertree import Arc
 from hypertree import Node
 from hypertree.arc import TextBlock
@@ -10,21 +17,12 @@ def Query3(doc=None,searchText=None,concatTag=None,concatText=None):
    if not (doc and searchText and concatTag and concatText):
       print 'Insufficient data to perform query';
    else:
-      print 'doc:\n', doc;
-      print ''.join(['\nSelect y\' from y in doc\' + [Tag: "', concatTag,'", Text: "', concatText,'"] as New Doc, where y\'.text ~ "',searchText,'"']);
-
       #parse html and store in hyper tree
       soup = BeautifulSoup(''.join(doc))
       hyperTreeRoot = BuildTree(soup);
 
-      print 'Hypertree of the HTML:';
-      hyperTreeRoot.Show();
-
       #prime doc
       y = hyperTreeRoot.Prime();
-
-      ##prime doc
-      #y = hyperTreeRoot.Prime();
 
       #search all arcs of y for text like para
       results = [];

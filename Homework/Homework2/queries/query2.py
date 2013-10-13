@@ -1,3 +1,10 @@
+#  Thomas Guenther
+#  Matthew Nuckolls
+#  Aaron Powers
+#
+#  CS 437 - Web Data and XML
+#  Homework 2,
+
 from hypertree import Arc
 from hypertree import Node
 from hypertree.tree import BuildTree
@@ -10,15 +17,12 @@ def Query2(doc=None, text=None):
    if not (doc and text):
       print 'No doc and search string provided';
    else:
-      print 'doc:\n', doc;
-      print ''.join(['\nSelect y from y in doc\', where y\'.text ~ "', text, '"']);
+      # print 'doc:\n', doc;
+      # print ''.join(['\nSelect y from y in doc\', where y\'.text ~ "', text, '"']);
 
       #parse html and store in hyper tree
       soup = BeautifulSoup(''.join(doc))
       hyperTreeRoot = BuildTree(soup);
-
-      print 'Hypertree of the HTML:';
-      hyperTreeRoot.Show();
 
       #prime doc
       y = hyperTreeRoot.Prime();
@@ -28,11 +32,8 @@ def Query2(doc=None, text=None):
       SearchAllChildArcsForText(y, text, results);
 
       for result in results:
-         print 'Tree arc:';
          result.Show();
-         print 'HTML:';
          result.ShowAsHtml();
-         print;
 
 def SearchAllChildArcsForText(node=None, text=None, results=None):
    found = False;

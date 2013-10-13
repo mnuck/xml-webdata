@@ -1,8 +1,16 @@
+#  Thomas Guenther
+#  Matthew Nuckolls
+#  Aaron Powers
+#
+#  CS 437 - Web Data and XML
+#  Homework 2,
+
 from hypertree import Arc
 from hypertree import Node
 from hypertree.tree import BuildTree
 from BeautifulSoup import BeautifulSoup
 from copy import deepcopy
+import string
 
 def Query1(doc=None, field1=None, field2=None):
 
@@ -47,8 +55,13 @@ def Query1(doc=None, field1=None, field2=None):
          hyperTreeRoot.Tail();
       
       print '\nResults:';
-      print field1,'                        ', field2;
-      print '--------------              ---------------';
+
+      fieldWidth = 15;
+      sep = '--------------';
+      print ''.join([string.ljust(field1, fieldWidth), string.ljust(field2, fieldWidth)]);
+      print ''.join([string.ljust(sep, fieldWidth), string.ljust(sep, fieldWidth)]);
       for result in results:
-         print ''.join([str(result[0]),'               ', str(result[1])]);
+         v1 = result[0][0]; # assume we're only inerested in the first  value
+         v2 = result[1][0]; # ditto
+         print ''.join([string.ljust(v1, fieldWidth), string.ljust(v2, fieldWidth)]);
 

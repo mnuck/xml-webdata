@@ -46,7 +46,7 @@ class Arc(object):
 
    def Peek(self, field):
       if self.IsField(field):
-         return self.attributes[field];
+         return str(self.attributes[field]);
       else:
          return None;
 

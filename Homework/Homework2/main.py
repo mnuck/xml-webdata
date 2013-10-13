@@ -58,7 +58,7 @@ def main():
       '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
       '</html>'];
 
-   #Query1(doc, 'id', 'align');
+   Query1(doc, 'id', 'align');
 
    doc = ['<html><head><title>Page title</title></head>',
       '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
@@ -76,7 +76,7 @@ def main():
        '<more><p id="firstpara" align="center">Another paragraph </more>',
        '</html>'];
 
-   Query3(doc,'Another','H3','New Paragraph');
+   #Query3(doc,'Another','H3','New Paragraph');
 
 if __name__ == '__main__':
    main();

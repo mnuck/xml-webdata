@@ -5,8 +5,8 @@ prompt = lambda: raw_input('\nPress Enter to continue test:');
 
 def RunTests():
    # put any test below in the list of tests to run
-   pause=False;
-   TestsToRun = [SimpleHyperTreeTest];
+   pause=True;
+   TestsToRun = [SimpleHyperTreeTest, HyperTreeToHTMLTest, TailTest, HeadTest, PrimeTest, ConcatenateTest, CombinedTest ];
    if TestsToRun != None:
       for test in TestsToRun:
          test(pause);
@@ -216,7 +216,7 @@ def PrimeTest(pause=None):
       prime.Show();
    else:
       print 'None';
-   prompt(pause=None);
+   prompt();
 
    doc = ['<head></head>',
        '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',

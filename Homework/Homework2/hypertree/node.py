@@ -42,7 +42,6 @@ class Node(object):
       self.arcs.append(arc);
 
    #operators
-   #TODO: possibly need to change these so they return copies
    def Tail(self, nTail=1):
       if nTail <= len(self.arcs):
          for tail in range(0, nTail):

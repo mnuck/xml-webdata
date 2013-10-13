@@ -11,7 +11,7 @@ def Query2(doc=None, text=None):
       print 'No doc and search string provided';
    else:
       print 'doc:\n', doc;
-      print '\nSelect y from y in doc\', where y\'.text ~ "', text, '"';
+      print ''.join(['\nSelect y from y in doc\', where y\'.text ~ "', text, '"']);
 
       #parse html and store in hyper tree
       soup = BeautifulSoup(''.join(doc))
@@ -45,7 +45,6 @@ def SearchAllChildArcsForText(node=None, text=None, results=None):
             else:
                SearchAllChildArcsForText(arc.childNode, text, results);
                arc.childNode = None;
-         #TODO this may need to change based on changes to Arc class
          #check for text and append to results if found
          for arcText in arc.listOfText:
             if arcText.text.find(text) != -1:

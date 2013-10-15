@@ -9,13 +9,13 @@ from twisted.internet import protocol
 #
 
 class PubFactory(protocol.Factory):
-    def __init__(self, pubdb):
-        # Book keep the clients for convenience.
-        self.clients = set()
-        # Store a reference to the shared database.
-        self.pubdb = pubdb;
-
-    def buildProtocol(self, addr):
-        # Called when a client connects and a protocol instance
-        # is needed.
-        return PubProtocol(self)
+   def __init__(self, pubdb):
+      # Book keep the clients for convenience.
+      self.clients = set()
+      # Store a reference to the shared database.
+      self.pubdb = pubdb;
+   
+   def buildProtocol(self, addr):
+      # Called when a client connects and a protocol instance
+      # is needed.
+      return PubProtocol(self)

@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 from twisted.internet import reactor
 
-from publisher.pub_factory import PubFactory
 from subscriber.sub_factory import SubFactory
 from publisher.pub_db import PublisherDatabase
+from publisher.form_page import FormPage
+from twisted.web.server import Site
 
 def PushData(pubFactory, subFactory):
    for subClient in subFactory.clients:
@@ -15,7 +16,8 @@ def main():
    pubdb = PublisherDatabase('publisher.db');
 
    # Publishers connect and post data on this port:
-   pubFactory = PubFactory(pubdb);
+   # pubFactory = PubFactory(FormPage(), pubdb);
+   pubFactory = Site(FormPage(pubdb))
    reactor.listenTCP(8025, pubFactory);
 
    # Subscribers connect and fetch data on this port:

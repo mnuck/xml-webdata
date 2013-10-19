@@ -1,6 +1,4 @@
-from twisted.web.server import Site
 from twisted.web.resource import Resource
-from twisted.internet import reactor
 
 import cgi
 
@@ -51,16 +49,17 @@ formPosted = '''
 
 class FormPage(Resource):
    isLeaf = True;
+   
+   def __init__(self, db):
+      Resource.__init__(self);
+      self.db = db;
+
    def render_GET(self, request):
-      return FormPage.formPage;
+      return formPage;
    
    def render_POST(self, request):
       xmlStr = cgi.escape(request.args["pub-xml"][0]);
       topic  = cgi.escape(request.args["pub-topic"][0]);
-      rt = FormPage.formPosted % (topic, xmlStr);
-      return FormPage.formPage;
-
-if __name__ == '__main__':
-   factory = Site(FormPage())
-   reactor.listenTCP(8880, factory)
-   reactor.run()
+      rt = formPosted % (topic, xmlStr);
+      return rt;
+   

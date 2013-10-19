@@ -17,9 +17,9 @@ class SubProtocol(basic.LineReceiver):
       # Set the topic to the input line.
       self.subTopic = line;
    
-   def PushData(self, pubFactory):
+   def PushData(self, pubdb):
       if self.subTopic != None:
-         urls = pubFactory.pubdb.GetDocuments(self.subTopic);
+         urls = pubdb.GetDocuments(self.subTopic);
          for url in urls:
             # TODO: revise this to write XML
             self.transport.write(url[0].encode('ascii') + '\n');

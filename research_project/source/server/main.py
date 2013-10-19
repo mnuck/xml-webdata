@@ -6,10 +6,10 @@ from publisher.pub_db import PublisherDatabase
 from publisher.form_page import FormPage
 from twisted.web.server import Site
 
-def PushData(pubFactory, subFactory):
+def PushData(pubdb, subFactory):
    for subClient in subFactory.clients:
-      subClient.PushData(pubFactory);
-   reactor.callLater(1, PushData, pubFactory, subFactory);
+      subClient.PushData(pubdb);
+   reactor.callLater(1, PushData, pubdb, subFactory);
 
 def main():
    # Create a database for shared use between the pub and the sub.
@@ -28,7 +28,7 @@ def main():
    # the clients
    # TODO: Instead of pushing every second, push data to the
    #       clients only when they request it?
-   reactor.callLater(1, PushData, pubFactory, subFactory);
+   reactor.callLater(1, PushData, pubdb, subFactory);
 
    # Start the main loop.
    reactor.run();

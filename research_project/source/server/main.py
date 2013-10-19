@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 from twisted.internet import reactor
 
-from pub_factory import PubFactory
-from sub_factory import SubFactory
-from pub_db import PublisherDatabase
+from publisher.pub_factory import PubFactory
+from subscriber.sub_factory import SubFactory
+from publisher.pub_db import PublisherDatabase
 
 def PushData(pubFactory, subFactory):
    for subClient in subFactory.clients:

@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 from twisted.internet import reactor
+from twisted.web.server import Site
 
 from subscriber.sub_factory import SubFactory
 from publisher.pub_db import PublisherDatabase
 from publisher.form_page import FormPage
-from twisted.web.server import Site
 
 def PushData(pubdb, subFactory):
    for subClient in subFactory.clients:

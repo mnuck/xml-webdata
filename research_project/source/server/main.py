@@ -16,7 +16,6 @@ def main():
    pubdb = PublisherDatabase('publisher.db');
 
    # Publishers connect and post data on this port:
-   # pubFactory = PubFactory(FormPage(), pubdb);
    pubFactory = Site(FormPage(pubdb))
    reactor.listenTCP(8025, pubFactory);
 

@@ -60,6 +60,9 @@ class FormPage(Resource):
    def render_POST(self, request):
       xmlStr = cgi.escape(request.args["pub-xml"][0]);
       topic  = cgi.escape(request.args["pub-topic"][0]);
+
+      self.db.InsertDocument(topic, xmlStr)
+      
       rt = formPosted % (topic, xmlStr);
       return rt;
    

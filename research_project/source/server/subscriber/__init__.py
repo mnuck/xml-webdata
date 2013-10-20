@@ -1,4 +1,3 @@
-from sub_factory import *
-from sub_protocol import *
+from sub_page import *
 
-__verion__ = '1.0.0'
+__verion__ = '2.0.0'

@@ -12,8 +12,8 @@ class PublisherDatabase(object):
       self.cur.execute("CREATE TABLE Documents (doc_id text, topic text, url text, doc text, primary key (doc_id))")
       self.conn.commit();
    
-   def InsertDocument(self, id, topic, url, document):
-      data = (id, topic, url, document)
+   def InsertDocument(self, doc_id, topic, url, document):
+      data = (doc_id, topic, url, document)
       try:
          #TODO: return something when doc couldn't be inserted do to duplicate key
          self.cur.execute("INSERT INTO Documents VALUES (?,?,?,?)", data)

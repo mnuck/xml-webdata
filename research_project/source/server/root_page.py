@@ -27,6 +27,10 @@ import cgi
 
 class RootPage(Resource):
    # isLeaf = True;
+   
+   children = { 'pub': PublisherPage(),
+                'sub': SubscribePage() };
+   
    def __init__(self, db):
       Resource.__init__(self);
       self.db = db;
@@ -35,12 +39,13 @@ class RootPage(Resource):
       return mainPage;
 
    def getChild(self, name, request):
-      if name == 'pub':
-         return PublisherPage();
-      if name == 'sub':
-         return SubscribePage();
-      else:
-         return self;
+      child = self;
+      try:
+         child = RootPage.children[name];
+      except KeyError:
+         pass;
+      
+      return child;
       
    def render_POST(self, request):
       rt = 'oops, invalid post data!'

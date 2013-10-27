@@ -10,7 +10,7 @@ from twisted.cred.portal import IRealm, Portal
 # TODO: Replace this with a file-based checker!
 from twisted.cred.checkers import FilePasswordDB
 
-from publisher.pub_db import PublisherDatabase
+from databases.pub_db import PublisherDatabase
 
 from root_page import RootPage
 

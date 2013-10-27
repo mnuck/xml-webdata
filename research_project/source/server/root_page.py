@@ -8,8 +8,8 @@ mainPage = '''
 <html>
 <body>
 <p>The main page.</p>
-<a href="/pub">Publish</a>
-<a href="/sub">Subscribe</a> 
+<a href="/pub/?user=%s">Publish</a>
+<a href="/sub/?user=%s">Subscribe</a> 
 </body>
 </html>'''
 
@@ -31,14 +31,17 @@ class RootPage(Resource):
    children = { 'pub': PublisherPage(),
                 'sub': SubscribePage() };
    
-   def __init__(self, db):
+   def __init__(self, db, avatarId):
       Resource.__init__(self);
       self.db = db;
+      self.avatarId = avatarId;
 
    def render_GET(self, request):
-      return mainPage;
+      print "render_GET", request;
+      return mainPage % (self.avatarId, self.avatarId,);
 
    def getChild(self, name, request):
+      print "getChild",name;
       child = self;
       try:
          child = RootPage.children[name];

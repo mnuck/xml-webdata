@@ -32,9 +32,20 @@ pubPage = '''
 </html>'''
 
 class PublisherPage(Resource):
+   children = {};
+   
    def __init__(self):
       Resource.__init__(self);
 
    def render_GET(self, request):
       return pubPage;
+   
+   def getChild(self, name, request):
+      child = self;
+      try:
+         child = PublisherPage.children[name];
+      except KeyError:
+         pass;
+      
+      return child;
    

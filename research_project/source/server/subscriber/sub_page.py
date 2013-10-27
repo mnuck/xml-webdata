@@ -30,9 +30,20 @@ subPage = '''
 </html>'''
 
 class SubscribePage(Resource):
+   children = {};
+   
    def __init__(self):
       Resource.__init__(self);
 
    def render_GET(self, request):
       return subPage;
    
+   def getChild(self, name, request):
+      child = self;
+      try:
+         child = SubscribePage.children[name];
+      except KeyError:
+         pass;
+      
+      return child;
+         

@@ -9,14 +9,14 @@ class PublisherDatabase(object):
       self.conn = sqlite3.connect(filename)
       self.cur = self.conn.cursor()
       self.cur.execute("DROP TABLE IF EXISTS Documents")
-      self.cur.execute("CREATE TABLE Documents (doc_id text, topic text, url text, doc text, primary key (doc_id))")
+      self.cur.execute("CREATE TABLE Documents (doc_id text, topic text, doc text, primary key (doc_id))")
       self.conn.commit();
    
-   def InsertDocument(self, doc_id, topic, url, document):
-      data = (doc_id, topic, url, document)
+   def InsertDocument(self, doc_id, topic, document):
+      data = (doc_id, topic, document)
       try:
          #TODO: return something when doc couldn't be inserted do to duplicate key
-         self.cur.execute("INSERT INTO Documents VALUES (?,?,?,?)", data)
+         self.cur.execute("INSERT INTO Documents VALUES (?,?,?)", data)
          self.conn.commit();
       except sqlite3.IntegrityError:
          pass;
@@ -24,7 +24,7 @@ class PublisherDatabase(object):
    def GetDocuments(self, topic):
       #TODO: need to verify users access level and only return docs
       #      they are allowed to access, likely another layer in between to handle this
-      qstring = 'SELECT url,doc FROM Documents WHERE topic=\"' + topic + '\"';
+      qstring = 'SELECT doc FROM Documents WHERE topic=\"' + topic + '\"';
       self.cur.execute(qstring)
       rows = self.cur.fetchall()
       return rows;
@@ -42,7 +42,7 @@ class PublisherDatabase(object):
       return root.findall(xpath);
    
    def ReplaceDocument(self, doc_id, topic, url, document):
-      data = (id, topic, url, document);
+      data = (id, topic, document);
       qstring = 'SELECT doc FROM Documents WHERE doc_id=\"' + doc_id + '\"';
       self.cur.execute(qstring);
       if len(self.cur.fetchall()) > 0:
@@ -51,13 +51,13 @@ class PublisherDatabase(object):
       else:
          qstring = 'DELETE FROM Documents WHERE doc_id=\"' + doc_id + '\"';
          self.cur.execute(qstring);
-         self.cur.execute("INSERT INTO Documents VALUES (?,?,?,?)", data)
+         self.cur.execute("INSERT INTO Documents VALUES (?,?,?)", data)
          self.conn.commit();
      
    def UpdateDocument(self, doc_id, xpath, document):
       #TODO: need to actually perform replacement and use 'write' to get
       #      a new XML string back to put back into the database
-      qstring = 'SELECT doc_id, topic, url, doc FROM Documents WHERE doc_id=\"' + doc_id + '\"';
+      qstring = 'SELECT doc_id, topic, doc FROM Documents WHERE doc_id=\"' + doc_id + '\"';
       self.cur.execute(qstring);
       doc = self.cur.fetchall();
       
@@ -69,11 +69,8 @@ class PublisherDatabase(object):
          self.cur.execute(qstring);
          #TODO: use ET.write() to write new document out to xml string and 
          #      replace doc[0].document with it
-         new_data = (doc[0].id, doc[0].topic, doc[0].url, ET.tostring(root, encoding='us-ascii', method='xml' ));
-         self.cur.execute("INSERT INTO Documents VALUES (?,?,?,?)", new_data)
+         new_data = (doc[0].id, doc[0].topic, ET.tostring(root, encoding='us-ascii', method='xml' ));
+         self.cur.execute("INSERT INTO Documents VALUES (?,?,?)", new_data)
          self.conn.commit();
       else:
-         return (-1);
-         
-         
-          
+         return (-1);      

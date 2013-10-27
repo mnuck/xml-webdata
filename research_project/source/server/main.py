@@ -18,13 +18,6 @@ from root_page import RootPage
 # Create a database for shared use between the pub and the sub.
 pubdb = PublisherDatabase('publisher.db');
 
-#class OurHTTPAuthSessionWrapper(guard.HTTPAuthSessionWrapper):
-#   def __init__(self, portal, credentialFactories):
-#      guard.HTTPAuthSessionWrapper.__init__(self, portal, credentialFactories);
-#      
-#   def _loginSucceeded(self):
-#      pass;
-
 # TODO: Move this to a file!  Rename it to something appropriate for this project.
 class SimpleRealm(object):
    """

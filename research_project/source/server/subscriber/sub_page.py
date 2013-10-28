@@ -1,5 +1,7 @@
 from twisted.web.resource import Resource
 
+import cgi
+
 subPage = '''
 <!DOCTYPE html>
 <html>
@@ -30,18 +32,24 @@ subPage = '''
 </html>'''
 
 class SubscribePage(Resource):
-   children = {};
-   
-   def __init__(self):
+   def __init__(self, parent):
       Resource.__init__(self);
+      self.parent = parent;
+      self.children = {};
 
    def render_GET(self, request):
       return subPage;
    
+   def render_POST(self, request):
+      # TODO: Handle subscription here!!!
+      rt = self.parent.postedStr % ('Subscribed to ' + cgi.escape(request.args['sub-topic'][0]))      
+   
+      return rt;
+   
    def getChild(self, name, request):
       child = self;
       try:
-         child = SubscribePage.children[name];
+         child = self.children[name];
       except KeyError:
          pass;
       

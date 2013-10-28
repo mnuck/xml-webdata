@@ -8,8 +8,7 @@ class PublisherDatabase(object):
    def __init__(self, filename):
       self.conn = sqlite3.connect(filename)
       self.cur = self.conn.cursor()
-      self.cur.execute("DROP TABLE IF EXISTS Documents")
-      self.cur.execute("CREATE TABLE Documents (doc_id text, topic text, doc text, primary key (doc_id))")
+      self.cur.execute("CREATE TABLE IF NOT EXISTS Documents (doc_id text, topic text, doc text, primary key (doc_id))")
       self.conn.commit();
    
    def InsertDocument(self, doc_id, topic, document):

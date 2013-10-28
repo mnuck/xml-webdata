@@ -1,0 +1,30 @@
+{
+	"root": "dbgroup1",
+	"dbgroup1": ["DBGroup", "SET", ["member1", "member2", "member3", "project1", "project2"]],
+
+	"member1": ["Member", "SET", ["name1"]],
+	"member2": ["Member", "SET", ["name2", "age1", "office1", "office2"]],
+	"member3": ["Member", "SET", ["name3", "age2", "office3", "project1", "project2"]],
+
+	"project1": ["Project", "SET", ["name4"]],
+	"project2": ["Project", "SET", ["name5"]],
+
+	"name1": ["Name", "STRING", "Clark"],
+	"name2": ["Name", "STRING", "Smith"],
+	"name3": ["Name", "STRING", "Jones"],
+	"name4": ["Name", "STRING", "Lore"],
+	"name5": ["Name", "STRING", "Tsimmis"],
+
+	"age1": ["Age", "INTEGER", 46],
+	"age2": ["Age", "INTEGER", 28],
+
+	"office1": ["Office", "STRING", "Gates 252"],
+	"office2": ["Office", "SET", ["building1", "room1"]],
+	"office3": ["Office", "SET", ["building2", "room2"]],
+
+	"building1": ["Building", "STRING", "CIS"],
+	"building2": ["Building", "STRING", "CIS"],
+
+	"room1": ["Room", "STRING", "411"],
+	"room2": ["Room", "INTEGER", 252]
+}

@@ -3,16 +3,6 @@ from twisted.web.resource import Resource
 from publisher.pub_page import PublisherPage
 from subscriber.sub_page import SubscribePage
 
-mainPage = '''
-<!DOCTYPE html>
-<html>
-<body>
-<p>The main page.</p>
-<a href="/pub/?user=%s">Publish</a>
-<a href="/sub/?user=%s">Subscribe</a> 
-</body>
-</html>'''
-
 posted = '''
 <html>
 <body>
@@ -23,28 +13,29 @@ posted = '''
 </body>
 </html>'''
 
-import cgi
-
 class RootPage(Resource):
    # isLeaf = True;
-   
-   children = { 'pub': PublisherPage(),
-                'sub': SubscribePage() };
-   
    def __init__(self, db, avatarId):
       Resource.__init__(self);
+      
+      self.children = { 'pub': PublisherPage(self),
+                        'sub': SubscribePage(self) };      
       self.db = db;
       self.avatarId = avatarId;
+      self.postedStr = posted;
+      
+      # Load in the main page HTML 
+      self.content = open('html/main.html', 'r').read();
 
    def render_GET(self, request):
       print "render_GET", request;
-      return mainPage % (self.avatarId, self.avatarId,);
+      return self.content % (self.avatarId, self.avatarId,);
 
    def getChild(self, name, request):
       print "getChild",name;
       child = self;
       try:
-         child = RootPage.children[name];
+         child = self.children[name];
       except KeyError:
          pass;
       
@@ -53,14 +44,9 @@ class RootPage(Resource):
    def render_POST(self, request):
       rt = 'oops, invalid post data!'
       if 'pub-xml' in request.args and 'pub-topic' in request.args:
-         xmlStr = request.args["pub-xml"][0];
-         topic  = request.args["pub-topic"][0];
-
-         self.db.InsertDocument(topic, xmlStr)
-      
-         rt = posted % ('Posted content for topic: ' + cgi.escape(topic));
+         rt = 'render_POST for pub-xml in root_page.  This should not happen!'
       elif 'sub-topic' in request.args:
-         # TODO: Handle subscription here!!!
-         rt = posted % ('Subscribed to ' + cgi.escape(request.args['sub-topic'][0]))
+         rt = 'render_POST for sub-topic in root_page.  This should not happen!';
+
       return rt;
    

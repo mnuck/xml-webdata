@@ -10,20 +10,13 @@ from twisted.cred.portal import IRealm, Portal
 # TODO: Replace this with a file-based checker!
 from twisted.cred.checkers import FilePasswordDB
 
-from publisher.pub_db import PublisherDatabase
+from databases.pub_db import PublisherDatabase
 
 from root_page import RootPage
 
 # TODO: Remove this from global scope! (Is required for creation of RootPage).
 # Create a database for shared use between the pub and the sub.
 pubdb = PublisherDatabase('publisher.db');
-
-#class OurHTTPAuthSessionWrapper(guard.HTTPAuthSessionWrapper):
-#   def __init__(self, portal, credentialFactories):
-#      guard.HTTPAuthSessionWrapper.__init__(self, portal, credentialFactories);
-#      
-#   def _loginSucceeded(self):
-#      pass;
 
 # TODO: Move this to a file!  Rename it to something appropriate for this project.
 class SimpleRealm(object):

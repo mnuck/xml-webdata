@@ -7,13 +7,16 @@
 #  CS 437 - Web Data and XML
 #  Homework 3
 
+# Utility functions to read the OEM from a file,
+# and parse tuples into human-readable output
+
 import json
 
 def oid_to_string(oid, OEM, prefix):
 	tup = OEM[oid]
 	result = prefix + tup[0]
 	if tup[1] == "SET":
-		result += set_to_string(tup[2], prefix + "  ")
+		result += set_to_string(tup[2], OEM, prefix + "  ")
 	else:
 		result += " " + str(tup[2])
 	return result

@@ -55,13 +55,8 @@ def Query1(doc=None, field1=None, field2=None):
          hyperTreeRoot.Tail();
       
       print '\nResults:';
-
-      fieldWidth = 15;
-      sep = '--------------';
-      print ''.join([string.ljust(field1, fieldWidth), string.ljust(field2, fieldWidth)]);
-      print ''.join([string.ljust(sep, fieldWidth), string.ljust(sep, fieldWidth)]);
+      print field1,'                        ', field2;
+      print '--------------              ---------------';
       for result in results:
-         v1 = result[0][0]; # assume we're only inerested in the first  value
-         v2 = result[1][0]; # ditto
-         print ''.join([string.ljust(v1, fieldWidth), string.ljust(v2, fieldWidth)]);
+         print ''.join([str(result[0]),'               ', str(result[1])]);
 

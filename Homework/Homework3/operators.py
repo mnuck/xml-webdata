@@ -8,7 +8,7 @@
 #  Homework 3
 
 # Immediately prior to yielding a result,
-# each operator prints its name, 
+# each operator prints its name,
 #                      what it is yielding,
 #                      and the current state of OA.
 
@@ -22,7 +22,7 @@ class SCAN(OPERATOR):
 		self.start, self.path, self.target = start, path, target
 		super(SCAN, self).__init__(*args)
 
-	def get_iterator(self):
+	def __iter__(self):
 		targets = [self.OEM[self.start]]  \
 				  if self.start == "root" \
 				  else self.OEM[self.OA[self.start]][2]
@@ -38,9 +38,9 @@ class JOIN(OPERATOR):
 		self.left, self.right = left_child_op, right_child_op
 		super(JOIN, self).__init__(*args)
 
-	def get_iterator(self):
-		for a in self.left.get_iterator():
-			for b in self.right.get_iterator():
+	def __iter__(self):
+		for a in self.left:
+			for b in self.right:
 				print self.name, b, self.OA
 				yield b
 
@@ -50,8 +50,8 @@ class SELECT(OPERATOR):
 		self.child, self.input, self.predicate = child_op, input_oa, predicate
 		super(SELECT, self).__init__(*args)
 
-	def get_iterator(self):
-		for oid in self.child.get_iterator():
+	def __iter__(self):
+		for oid in self.child:
 			key = self.OA[self.input]
 			if self.predicate(self.OEM[key][2]):
 				print self.name, oid, self.OA
@@ -63,7 +63,7 @@ class PROJECT(OPERATOR):
 		self.child, self.input = child_op, input_oa
 		super(PROJECT, self).__init__(*args)
 
-	def get_iterator(self):
-		for oid in self.child.get_iterator():
+	def __iter__(self):
+		for oid in self.child:
 			print self.name, oid, self.OA
 			yield self.OA[self.input]

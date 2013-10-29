@@ -43,7 +43,7 @@ def query_plan():
 	select1 = SELECT(scan4, "oa3", lambda x: x > 30, OA, OEM, "select1")
 	join3 = JOIN(join2, select1, OA, OEM, "join3")
 	project1 = PROJECT(join3, "oa2", OA, OEM, "project1")
-	return [x for x in project1.get_iterator()]
+	return [x for x in project1]
 
 
 def main():

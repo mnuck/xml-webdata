@@ -17,12 +17,16 @@ def Query2(doc=None, text=None):
    if not (doc and text):
       print 'No doc and search string provided';
    else:
-      # print 'doc:\n', doc;
-      # print ''.join(['\nSelect y from y in doc\', where y\'.text ~ "', text, '"']);
+      print 'doc:\n', doc;
+      print ''.join(['\nSelect y from y in doc\', where y\'.text ~ "', text, '"']);
 
       #parse html and store in hyper tree
       soup = BeautifulSoup(''.join(doc))
       hyperTreeRoot = BuildTree(soup);
+
+      print 'Hypertree of the HTML:';
+      hyperTreeRoot.Show();
+
 
       #prime doc
       y = hyperTreeRoot.Prime();

@@ -12,24 +12,25 @@
 
 import json
 
+
 def oid_to_string(oid, OEM, prefix):
-	tup = OEM[oid]
-	result = prefix + tup[0]
-	if tup[1] == "SET":
-		result += set_to_string(tup[2], OEM, prefix + "  ")
-	else:
-		result += " " + str(tup[2])
-	return result
+    tup = OEM[oid]
+    result = prefix + tup[0]
+    if tup[1] == "SET":
+        result += set_to_string(tup[2], OEM, prefix + "  ")
+    else:
+        result += " " + str(tup[2])
+    return result
 
 
 def set_to_string(input, OEM, prefix=""):
-	result = ""
-	for oid in input:
-		result += "\n" + oid_to_string(oid, OEM, prefix)
-	return result
+    result = ""
+    for oid in input:
+        result += "\n" + oid_to_string(oid, OEM, prefix)
+    return result
 
 
 def loadOEM(filename):
-	with open("OEM.txt") as f:
-		raw_data = f.read()
-	return json.loads(raw_data)
+    with open("OEM.txt") as f:
+        raw_data = f.read()
+    return json.loads(raw_data)

@@ -12,14 +12,15 @@
 #                      what it is yielding,
 #                      and the current state of OA.
 
-class SCAN(object):
-	def __init__(self, OA, OEM, start, path, target, name):
-		self.name = name
-		self.OA = OA
-		self.OEM = OEM
-		self.start = start
-		self.path = path
-		self.target = target
+class OPERATOR(object):
+	def __init__(self, OA, OEM, name):
+		self.OA, self.OEM, self.name = OA, OEM, name
+
+
+class SCAN(OPERATOR):
+	def __init__(self, start, path, target, *args):
+		self.start, self.path, self.target = start, path, target
+		super(SCAN, self).__init__(*args)
 
 	def get_iterator(self):
 		targets = [self.OEM[self.start]]  \
@@ -32,13 +33,10 @@ class SCAN(object):
 				yield self.OA[self.target]
 
 
-class JOIN(object):
-	def __init__(self, OA, OEM, left_child_op, right_child_op, name):
-		self.name = name
-		self.OA = OA
-		self.OEM = OEM
-		self.left = left_child_op
-		self.right = right_child_op
+class JOIN(OPERATOR):
+	def __init__(self, left_child_op, right_child_op, *args):
+		self.left, self.right = left_child_op, right_child_op
+		super(JOIN, self).__init__(*args)
 
 	def get_iterator(self):
 		for a in self.left.get_iterator():
@@ -47,14 +45,10 @@ class JOIN(object):
 				yield b
 
 
-class SELECT(object):
-	def __init__(self, OA, OEM, child_op, input_oa, predicate, name):
-		self.name = name
-		self.OA = OA
-		self.OEM = OEM
-		self.child = child_op
-		self.input = input_oa
-		self.predicate = predicate
+class SELECT(OPERATOR):
+	def __init__(self, child_op, input_oa, predicate, *args):
+		self.child, self.input, self.predicate = child_op, input_oa, predicate
+		super(SELECT, self).__init__(*args)
 
 	def get_iterator(self):
 		for oid in self.child.get_iterator():
@@ -64,13 +58,10 @@ class SELECT(object):
 				yield oid
 
 
-class PROJECT(object):
-	def __init__(self, OA, OEM, child_op, input_oa, name):
-		self.name = name
-		self.OA = OA
-		self.OEM = OEM
-		self.child = child_op
-		self.input = input_oa
+class PROJECT(OPERATOR):
+	def __init__(self, child_op, input_oa, *args):
+		self.child, self.input = child_op, input_oa
+		super(PROJECT, self).__init__(*args)
 
 	def get_iterator(self):
 		for oid in self.child.get_iterator():

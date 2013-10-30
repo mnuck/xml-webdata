@@ -26,14 +26,12 @@ class RootPage(Resource):
       self.postedStr = posted;
       
       # Load in the main page HTML 
-      self.content = open('html/main.html', 'r').read();
+      self.content = open('html/main.html', 'r').readlines();
 
    def render_GET(self, request):
-      print "render_GET", request;
-      return self.content % (self.avatarId, self.avatarId,);
+      return ''.join(self.content);
 
    def getChild(self, name, request):
-      print "getChild",name;
       child = self;
       try:
          child = self.children[name];
@@ -43,11 +41,6 @@ class RootPage(Resource):
       return child;
       
    def render_POST(self, request):
-      rt = 'oops, invalid post data!'
-      if 'pub-xml' in request.args and 'pub-topic' in request.args:
-         rt = 'render_POST for pub-xml in root_page.  This should not happen!'
-      elif 'sub-topic' in request.args:
-         rt = 'render_POST for sub-topic in root_page.  This should not happen!';
-
+      rt = 'oops, invalid post data in root_page.'
       return rt;
    

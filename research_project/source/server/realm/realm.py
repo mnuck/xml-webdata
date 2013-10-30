@@ -17,5 +17,5 @@ class Realm(object):
    def requestAvatar(self, avatarId, mind, *interfaces):
       print "User",avatarId,"authenticated.";
       if resource.IResource in interfaces:
-         return resource.IResource, RootPage(self.pubdb,self.authDb, avatarId), lambda: None
+         return resource.IResource, RootPage(self.pubdb, self.authDb, avatarId), lambda: None
       raise NotImplementedError()

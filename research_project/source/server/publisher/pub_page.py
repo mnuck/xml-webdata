@@ -3,7 +3,7 @@ import hashlib
 from twisted.web.resource import Resource
 
 class PublisherPage(Resource):
-   authFormatStr = '<tr><td><input name=\'auth\' type=\'checkbox\'>%s</td><td><input name=\'auth_%s_xpath\' type=\'text\'></td></tr>';
+   authFormatStr = '<tr><td><input name=\'user\' type=\'checkbox\' value=\'%s\'>%s</td><td><input name=\'%s_xpath\' type=\'text\'></td></tr>';
    def __init__(self, parent):
       Resource.__init__(self);
       self.parent = parent;
@@ -14,14 +14,14 @@ class PublisherPage(Resource):
 
    def render_GET(self, request):
       # Build access list.  Will generate HTML like the following:
-      # <tr><td><input name="auth" type="checkbox">Tom</td><td><input name="auth_tom_xpath" type="text"></td>
-      # <tr><td><input name="auth" type="checkbox">Matt</td><td><input name="auth_matt_xpath" type="text"></td>      
+      # <tr><td><input name="user" type="checkbox" value="tom">tom</td><td><input name="tom_xpath" type="text"></td>
+      # <tr><td><input name="user" type="checkbox" value="matt">matt</td><td><input name="matt_xpath" type="text"></td>      
       users = self.parent.authDb.GetUserList();
       render = [];   
       for line in self.content:
          if '<!-- USER_LIST -->' in line:
             for user in users:
-               tableRow = PublisherPage.authFormatStr % (user,user,);
+               tableRow = PublisherPage.authFormatStr % (user,user,user,);
                render.append(tableRow + '\n');
          else:
             render.append(line);
@@ -40,6 +40,8 @@ class PublisherPage(Resource):
          doc_id = hasher.hexdigest();
          
          self.parent.db.InsertDocument(doc_id, topic, xmlStr)
+         
+         # TODO: Insert into the security database.
       
          rt = self.parent.postedStr % ('Document successfully posted with id: <b>' + doc_id + '</b>' );
          

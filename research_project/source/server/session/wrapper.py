@@ -3,11 +3,11 @@ from twisted.cred.portal import Portal
 from twisted.cred.checkers import FilePasswordDB
 
 class SessionWrapper(object):
-   def __init__(self, passDb):
+   def __init__(self, passDb, realm):
       self.passwordDb = passDb;
-      
-   def GetWrapper(self, realm):
-      wrapper = guard.HTTPAuthSessionWrapper(
+      self.wrapper = guard.HTTPAuthSessionWrapper(
          Portal(realm, [FilePasswordDB(self.passwordDb.GetFile())]),
-         [guard.DigestCredentialFactory('md5', 'Authentication required for CS437 - XML Web Data Pub/Sub')])
-      return wrapper
+         [guard.DigestCredentialFactory('md5', 'Authentication required for CS437 - XML Web Data Pub/Sub')]);
+      
+   def GetWrapper(self):
+      return self.wrapper;

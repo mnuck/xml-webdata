@@ -19,12 +19,12 @@ def main():
    
    authDb = AuthorizationDatabase('authorization/passwords.txt', ':')
    
+   r = Realm(pubdb, authDb); # Use 'r' just for Aaron! ;-)
+   
    # Create a session wrapper for authentication
-   wrapper = SessionWrapper(authDb);
+   wrapper = SessionWrapper(authDb, r);   
 
-   r = Realm(pubdb, authDb); # Just for Aaron! ;-)
-
-   pubFactory = server.Site(resource = wrapper.GetWrapper(r));
+   pubFactory = server.Site(resource = wrapper.GetWrapper());
    reactor.listenTCP(8025, pubFactory);
 
    # Start the main loop.

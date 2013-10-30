@@ -12,6 +12,7 @@ class PublisherPage(Resource):
       self.content = open('html/publish.html', 'r').read();
 
    def render_GET(self, request):
+      # Build access list
       return self.content;
    
    def render_POST(self, request):

@@ -8,6 +8,6 @@ class SessionWrapper(object):
       
    def GetWrapper(self, realm):
       wrapper = guard.HTTPAuthSessionWrapper(
-         Portal(realm, [FilePasswordDB(self.passwordDb)]),
+         Portal(realm, [FilePasswordDB(self.passwordDb.GetFile())]),
          [guard.DigestCredentialFactory('md5', 'Authentication required for CS437 - XML Web Data Pub/Sub')])
       return wrapper

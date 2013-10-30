@@ -15,12 +15,13 @@ posted = '''
 
 class RootPage(Resource):
    # isLeaf = True;
-   def __init__(self, db, avatarId):
+   def __init__(self, db, authDb, avatarId):
       Resource.__init__(self);
       
       self.children = { 'pub': PublisherPage(self),
                         'sub': SubscribePage(self) };      
       self.db = db;
+      self.authDb = authDb;
       self.avatarId = avatarId;
       self.postedStr = posted;
       

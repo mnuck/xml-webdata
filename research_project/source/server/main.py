@@ -7,6 +7,7 @@ from twisted.web import server
 
 from databases.pub_db import PublisherDatabase
 from session import SessionWrapper
+from authorization import AuthorizationDatabase
 from realm.realm import Realm
 
 def main():
@@ -16,10 +17,12 @@ def main():
    # Create a database for shared use between the pub and the sub.
    pubdb = PublisherDatabase('publisher.db');
    
+   authDb = AuthorizationDatabase('authorization/passwords.txt', ':')
+   
    # Create a session wrapper for authentication
-   wrapper = SessionWrapper('authorization/passwords.txt');
+   wrapper = SessionWrapper(authDb);
 
-   r = Realm(pubdb); # Just for Aaron! ;-)
+   r = Realm(pubdb, authDb); # Just for Aaron! ;-)
 
    pubFactory = server.Site(resource = wrapper.GetWrapper(r));
    reactor.listenTCP(8025, pubFactory);

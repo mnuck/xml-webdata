@@ -1,29 +1,42 @@
-<!DOCTYPE html>
-<html>
-<body>
 
-<table width="500" border="0">
-   <tr>
-      <td colspan="2">
+<table border="0" width="500">
+  <tbody>
+    <tr>
+      <td colspan="2"> <br>
       </td>
-   </tr>
-
-   <tr>
-      <td style="width:100px;">
-         <form method="POST" action="./">
-            <p><input name="pub-topic" type="text" value=""/></p>
-            <p><textarea name="pub-xml" cols=40 rows=20></textarea></p>
-            <p> <input type="submit" value="Publish"></p>
-            <p> <a href="/">Cancel</a> </p>
-         </form>
+    </tr>
+    <tr>
+      <td style="width: 100px;">
+      <form method="post" action="./">Topic<br>
+        <input name="pub-topic" value="" type="text">
+        <p>XML Data<br>
+        <textarea name="pub-xml" cols="40" rows="15"></textarea></p>
+        Access<br>
+        <table>
+          <tbody>
+            <tr>
+              <td><input name="auth" value="Tom" type="checkbox">Tom<br>
+              </td>
+              <td><input name="auth_tom_xpath" type="text"></td>
+            </tr>
+            <tr>
+              <td><input name="auth" value="Matt" type="checkbox">Matt<br>
+              </td>
+              <td><input name="auth_matt_xpath" type="text"></td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <p> <a href="/">Cancel</a> </p>
+        </table>
+      </form>
       </td>
-   </tr>
-
-   <tr>
-      <td colspan="2" style="text-align:center;">
-      </td>
-   </tr>
+    </tr>
+    </tbody><tbody>
+      <tr>
+        <td colspan="2" style="text-align: center;"> <br>
+        </td>
+      </tr>
+    </tbody>
+  
 </table>
-
-</body>
-</html>

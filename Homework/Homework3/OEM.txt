@@ -6,7 +6,7 @@
 	"member2": ["Member", "SET", ["name2", "age1", "office1", "office2"]],
 	"member3": ["Member", "SET", ["name3", "age2", "office3", "project1", "project2"]],
 
-	"project1": ["Project", "SET", ["name4"]],
+	"project1": ["Project", "SET", ["name4", "member1"]],
 	"project2": ["Project", "SET", ["name5"]],
 
 	"name1": ["Name", "STRING", "Clark"],

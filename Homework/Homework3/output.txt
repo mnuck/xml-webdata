@@ -1,0 +1,52 @@
+STATE OUTPUT DURING RUN OF NON-INDEX QUERY
+scan1 dbgroup1 {'oa0': u'dbgroup1'}
+scan2 member1 {'oa1': u'member1', 'oa0': u'dbgroup1'}
+join1 member1 {'oa1': u'member1', 'oa0': u'dbgroup1'}
+scan2 member2 {'oa1': u'member2', 'oa0': u'dbgroup1'}
+join1 member2 {'oa1': u'member2', 'oa0': u'dbgroup1'}
+scan3 office1 {'oa2': u'office1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+join2 office1 {'oa2': u'office1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+scan4 age1 {'oa3': u'age1', 'oa2': u'office1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+select1 age1 {'oa3': u'age1', 'oa2': u'office1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+join3 age1 {'oa3': u'age1', 'oa2': u'office1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+project1 age1 {'oa3': u'age1', 'oa2': u'office1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+scan3 office2 {'oa3': u'age1', 'oa2': u'office2', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+join2 office2 {'oa3': u'age1', 'oa2': u'office2', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+scan4 age1 {'oa3': u'age1', 'oa2': u'office2', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+select1 age1 {'oa3': u'age1', 'oa2': u'office2', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+join3 age1 {'oa3': u'age1', 'oa2': u'office2', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+project1 age1 {'oa3': u'age1', 'oa2': u'office2', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+scan2 member3 {'oa3': u'age1', 'oa2': u'office2', 'oa1': u'member3', 'oa0': u'dbgroup1'}
+join1 member3 {'oa3': u'age1', 'oa2': u'office2', 'oa1': u'member3', 'oa0': u'dbgroup1'}
+scan3 office3 {'oa3': u'age1', 'oa2': u'office3', 'oa1': u'member3', 'oa0': u'dbgroup1'}
+join2 office3 {'oa3': u'age1', 'oa2': u'office3', 'oa1': u'member3', 'oa0': u'dbgroup1'}
+scan4 age2 {'oa3': u'age2', 'oa2': u'office3', 'oa1': u'member3', 'oa0': u'dbgroup1'}
+
+STATE OUTPUT DURING RUN OF INDEXED QUERY
+vindex1 age1 {'oa2': u'age1'}
+lindex1 member2 {'oa2': u'age1', 'oa1': u'member2'}
+once1 member2 {'oa2': u'age1', 'oa1': u'member2'}
+lindex2 dbgroup1 {'oa2': u'age1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+named_obj1 dbgroup1 {'oa2': u'age1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+join1 dbgroup1 {'oa2': u'age1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+join2 dbgroup1 {'oa2': u'age1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+scan1 office1 {'oa3': u'office1', 'oa2': u'age1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+join3 office1 {'oa3': u'office1', 'oa2': u'age1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+project1 office1 {'oa3': u'office1', 'oa2': u'age1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+scan1 office2 {'oa3': u'office2', 'oa2': u'age1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+join3 office2 {'oa3': u'office2', 'oa2': u'age1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+project1 office2 {'oa3': u'office2', 'oa2': u'age1', 'oa1': u'member2', 'oa0': u'dbgroup1'}
+
+NON-INDEXED QUERY OUTPUT:
+
+Office Gates 252
+Office
+  Building CIS
+  Room 411
+
+INDEXED QUERY OUTPUT:
+
+Office Gates 252
+Office
+  Building CIS
+  Room 411

@@ -31,13 +31,13 @@ from utilities import loadOEM, set_to_string
 from utilities import construct_lindex, construct_vindex
 
 OEM = dict()
-OA = dict()
 
 
 # For the "without indexing" case, we are implementing the query plan
 # given in our notes as Figure 3, modified to remove the superfluous
 # Aggregate operation.
 def query_plan():
+    OA = dict()
     predicate = lambda x: x > 30
     scan1 = SCAN("root", "DBGroup", "oa0", OA, OEM, "scan1")
     scan2 = SCAN("oa0", "Member", "oa1", OA, OEM, "scan2")
@@ -54,6 +54,7 @@ def query_plan():
 # For the "with indexing" case, we are implementing the query plan given
 # in our names as Figure 6.
 def query_plan_indexed():
+    OA = dict()
     l_index = construct_lindex(OEM, ["Age", "Member"])
     v_index = construct_vindex(OEM, l_index, ["Age"])
     operator1 = lambda x, y: x > y

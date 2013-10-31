@@ -19,9 +19,11 @@ def main():
    pubdb = PublisherDatabase('publisher.db');
    secdb = SecurityDatabase('security.db');
    
+   # Used for logging into the portal.  Strictly part of the security model?
    authDb = AuthorizationDatabase('authorization/passwords.txt', ':')
    
-   r = Realm(pubdb, secdb, authDb.GetUserList()); # Use 'r' just for Aaron! ;-)
+   # Use 'r' just for Aaron! ;-)
+   r = Realm(pubdb, secdb, authDb.GetUserList());
    
    # Create a session wrapper for authentication
    wrapper = SessionWrapper(authDb.GetFile(), r);   

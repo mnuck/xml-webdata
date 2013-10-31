@@ -15,12 +15,13 @@ posted = '''
 
 class RootPage(Resource):
    # isLeaf = True;
-   def __init__(self, db, authorizedUsers, avatarId):
+   def __init__(self, xmlDb, secDb, authorizedUsers, avatarId):
       Resource.__init__(self);
       
       self.children = { 'pub': PublisherPage(self),
                         'sub': SubscribePage(self) };      
-      self.db = db;
+      self.xmlDb = xmlDb;
+      self.secDb = secDb;
       self.authorizedUsers = authorizedUsers;
       self.avatarId = avatarId;
       self.postedStr = posted;
@@ -29,6 +30,7 @@ class RootPage(Resource):
       self.content = open('html/main.html', 'r').readlines();
 
    def render_GET(self, request):
+      # TODO: Display published documents
       return ''.join(self.content);
 
    def getChild(self, name, request):

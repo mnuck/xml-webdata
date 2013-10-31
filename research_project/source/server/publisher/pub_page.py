@@ -39,9 +39,12 @@ class PublisherPage(Resource):
          hasher.update(xmlStr);
          doc_id = hasher.hexdigest();
          
-         self.parent.db.InsertDocument(doc_id, topic, xmlStr)
+         self.parent.xmlDb.InsertDocument(doc_id, topic, xmlStr)
          
-         # TODO: Insert into the security database.
+         for user_id in request.args['user']:
+            p_key = user_id + '_xpath';
+            xpath = request.args[p_key][0];
+            self.parent.secDb.InsertAuthorization(user_id, doc_id, xpath);
       
          rt = self.parent.postedStr % ('Document successfully posted with id: <b>' + doc_id + '</b>' );
          

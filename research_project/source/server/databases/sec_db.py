@@ -4,7 +4,7 @@ class SecurityDatabase(object):
    def __init__(self, filename):
       self.conn = sqlite3.connect(filename)
       self.cur = self.conn.cursor()
-      self.cur.execute("CREATE TABLE IF NOT EXISTS Authorizations (doc_id text, user_id text, xpath text, primary key (doc_id,user_id))")
+      self.cur.execute("CREATE TABLE IF NOT EXISTS Authorizations (doc_id text, user_id text, xpath text, primary key (doc_id,user_id,xpath))")
       self.conn.commit();
    
    def InsertAuthorization(self, user_id, doc_id, xpath):

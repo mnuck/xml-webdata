@@ -16,7 +16,7 @@ class PublisherPage(Resource):
       # Build access list.  Will generate HTML like the following:
       # <tr><td><input name="user" type="checkbox" value="tom">tom</td><td><input name="tom_xpath" type="text"></td>
       # <tr><td><input name="user" type="checkbox" value="matt">matt</td><td><input name="matt_xpath" type="text"></td>      
-      users = self.parent.authDb.GetUserList();
+      users = self.parent.authorizedUsers;
       render = [];   
       for line in self.content:
          if '<!-- USER_LIST -->' in line:

@@ -1,0 +1,38 @@
+Stephen S. Yau, Professor and Chair, Ph.D. University of Illinois at Urbana-Champaign, 1961, Software engineering, parallel processing and distributed computing systems, embeded systems. 
+Edward A. Ashcroft, Professor, Ph.D. University of London (Imperial College), England, 1970, Program verification, declarative language, intensional programming, high-level parallel programming language, language Lucid. 
+Chitta Baral, Associate Professor, Ph.D. University of Maryland, 1991, Artificial intelligence, multimedia, visualization of databases. 
+Rida A. Bazzi, Assistant Professor, Ph.D. Georgia Institute of Technology, 1994, Distributed computing, software engineering for distributed systems, fault-tolerance algorithms, computer vision. 
+Sourav Bhattacharya, Associate Professor, Ph.D. University of Minnesota, 1993, Networked and parallel computing, dependable communication, ATM networks. 
+K. Selcuk Candan, Assistant Professor, Ph.D. University of Maryland, 1997, Distributed multimedia systems, video servers for video-on-demand systems, content based video indexing, query / retrieval of multimedia data, security, query processing. 
+James S. Collofello, Professor, Ph.D. Northwestern University, 1978, Software engineering, project management. 
+Partha Dasgupta, Associate Professor, Ph.D. State University of New York at Stony Brook, 1984, Distributed operating systems, system software. 
+Joseph DeLibero, Lecturer, M.S. Purdue University, 1972. 
+Suzanne W. Dietrich, Associate Professor, Ph.D. State University of New York at Stony Brook, 1987, Databases, knowledge management, object management, active features. 
+Leonard Faltz, Associate Professor, Ph.D. University of California, Berkeley, 1977, Formal linguistics, computational linguistics. 
+Gerald E. Farin, Professor, Ph.D. Technical University of Braunschweig, 1979, Computer aided geometric design, NURBS. 
+Nicholas V. Findler, Professor Emeritus, Ph.D. Budapest University of Technical Sciences, 1956, Artificial intelligence, heuristic programming, expert systems, pattern recognition, information retrieval. 
+Barbara Gannod, Lecturer, Ph.D. Michigan State University, 1997, Pure and applied graph theory, algorithm design and analysis, parallel processing, engineering education. 
+Gerald C. Gannod, Assistant Professor, Ph.D. Michigan State University, 1998, Software engineering, formal methods for software development, reverse engineering, reengineering, object-oriented analysis and design. 
+Sumit Ghosh, Associate Professor and Associate Chair for Research and Graduate Programs, Ph.D. Stanford University, 1984, Networking and distributed algorithms. 
+Forouzan Golshani, Professor, Ph.D. University of Warwick, England, 1982, Multimedia information system, digital video processing, advanced databases, intelligent systems. 
+Ben M. Huey, Associate Professor and Associate Dean for Planning and Administration, College of Engineering and Applied Science, Ph.D. University of Arizona, 1975, Language-based models for architecture, silicon compilation, design verification, automatic test generation. 
+Subbarao Kambhampati, Professor, Ph.D. University of Maryland, 1989, Artificial intelligence, automated planning, machine learning. 
+William E. Lewis, Professor and Vice Provost for Information Technology, Ph.D. Northwestern University, 1966, Analytical modelling, information systems. 
+Huan Liu, Associate Professor, Ph.D. University of Southern Califonia, 1989, Data mining, Data warehousing, artificial intelligence, machine learning. 
+Donald S. Miller, Associate Professor, Ph.D. University of Southern California, 1972, Address space operating systems, distributed and multiprocessor operating systems, computer architecture, local area networks. 
+Faye Navabi, Lecturer, M.S. University of Southwestern Louisiana, 1991. 
+Gregory M. Nielson, Professor, Ph.D. University of Utah, 1970, Interactive design of curves and surfaces, multivariate data fitting, computer-aided geometric design, computer graphics, visualization of scientific computing. 
+Pearse O'Grady, Associate Professor and Associate Chair for Undergraduate Programs, Ph.D. University of Arizona, 1969, Parallel processing, computer architecture, continuous system simulation. 
+Sethuraman Panchanathan, Associate Professor, Ph.D. University of Ottawa, 1989, Multimedia computing and communications, multimedia hardware architectures, VLSI architectures for real-time video processing, indexing / storage / browsing / retrieval of image and video.
+David C. Pheanis, Associate Professor, Ph.D. Arizona State University, 1974, Software/hardware interface in embedded microprocessor system, real-time system. 
+Andrea W. Richa, Assistant Professor, Ph.D. Carnegie Mellon University, 1998, Design and analysis of algorithms, algorithms for distributed networks, graph algorithms, approximation algorithms, combinatorial optimization, distributed network architectures, parallel computation. 
+Arunabha Sen, Associate Professor, Ph.D. University of Southern Carolina, 1987, Parallel computing, computer interconnection networks, combinatorial optimization. 
+Wei-Tek Tsai, Professor, Ph.D. University of California, Berkeley, 1986. Software engineering, internet, parallel and distributed processing. 
+Joseph E. Urban, Professor, Ph.D. University of Southwestern Louisiana, 1977, CASE, computer languages, data engineering, distributed computing, executable specification languages, software prototyping. 
+Susan D. Urban, Associate Professor, Ph.D. University of Southwestern Louisiana, 1987, Active database systems, heterogeneous database systems, object-oriented database systems. 
+Michael G. Wagner, Assistant Professor, Ph.D. Technical University of Vienna, 1994, Computer-aided geometric design, geometric modeling and processing, computer animation, theoretical kinematics, robotics and robot dynamics. 
+Richard Whitehouse, Lecturer, M.S. University of Tennessee, 1985. 
+Marvin C. Woodfill, Professor Emeritus, Ph.D. Iowa State University, 1964, Digital logic, microcomputers. 
+Goran Konjevod, Assistant Professor, Ph.D. Carnegie Mellon University, 2000, Design and analysis of algorithms, combinatorial optimization, graph theory, discrete mathematics. 
+Yann-Hang Lee, Professor, PhD. University of Michigan, Ann Arbor,1985, Real-time systems, computer communication, computer architecture, fault-tolerant computing, distributed/parallel systems, and performance evaluation.
+Sandeep K S Gupta, Associate Professor, Ph.D. Ohio State University,1995, Mobile computing, compilers, parallel computing, parallel I/O. 

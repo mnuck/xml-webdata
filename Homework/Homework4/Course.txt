@@ -1,0 +1,119 @@
+100 Introduction to Computer Science I. (3)
+Concepts of problem solving, algorithm design, structured programming, fundamental algorithms and techniques, and computer systems concepts. Prerequisite: MAT 170. Instructor: J. DELIBERO.
+
+110 Principles of Programming with Java. (3)
+Concepts of problem solving using Java, algorithm design, structured programming, fundamental algorithms and techniques, and computer systems concepts. Prerequisite: MAT 170. Instructor: N. TADAYON.
+
+120 Digital Design Fundamentals. (3)
+Number systems, conversion methods, binary and complement arithmetic, boolean and switching algebra, circuit minimization. ROMs, PLAs, flipflops, synchronous sequential circuits, and register transfer design. Lecture, lab. Prerequisite: Computer Literacy. Instructor: W. HIGGINS. 
+
+180 Computer Literacy. (3)
+Introduction to general problem-solving approaches using widely available software tools such as database packages, word processors, spreadsheets, and report generators. Instructor: C. RIDEN.
+
+181 Applied Problem Solving with Visual BASIC. (3)
+Introduction to systematic definition of problems, solution formulation, and method validation. Computer solution using Visual BASIC required for projects. Prerequisite: MAT 117. Instructor: N. TADAYON.
+
+185 Internet and the World Wide Web. (3)
+Fundamental Internet concepts. World Wide Web browsing, searching, publishing, advanced Internet productivity tools. 
+
+200 Concepts of Computer Science. (3)
+Overview of algorithms, architecture, languages, computer systems, theory. Problem solving by programming with a high-level language (Java or another) . Prerequisites: CSE 100 or CSE 110. Instrcutor: H. LIU.
+
+210 Object-Oriented Design and Data Structures(3)
+Object Oriented Design, Static and Dynamic Data Structures (Strings, Stacks, Queues, Binary Trees), Recursion, Searching and Sorting, Professional Responsibility. Prerequisite : CSE 200. Instructor: S. AHAMED.
+
+225 Assembly Language Programming (Motorola). (4)
+Assembly language programming, register level computer organization, data structure and addressing modes, assemblers, and linkers. Prerequisite: CSE 100 or CSE 200. Instructor: L. JOHNSON.
+
+226 Assembly Language Programming (Intel). (4)
+Assembly language programming, register level computer organization, data structure and addressing modes, assemblers, and linkers.  Prerequisite: CSE 100 or CSE 200. Instructor: W. HIGGINS.
+
+240 Introduction to Programming Languages. (3)
+Introduction to the procedural (Ada), applicative (LISP) and declarative (Prolog) languages. Prerequisites: CSE 210. Instructor: R. WHITEHOUSE.
+
+310 Data Structures and Algorithms. (3)
+Advanced data structures and algorithms, including stacks, queues, trees (B, B+, AVL), and graphs, Searching for graphs, hashing and external sorting. Prerequiste: CSE 210 or MAT 243. Instructor: B. GANNOD.
+
+330 Computer Organization and Architecture. (3)
+Instruction set architecture, processor performance and design, datapath, control (hardwired, microprogrammed), pipelining, input/output, Memory organization with cache, virtual memory. Prerequisite: CSE 225 or CSE 226. Instructor: E. O'GRADY.
+
+340 Principles of Programming Languages. (3)
+Introduction to language design and implementation, Parallel, machine dependent and declarative language features, type theory, specification, recognition, translation, run-time management. Prerequisites: CSE 240, CSE 310, CSE 225 or CSE226. Instructor: L. FALTZ.
+
+355 Introduction to Theoretical Computer Science. (3)
+Introduction to formal language theory and automata, Turing machines, decidability/undecidability, recursive function theory, and introduction to complexity theory. Prerequisite: CSE 310. Instructor: A. SEN.
+
+360 Introduction to Software Engineering. (3)
+Software life cycle models, Project management, team development, environments and methodologies, software architectures, quality assurance and standards, legal, ethical issues. Prerequisite: CSE 240 and CSE 210. Instructor: J. COLLOFELLO.
+
+408 Multimedia Information Systems. (3)
+Design, use, and applications of multimedia systems, An introduction to acquisition, compression, storage, retrieval, and presentation of data from different media such as images, text, voice, and alphanumeric. Prerequisite: CSE 310. Instructor: F. GOLSHANI.
+
+412 Database Management. (3)
+Introduction to DBMS concepts, Data models and languages, Relational database theory, Database security/ integrity and concurrency. Prerequisite: CSE 310. Instructor: K. CANDAN.
+
+420 Computer Architecture I. (3)
+Computer architecture, Performance versus cost trade-offs, Instruction set design, Basic processor implementation and pipelining. Prerequisite: CSE 330. 
+
+421 Microprocessor System Design I. (4)
+Assembly-language programming and logical hardware design of systems using 8-bit microprocessors and micro-controllers, Fundamental concepts of digital system design, Reliability and social, legal implications. Prerequisite: CSE 225. Instructor: D. PHEANIS.
+
+422 Microprocessor System Design II. (4)
+Design of microcomputer systems using contemporary logic and microcomputer system components, Requires assembly language programming. Prerequisite: CSE 421. 
+
+423 Microcomputer System Hardware. (3)
+Information and techniques presented in CSE 422 are used to develop the hardware design of a microprocessor, multiprogramming, microprocessor-based system. Prerequisite: CSE 422. 
+
+428 Computer-Aided Processes. (3)
+Hardware and software considerations for computerized manufacturing systems, Specific concentration on automatic inspection, numerical control, robotics, and integrated manufacturing systems. Prerequisite: CSE 330. 
+
+430 Operating Systems. (3)
+Operating system structure and services, processor scheduling, concurrent processes, synchronization techniques, memory management, virtual memory, input/output, storage management, file systems. Prerequisites: CSE 330 and CSE 340. Instructor: D. MILLER.
+
+434 Computer Networks. (3)
+Physical layer basics, network protocol algorithms, error handling, flow control, multihop routing, network reliability, timing, security, data compression, cryptography fundamentals. Prerequisite: CSE 330. Instructor: S. GUPTA.
+
+438 Systems Programming. (3)
+Design and implementtion of systems programs, including text editors, file utilities, monitors, assemblers, relocating linking loaders, I/O handlers, schedulers, etc. Prerequisite: CSE 421. Instructor: D. PHEANIS.
+
+440 Compiler Construction I. (3)
+Introduction to programming language implementation, Implementation strategies such as compilation, interpretation, and translation, Major compilation phases such as lexical analysis, semantic analysis, optimization, and code generation. Prerequisites: CSE 340 and CSE355. Instructor: R. BAZZI.
+
+445/598 Distributed Computing with Java and CORBA .(3)
+Frameworks for distributed software components, Foundations of client-server computing and architectures for distributed object systems, Dynamic discovery and invocation. Prerequisites: CSE 360. Instructor: W. TSAI.
+
+446/598 Client-Server User Interfaces.(3)
+S, Client-server model for creating window interfaces, Toolkits and libraries such as X11, Microsoft Foundation Classes and Java Abstract Window Toolkit. Prerequisites: CSE 310. Instructor: P. REINERT.
+
+450 Design and Analysis of Algorithms. (3)
+Design and analysis of computer algorithms using analytical and empirical methods,complexity measures, design methodologies, and survey of important algorithms. Prerequisite: CSE 310. Instructor: G. KONJEVOD.
+
+457 Theory of Formal Languages. (3)
+Theory of grammar, methods of syntactic analysis and specification, types of artificial languages, relationship between formal languages, and automata. Prerequisite: CSE 355. 
+
+459 Logic for Computing Scientist I. (3)
+Propositional logic, syntax and semantics, proof theory vs. model theory, soundness, consistency and completeness, first order logic, logical theories, automated theorem proving, ground resolution, pattern matching unification and resolution, Dijkstras logic, proof obligations, and program proving. Prerequisite: CSE 355. 
+
+460 Software Engineering. (3)
+Software engineering foundations, formal representations in the software process, use of formalisms in creating a measured and structured working environment. Prerequisite: CSE 360. Instructor: G. GANNOD.
+
+461 Software Engineering Project 1. (3)
+First of 2-course software design sequence, Development planning, management, process modeling, incremental and team development using CASE tools. Prerequisite: CSE 360. Instructor: S. YAU.
+
+462 Software Engineering Project 2. (3)
+Second of 2-course software design sequence, Process, product assessment and improvement, incremental and team development using CASE tools. Prerequisite: CSE 461. Instructor: J. URBAN.
+
+470 Computer Graphics. (3)
+Display devices, data structures, transformation, interactive graphics, 3-dimensional graphics, and hidden line problem. Prerequisites: CSE 310; MAT 342. Instructor: G. NIELSON. 
+
+471 Introduction to Artificial Intelligence. (3)
+State space search, heuristic search, games, knowledge representation techniques, expert systems, and automated reasoning. Prerequisite: CSE 240, 310. Instructor: S. KAMBHAMPATI.
+
+473 Nonprocedural Programming Languages. (3)
+Functional and logic programming using languages like Lucid and Prolog, Typical applications would be a Screen Editor and an Expert System. Prerequisite: CSE 355. 
+
+476 Introduction to Natural Language Processing. (3)
+Principles of computational linguistics, formal syntax, and semantics, as applied to the design of software with natural (human) language I/O. Prerequisite: CSE 310.
+
+477 Introduction to Computer-Aided Geometric Design. (3)
+Introduction to parametric curves and surfaces. Bezier and B-spline interpolation

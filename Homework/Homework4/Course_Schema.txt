@@ -1,0 +1,12 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/10/XMLSchema">
+<xsd:element name = "COURSE INFO" type="CourseInfoType"/>
+
+<xsd:complexType name="CourseInfoType">
+   <xsd:element name="COURSE" type="xsd:string"/>
+   <xsd:element name="CREDIT HOURS" type="xsd:string"/>
+   <xsd:element name="DESCRIPTION" type="xsd:string"/>
+   <xsd:element name="REQUIREMENTS" type="xsd:string"/>
+   <xsd:element name="INSTRUCTOR" type="xsd:string"/>
+</xsd:complexType>
+</xsd:schema>
+   

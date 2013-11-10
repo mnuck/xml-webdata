@@ -1,0 +1,10 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/10/XMLSchema">
+<xsd:element name = "OFFICE HOURS" type="OfficeHoursType"/>
+
+<xsd:complexType name="OfficeHoursType">
+   <xsd:element name="FACULTY" type="xsd:string"/>
+   <xsd:element name="OFFICE" type="xsd:string"/>
+   <xsd:element name="HOURS" type="xsd:string"/>
+</xsd:complexType>
+</xsd:schema>
+   

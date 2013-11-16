@@ -4,7 +4,6 @@
 <xsd:complexType name="FacultyMemberType">
    <xsd:element name="NAME" type="xsd:string"/>
    <xsd:element name="POSITION" type="xsd:string"/>
-   <xsd:element name="DEPARTMENT" type="xsd:string"/>
    <xsd:element name="EDUCATION" type="xsd:string"/>
    <xsd:element name="YEAR" type="xsd:integer"/>
    <xsd:element name="INTERESTS" type="xsd:string"/>

@@ -2,7 +2,11 @@
 <xsd:element name = "FACULTY PHONE RECORD" type="FacultyPhoneType"/>
 
 <xsd:complexType name="FacultyPhoneType">
-   <xsd:element name="FACULTY" type="xsd:string"/>
+   <xsd:complexType name="NAME"/>
+	   <xsd:element name="FIRST" type="xsd:string"/>
+	   <xsd:element name="MIDDLE" type="xsd:string"/>
+	   <xsd:element name="LAST" type="xsd:string"/>
+   </xsd:complexType>	   
    <xsd:element name="OFFICE" type="xsd:string"/>
    <xsd:element name="PHONE" type="xsd:string"/>
    <xsd:element name="EMAIL" type="xsd:string"/>

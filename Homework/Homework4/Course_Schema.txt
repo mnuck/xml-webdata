@@ -6,6 +6,10 @@
    <xsd:element name="CREDIT HOURS" type="xsd:string"/>
    <xsd:element name="DESCRIPTION" type="xsd:string"/>
    <xsd:element name="REQUIREMENTS" type="xsd:string"/>
-   <xsd:element name="INSTRUCTOR" type="xsd:string"/>
+   <xsd:complexType name="INSTRUCTOR"/>
+	   <xsd:element name="FIRST" type="xsd:string"/>
+	   <xsd:element name="MIDDLE" type="xsd:string"/>
+	   <xsd:element name="LAST" type="xsd:string"/>
+   </xsd:complexType>
 </xsd:complexType>
 </xsd:schema>

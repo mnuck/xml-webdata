@@ -2,7 +2,11 @@
 <xsd:element name = "FACULTY MEMBER" type="FacultyMemberType"/>
 
 <xsd:complexType name="FacultyMemberType">
-   <xsd:element name="NAME" type="xsd:string"/>
+   <xsd:complexType name="NAME"/>
+	   <xsd:element name="FIRST" type="xsd:string"/>
+	   <xsd:element name="MIDDLE" type="xsd:string"/>
+	   <xsd:element name="LAST" type="xsd:string"/>
+   </xsd:complexType>	   
    <xsd:element name="POSITION" type="xsd:string"/>
    <xsd:element name="EDUCATION" type="xsd:string"/>
    <xsd:element name="YEAR" type="xsd:integer"/>

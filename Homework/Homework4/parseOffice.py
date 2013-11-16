@@ -28,6 +28,14 @@ with open(output_filename, 'w') as f:
 				(name, office) = match.groups()
 			hours = ''
 			(name, office) = match.groups()
+			# some names are two words, some names are three
+			some_names = name.split(' ')
+			if len(some_names) == 2:
+				firstname = some_names[0]
+				lastname = some_names[1]
+				middlename = None
+			elif len(some_names) == 3:
+				(firstname, middlename, lastname) = some_names
 		else:
 			if row != '':
 				hours += row + '\n'
@@ -35,8 +43,16 @@ with open(output_filename, 'w') as f:
 				gathering_hours = False
 				hours = hours.strip()
 				root_e = Element("OFFICE HOURS")
-				name_e = SubElement(root_e, "FACULTY")
-				name_e.text = name
+				name_e = SubElement(root_e, "NAME")
+				if firstname is not None:
+					first_e = SubElement(name_e, "FIRST")
+					first_e.text = firstname
+				if middlename is not None:
+					middle_e = SubElement(name_e, "MIDDLE")
+					middle_e.text = middlename
+				if lastname is not None:
+					last_e = SubElement(name_e, "LAST")
+					last_e.text = lastname
 				office_e = SubElement(root_e, "OFFICE")
 				office_e.text = office
 				hours_e = SubElement(root_e, "HOURS")

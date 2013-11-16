@@ -40,6 +40,20 @@ with open(output_filename, 'w') as f:
 			instructor_to_strip = instructor_match.group(0)
 			second_line = second_line.replace(instructor_to_strip, '')
 			instructor = instructor_match.group(1)
+
+			# some names are two words, some names are three
+			some_names = instructor.split(' ')
+			if len(some_names) == 1:
+				firstname = None
+				middlename = None
+				lastname = some_names[0]
+			elif len(some_names) == 2:
+				firstname = some_names[0]
+				lastname = some_names[1]
+				middlename = None
+			elif len(some_names) == 3:
+				(firstname, middlename, lastname) = some_names
+
 		description = second_line
 
 		root_e = Element("COURSE INFO")
@@ -54,6 +68,14 @@ with open(output_filename, 'w') as f:
 			prereqs_e.text = prereqs
 		if instructor_match is not None:
 			instructor_e = SubElement(root_e, "INSTRUCTOR")
-			instructor_e.text = instructor
+			if firstname is not None:
+				first_e = SubElement(instructor_e, "FIRST")
+				first_e.text = firstname
+			if middlename is not None:
+				middle_e = SubElement(instructor_e, "MIDDLE")
+				middle_e.text = middlename
+			if lastname is not None:
+				last_e = SubElement(instructor_e, "LAST")
+				last_e.text = lastname
 		element = ET(root_e)
 		element.write(f)

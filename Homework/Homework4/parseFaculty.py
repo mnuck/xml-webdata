@@ -18,6 +18,16 @@ with open(output_filename, 'w') as f:
 		record = [x.strip() for x in record]
 		record[-1] = record[-1][:-1] # strip trailing period
 		name = record[0]
+
+		# some names are two words, some names are three
+		some_names = name.split(' ')
+		if len(some_names) == 2:
+			firstname = some_names[0]
+			lastname = some_names[1]
+			middlename = None
+		elif len(some_names) == 3:
+			(firstname, middlename, lastname) = some_names
+
 		position = record[1]
 
 		# Some universities have a comma in their name,
@@ -34,7 +44,13 @@ with open(output_filename, 'w') as f:
 			interests = ", ".join(record[index_of_year + 1:])
 		root_e = Element("FACULTY MEMBER")
 		name_e = SubElement(root_e, "NAME")
-		name_e.text = name
+		first_e = SubElement(name_e, "FIRST")
+		first_e.text = firstname
+		if middlename is not None:
+			middle_e = SubElement(name_e, "MIDDLE")
+			middle_e.text = middlename
+		last_e = SubElement(name_e, "LAST")
+		last_e.text = lastname
 		position_e = SubElement(root_e, "POSITION")
 		position_e.text = position
 		education_e = SubElement(root_e, "EDUCATION")

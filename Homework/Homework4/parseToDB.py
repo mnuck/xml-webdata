@@ -19,6 +19,20 @@ def parseFaculty():
         record = [x.strip() for x in record]
         record[-1] = record[-1][:-1] # strip trailing period
         result['NAME'] = record[0]
+
+        # some names are two words, some names are three
+        some_names = result['NAME'].split(' ')
+        if len(some_names) == 2:
+            firstname = some_names[0]
+            lastname = some_names[1]
+            middlename = None
+        elif len(some_names) == 3:
+            (firstname, middlename, lastname) = some_names
+
+        result['FIRSTNAME'] = firstname
+        result['MIDDLENAME'] = middlename
+        result['LASTNAME'] = lastname
+
         result['POSITION'] = record[1]
 
         # Some universities have a comma in their name,
@@ -66,11 +80,31 @@ def parseCourse():
             prereq_to_strip = prereq_match.group(0)
             second_line = second_line.replace(prereq_to_strip, '')
             result['REQUIREMENTS'] = prereq_match.group(1)
+        else:
+            result['REQUIREMENTS'] = None
         instructor_match = re.search(instructor_re, second_line)
+        (result['FIRSTNAME'], result['MIDDLENAME'], result['LASTNAME']) = \
+         (None, None, None)
         if instructor_match is not None:
             instructor_to_strip = instructor_match.group(0)
             second_line = second_line.replace(instructor_to_strip, '')
-            result['INSTRUCTOR'] = instructor_match.group(1)
+            instructor = instructor_match.group(1)
+                        # some names are two words, some names are three
+            some_names = instructor.split(' ')
+            if len(some_names) == 1:
+                result['FIRSTNAME'] = None
+                result['MIDDLENAME'] = None
+                result['LASTNAME'] = some_names[0]
+            elif len(some_names) == 2:
+                result['FIRSTNAME'] = some_names[0]
+                result['LASTNAME'] = some_names[1]
+                result['MIDDLENAME'] = None
+            elif len(some_names) == 3:
+                (firstname, middlename, lastname) = some_names
+                result['FIRSTNAME'] = firstname
+                result['MIDDLENAME'] = middlename
+                result['LASTNAME'] = lastname
+
         result['DESCRIPTION'] = second_line
         commit_course_row(result)
 
@@ -92,8 +126,20 @@ def parsePhone():
         match = re.match(matcher, row)
         if match is not None:
             (name, office, phone, email) = re.search(matcher, row).groups()
-            result = {'FACULTY':name, 'OFFICE':office,
-                      'PHONE':phone, 'EMAIL':email}
+            firstname = None
+            middlename = None
+            lastname = None
+            some_names = name.split(' ')
+            if len(some_names) == 2:
+                firstname = some_names[1]
+                lastname = some_names[0][:-1]
+                middlename = None
+            elif len(some_names) == 3:
+                (firstname, middlename, lastname) = some_names
+                lastname = lastname[:-1]
+
+            result = {'FIRSTNAME':firstname, 'MIDDLENAME':middlename, 'LASTNAME':lastname,
+                      'OFFICE':office, 'PHONE':phone, 'EMAIL':email}
             commit_phone_row(result)
 
 
@@ -119,74 +165,88 @@ def parseOffice():
                 (name, office) = match.groups()
             hours = ''
             (name, office) = match.groups()
+            # some names are two words, some names are three
+            firstname = None
+            middlename = None
+            lastname = None
+            some_names = name.split(' ')
+            if len(some_names) == 2:
+                firstname = some_names[0]
+                lastname = some_names[1]
+                middlename = None
+            elif len(some_names) == 3:
+                (firstname, middlename, lastname) = some_names
+
         else:
             if row != '':
                 hours += row + '\n'
             else:
                 gathering_hours = False
-                hours = int(hours.strip())
-                result = {'FACULTY':name, 'OFFICE':office, 'HOURS':hours}
+                hours = hours.strip()
+                result = {'FIRSTNAME':firstname, 'MIDDLENAME':middlename, 
+                          'LASTNAME':lastname, 'OFFICE':office, 'HOURS':hours}
                 commit_office_row(result)
 
 
 def commit_faculty_row(row):
-    payload = [row['NAME'], row['POSITION'],
-               row['EDUCATION'], row['YEAR']]
+    payload = [row['FIRSTNAME'], row['MIDDLENAME'], row['LASTNAME'],
+               row['POSITION'], row['EDUCATION'], row['YEAR']]
     if 'INTERESTS' in row:
         payload.append(row['INTERESTS'])
     else:
         payload.append(None);
     payload = tuple(payload)
     c = conn.cursor()
-    c.execute("INSERT INTO Faculty VALUES (?,?,?,?,?)", payload)
+    c.execute("INSERT INTO Faculty VALUES (?,?,?,?,?,?,?)", payload)
     conn.commit()
 
 
 def commit_course_row(row):
-    payload = [row['COURSE'], row['CREDIT HOURS'], row['DESCRIPTION']]
-    if 'REQUIREMENTS' in row:
-        payload.append(row['REQUIREMENTS'])
-    else:
-        payload.append(None);
-    if 'INSTRUCTOR' in row:
-        payload.append(row['INSTRUCTOR'])
-    else:
-        payload.append(None);        
+    payload = [row['COURSE'], row['CREDIT HOURS'], row['DESCRIPTION'],
+               row['REQUIREMENTS'], row['FIRSTNAME'], row['MIDDLENAME'],
+               row['LASTNAME']]
     payload = tuple(payload)
     c = conn.cursor()
-    c.execute("INSERT INTO Faculty VALUES (?,?,?,?,?)", payload)
+    c.execute("INSERT INTO Course VALUES (?,?,?,?,?,?,?)", payload)
     conn.commit()
 
 
 def commit_phone_row(row):
-    payload = [row['FACULTY'], row['OFFICE'],
-               row['PHONE'], row['EMAIL']]
+    payload = [row['FIRSTNAME'], row['MIDDLENAME'], row['LASTNAME'],
+               row['OFFICE'], row['PHONE'], row['EMAIL']]
     payload = tuple(payload)
     c = conn.cursor()
-    c.execute("INSERT INTO Phone VALUES (?,?,?,?)", payload)
+    c.execute("INSERT INTO Phone VALUES (?,?,?,?,?,?)", payload)
     conn.commit()
 
 
 def commit_office_row(row):
-    payload = [row['FACULTY'], row['OFFICE'], row['HOURS']]
+    payload = [row['FIRSTNAME'], row['MIDDLENAME'], row['LASTNAME'],
+               row['OFFICE'], row['HOURS']]
     payload = tuple(payload)
     c = conn.cursor()
-    c.execute("INSERT INTO Office VALUES (?,?,?)", payload)
+    c.execute("INSERT INTO Office VALUES (?,?,?,?,?)", payload)
     conn.commit()
 
 
 def create_tables():
     OfficeTable = '''CREATE TABLE Office 
-                     (FACULTY text PRIMARY KEY,
+                       (FIRSTNAME text NOT NULL,
+                        MIDDLENAME text,
+                        LASTNAME text NOT NULL,
                       OFFICE text NOT NULL,
                       HOURS text)'''
     PhoneTable  = '''CREATE TABLE Phone
-                     (FACULTY text PRIMARY KEY,
+                       (FIRSTNAME text NOT NULL,
+                        MIDDLENAME text,
+                        LASTNAME text NOT NULL,
                       OFFICE text NOT NULL,
                       PHONE text NOT NULL,
                       EMAIL text NOT NULL)'''
     FacultyTable  = '''CREATE TABLE Faculty
-                       (NAME text PRIMARY KEY,
+                       (FIRSTNAME text NOT NULL,
+                        MIDDLENAME text,
+                        LASTNAME text NOT NULL,
                         POSITION text NOT NULL, 
                         EDUCATION text NOT NULL, 
                         YEAR integer, 
@@ -196,10 +256,39 @@ def create_tables():
                        CREDITHOURS integer NOT NULL,
                        DESCRIPTION text NOT NULL, 
                        REQUIREMENTS text,
-                       INSTRUCTOR text)'''
+                       FIRSTNAME text,
+                       MIDDLENAME text,
+                       LASTNAME text)'''
     c = conn.cursor()
     for table in [OfficeTable, PhoneTable, FacultyTable, CourseTable]:
         c.execute(table)
+    conn.commit()
+
+
+def query1():
+    query = '''SELECT FIRSTNAME, MIDDLENAME, LASTNAME, OFFICE 
+               FROM Office'''
+    with open('query1.out', 'w') as f:
+        for row in conn.execute(query):
+            if row[1] is None:
+                output = "%s %s, %s" % (row[0], row[2], row[3])
+            else:
+                output = "%s %s %s, %s" % row
+            f.write(output + "\n")
+
+
+def query2():
+    query = '''SELECT FIRSTNAME, MIDDLENAME, LASTNAME, OFFICE 
+               FROM Office'''
+    with open('query2.out.html', 'w') as f:
+        for row in conn.execute(query):
+            if row[1] is None:
+                output = "<b>%s %s</b>, <i>%s</i>" % (row[0], row[2], row[3])
+            else:
+                output = "<b>%s %s %s</b>, <i>%s</i>" % row
+            f.write(output + "\n")
+
+
 
 
 def main():
@@ -207,6 +296,10 @@ def main():
     parseFaculty()
     parseCourse()
     parsePhone()
+    parseOffice()
+
+    query1()
+    query2()
 
 
 if __name__ == "__main__":

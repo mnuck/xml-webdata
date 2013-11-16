@@ -9,4 +9,3 @@
    <xsd:element name="INSTRUCTOR" type="xsd:string"/>
 </xsd:complexType>
 </xsd:schema>
-   

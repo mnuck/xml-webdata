@@ -7,4 +7,3 @@
    <xsd:element name="HOURS" type="xsd:string"/>
 </xsd:complexType>
 </xsd:schema>
-   

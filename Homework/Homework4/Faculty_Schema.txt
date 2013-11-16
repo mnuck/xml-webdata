@@ -10,4 +10,3 @@
    <xsd:element name="INTERESTS" type="xsd:string"/>
 </xsd:complexType>
 </xsd:schema>
-   

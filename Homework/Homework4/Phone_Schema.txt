@@ -8,4 +8,3 @@
    <xsd:element name="EMAIL" type="xsd:string"/>
 </xsd:complexType>
 </xsd:schema>
-   

@@ -34,7 +34,7 @@ with open(output_filename, 'w') as f:
 			else:
 				gathering_hours = False
 				hours = hours.strip()
-				root_e = Element("OfficeHoursType")
+				root_e = Element("OFFICE HOURS")
 				name_e = SubElement(root_e, "FACULTY")
 				name_e.text = name
 				office_e = SubElement(root_e, "OFFICE")

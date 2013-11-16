@@ -24,7 +24,7 @@ with open(output_filename, 'w') as f:
 		match = re.match(matcher, row)
 		if match is not None:
 			(name, office, phone, email) = re.search(matcher, row).groups()
-			root_e = Element("FacultyPhoneType")
+			root_e = Element("FACULTY PHONE RECORD")
 			name_e = SubElement(root_e, "FACULTY")
 			name_e.text = name
 			office_e = SubElement(root_e, "OFFICE")

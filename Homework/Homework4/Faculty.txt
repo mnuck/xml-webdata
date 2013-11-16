@@ -27,7 +27,7 @@ Sethuraman Panchanathan, Associate Professor, Ph.D. University of Ottawa, 1989, 
 David C. Pheanis, Associate Professor, Ph.D. Arizona State University, 1974, Software/hardware interface in embedded microprocessor system, real-time system. 
 Andrea W. Richa, Assistant Professor, Ph.D. Carnegie Mellon University, 1998, Design and analysis of algorithms, algorithms for distributed networks, graph algorithms, approximation algorithms, combinatorial optimization, distributed network architectures, parallel computation. 
 Arunabha Sen, Associate Professor, Ph.D. University of Southern Carolina, 1987, Parallel computing, computer interconnection networks, combinatorial optimization. 
-Wei-Tek Tsai, Professor, Ph.D. University of California, Berkeley, 1986. Software engineering, internet, parallel and distributed processing. 
+Wei-Tek Tsai, Professor, Ph.D. University of California, Berkeley, 1986, Software engineering, internet, parallel and distributed processing. 
 Joseph E. Urban, Professor, Ph.D. University of Southwestern Louisiana, 1977, CASE, computer languages, data engineering, distributed computing, executable specification languages, software prototyping. 
 Susan D. Urban, Associate Professor, Ph.D. University of Southwestern Louisiana, 1987, Active database systems, heterogeneous database systems, object-oriented database systems. 
 Michael G. Wagner, Assistant Professor, Ph.D. Technical University of Vienna, 1994, Computer-aided geometric design, geometric modeling and processing, computer animation, theoretical kinematics, robotics and robot dynamics. 

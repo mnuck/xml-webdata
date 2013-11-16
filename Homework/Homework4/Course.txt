@@ -17,9 +17,9 @@ Introduction to systematic definition of problems, solution formulation, and met
 Fundamental Internet concepts. World Wide Web browsing, searching, publishing, advanced Internet productivity tools. 
 
 200 Concepts of Computer Science. (3)
-Overview of algorithms, architecture, languages, computer systems, theory. Problem solving by programming with a high-level language (Java or another) . Prerequisites: CSE 100 or CSE 110. Instrcutor: H. LIU.
+Overview of algorithms, architecture, languages, computer systems, theory. Problem solving by programming with a high-level language (Java or another) . Prerequisites: CSE 100 or CSE 110. Instructor: H. LIU.
 
-210 Object-Oriented Design and Data Structures(3)
+210 Object-Oriented Design and Data Structures. (3)
 Object Oriented Design, Static and Dynamic Data Structures (Strings, Stacks, Queues, Binary Trees), Recursion, Searching and Sorting, Professional Responsibility. Prerequisite : CSE 200. Instructor: S. AHAMED.
 
 225 Assembly Language Programming (Motorola). (4)
@@ -79,10 +79,10 @@ Design and implementtion of systems programs, including text editors, file utili
 440 Compiler Construction I. (3)
 Introduction to programming language implementation, Implementation strategies such as compilation, interpretation, and translation, Major compilation phases such as lexical analysis, semantic analysis, optimization, and code generation. Prerequisites: CSE 340 and CSE355. Instructor: R. BAZZI.
 
-445/598 Distributed Computing with Java and CORBA .(3)
+445/598 Distributed Computing with Java and CORBA. (3)
 Frameworks for distributed software components, Foundations of client-server computing and architectures for distributed object systems, Dynamic discovery and invocation. Prerequisites: CSE 360. Instructor: W. TSAI.
 
-446/598 Client-Server User Interfaces.(3)
+446/598 Client-Server User Interfaces. (3)
 S, Client-server model for creating window interfaces, Toolkits and libraries such as X11, Microsoft Foundation Classes and Java Abstract Window Toolkit. Prerequisites: CSE 310. Instructor: P. REINERT.
 
 450 Design and Analysis of Algorithms. (3)

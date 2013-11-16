@@ -231,22 +231,22 @@ def commit_office_row(row):
 
 def create_tables():
     OfficeTable = '''CREATE TABLE Office 
-                       (FIRSTNAME text NOT NULL,
-                        MIDDLENAME text,
-                        LASTNAME text NOT NULL,
+                     (FIRSTNAME text NOT NULL,
+                      MIDDLENAME text,
+                      LASTNAME text NOT NULL,
                       OFFICE text NOT NULL,
                       HOURS text)'''
     PhoneTable  = '''CREATE TABLE Phone
-                       (FIRSTNAME text NOT NULL,
-                        MIDDLENAME text,
-                        LASTNAME text NOT NULL,
+                     (FIRSTNAME text NOT NULL,
+                      MIDDLENAME text,
+                      LASTNAME text NOT NULL COLLATE NOCASE,
                       OFFICE text NOT NULL,
                       PHONE text NOT NULL,
                       EMAIL text NOT NULL)'''
     FacultyTable  = '''CREATE TABLE Faculty
                        (FIRSTNAME text NOT NULL,
                         MIDDLENAME text,
-                        LASTNAME text NOT NULL,
+                        LASTNAME text NOT NULL COLLATE NOCASE,
                         POSITION text NOT NULL, 
                         EDUCATION text NOT NULL, 
                         YEAR integer, 
@@ -258,7 +258,7 @@ def create_tables():
                        REQUIREMENTS text,
                        FIRSTNAME text,
                        MIDDLENAME text,
-                       LASTNAME text)'''
+                       LASTNAME text COLLATE NOCASE)'''
     c = conn.cursor()
     for table in [OfficeTable, PhoneTable, FacultyTable, CourseTable]:
         c.execute(table)
@@ -283,12 +283,55 @@ def query2():
     with open('query2.out.html', 'w') as f:
         for row in conn.execute(query):
             if row[1] is None:
-                output = "<b>%s %s</b>, <i>%s</i>" % (row[0], row[2], row[3])
+                output = "<b>%s %s</b>, <i>%s</i><br>" % (row[0], row[2], row[3])
             else:
-                output = "<b>%s %s %s</b>, <i>%s</i>" % row
+                output = "<b>%s %s %s</b>, <i>%s</i><br>" % row
             f.write(output + "\n")
 
 
+def query3():
+    with open('query3.out', 'w') as f:
+        query = """SELECT f.FIRSTNAME, f.LASTNAME, p.EMAIL, f.INTERESTS
+                   FROM Faculty AS f, Phone AS p 
+                   ON f.FIRSTNAME = p.FIRSTNAME AND f.LASTNAME = p.LASTNAME
+                   WHERE f.POSITION = 'Assistant Professor' AND f.YEAR > 1990"""
+        for row in conn.execute(query):
+            output = "%s %s, %s\n%s\n\n" % row
+            f.write(output)
+
+
+def query4():
+    with open('query4.out', 'w') as f:
+        query = """SELECT f.FIRSTNAME, f.LASTNAME, f.POSITION, 
+                          f.INTERESTS, c.COURSE
+                   FROM Faculty AS f, Course AS c
+                   ON  f.LASTNAME = c.LASTNAME
+                   WHERE f.INTERESTS LIKE '%artificial intelligence%' 
+                      OR f.INTERESTS LIKE '%databases%'"""
+        for row in conn.execute(query):
+            output = "%s %s, %s, %s\n%s\n\n" % row
+            f.write(output)
+
+def query5():
+    # Profs who do office hours by appointment
+    with open('query5.out', 'w') as f:
+        query = """SELECT f.FIRSTNAME, f.LASTNAME
+                   FROM Faculty AS f, Office AS o
+                   ON f.LASTNAME = o.LASTNAME
+                   WHERE o.HOURS LIKE '%by appointment%'"""
+        for row in conn.execute(query):
+            output = "%s %s\n" % row
+            f.write(output)
+
+def query6():
+    # Phone numbers of profs who teach classes
+    with open('query6.out', 'w') as f:
+        query = """SELECT DISTINCT p.FIRSTNAME, p.PHONE
+                   FROM Phone as p, Course as c
+                   ON p.LASTNAME = c.LASTNAME"""
+        for row in conn.execute(query):
+            output = "%s %s\n" % row
+            f.write(output)
 
 
 def main():
@@ -300,6 +343,10 @@ def main():
 
     query1()
     query2()
+    query3()
+    query4()
+    query5()
+    query6()
 
 
 if __name__ == "__main__":

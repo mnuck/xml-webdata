@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+#
+# Homework 4
+# Thomas Guenther
+# Matthew Nuckolls
+# Aaron Powers
 
 import sys
 sys.path.insert(0, '/home/mnuck/zorba-2.9.1/build/dist/share/python')

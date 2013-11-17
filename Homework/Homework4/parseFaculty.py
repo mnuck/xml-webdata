@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+#
+# Homework 4
+# Thomas Guenther
+# Matthew Nuckolls
+# Aaron Powers
 
 import re
 from xml.etree.ElementTree import ElementTree as ET

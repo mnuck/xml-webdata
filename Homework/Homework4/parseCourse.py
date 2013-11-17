@@ -24,6 +24,8 @@ prereq_re = r"Prerequisite: (.*?)\."
 instructor_re = r"Instructor: (.*?)\.$"
 first_matcher = " ".join([name_re, hours_re])
 with open(output_filename, 'w') as f:
+	topmost_e = Element("CATALOG")
+	tree = ET(topmost_e)
 	for record in records:
 		first_line = record[0]
 		second_line = record[1]
@@ -56,10 +58,10 @@ with open(output_filename, 'w') as f:
 
 		description = second_line
 
-		root_e = Element("COURSE INFO")
+		root_e = SubElement(topmost_e, "COURSE_INFO")
 		name_e = SubElement(root_e, "COURSE")
 		name_e.text = name
-		credits_e = SubElement(root_e, "CREDIT HOURS")
+		credits_e = SubElement(root_e, "CREDIT_HOURS")
 		credits_e.text = hours
 		description_e = SubElement(root_e, "DESCRIPTION")
 		description_e.text = description
@@ -77,5 +79,4 @@ with open(output_filename, 'w') as f:
 			if lastname is not None:
 				last_e = SubElement(instructor_e, "LAST")
 				last_e.text = lastname
-		element = ET(root_e)
-		element.write(f)
+	tree.write(f)

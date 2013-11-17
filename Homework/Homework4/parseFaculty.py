@@ -13,6 +13,8 @@ with open(input_filename, 'r') as f:
 raw_data = [x.strip() for x in raw_data]  # strip newlines
 
 with open(output_filename, 'w') as f:
+	topmost_e = Element("FACULTY")
+	tree = ET(topmost_e)	
 	for row in raw_data:
 		record = row.split(',')
 		record = [x.strip() for x in record]
@@ -42,7 +44,7 @@ with open(output_filename, 'w') as f:
 		year = record[index_of_year]
 		if index_of_year != len(record) - 1:
 			interests = ", ".join(record[index_of_year + 1:])
-		root_e = Element("FACULTY MEMBER")
+		root_e = SubElement(topmost_e, "FACULTY_MEMBER")
 		name_e = SubElement(root_e, "NAME")
 		first_e = SubElement(name_e, "FIRST")
 		first_e.text = firstname
@@ -60,5 +62,4 @@ with open(output_filename, 'w') as f:
 		if index_of_year != len(record) - 1:
 			interests_e = SubElement(root_e, "INTERESTS")
 			interests_e.text = interests
-		element = ET(root_e)
-		element.write(f)
+	tree.write(f)

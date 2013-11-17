@@ -20,6 +20,8 @@ email_re = r"([\w\.@]+)$"
 matcher = " ".join([name_re, office_re, phone_re, email_re]) 
 
 with open(output_filename, 'w') as f:
+	topmost_e = Element("PHONEBOOK")
+	tree = ET(topmost_e)
 	for row in raw_data:
 		match = re.match(matcher, row)
 		if match is not None:
@@ -37,7 +39,7 @@ with open(output_filename, 'w') as f:
 				lastname = lastname[:-1]
 
 
-			root_e = Element("FACULTY PHONE RECORD")
+			root_e = SubElement(topmost_e, "PHONE")
 			name_e = SubElement(root_e, "NAME")
 			if firstname is not None:
 				first_e = SubElement(name_e, "FIRST")
@@ -54,5 +56,4 @@ with open(output_filename, 'w') as f:
 			phone_e.text = phone
 			email_e = SubElement(root_e, "EMAIL")
 			email_e.text = email
-			element = ET(root_e)
-			element.write(f)
+	tree.write(f)

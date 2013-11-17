@@ -20,6 +20,8 @@ matcher = " ".join([name_re, office_re])
 gathering_hours = False
 hours = ""
 with open(output_filename, 'w') as f:
+	topmost_e = Element("PHONEBOOK")
+	tree = ET(topmost_e)
 	for row in raw_data:
 		if not gathering_hours:
 			gathering_hours = True
@@ -42,7 +44,7 @@ with open(output_filename, 'w') as f:
 			else:
 				gathering_hours = False
 				hours = hours.strip()
-				root_e = Element("OFFICE HOURS")
+				root_e = SubElement(topmost_e, "OFFICE_HOURS")
 				name_e = SubElement(root_e, "NAME")
 				if firstname is not None:
 					first_e = SubElement(name_e, "FIRST")
@@ -57,5 +59,4 @@ with open(output_filename, 'w') as f:
 				office_e.text = office
 				hours_e = SubElement(root_e, "HOURS")
 				hours_e.text = hours
-				element = ET(root_e)
-				element.write(f)
+	tree.write(f)

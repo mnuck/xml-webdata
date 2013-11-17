@@ -1,5 +1,5 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/10/XMLSchema">
-<xsd:element name = "OFFICE HOURS" type="OfficeHoursType"/>
+<xsd:element name = "OFFICEHOURS" type="OfficeHoursType"/>
 
 <xsd:complexType name="OfficeHoursType">
    <xsd:complexType name="NAME"/>

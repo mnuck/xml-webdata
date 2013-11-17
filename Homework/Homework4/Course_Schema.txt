@@ -1,5 +1,5 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/10/XMLSchema">
-<xsd:element name = "COURSE INFO" type="CourseInfoType"/>
+<xsd:element name = "COURSE_INFO" type="CourseInfoType"/>
 
 <xsd:complexType name="CourseInfoType">
    <xsd:element name="COURSE" type="xsd:string"/>

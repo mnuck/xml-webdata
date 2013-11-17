@@ -20,7 +20,7 @@ matcher = " ".join([name_re, office_re])
 gathering_hours = False
 hours = ""
 with open(output_filename, 'w') as f:
-	topmost_e = Element("PHONEBOOK")
+	topmost_e = Element("OFFICE_HOURS_LISTING")
 	tree = ET(topmost_e)
 	for row in raw_data:
 		if not gathering_hours:

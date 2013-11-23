@@ -31,7 +31,8 @@ class RootPage(Resource):
 
    def render_GET(self, request):
       # TODO: Display published documents
-      return ''.join(self.content);
+      render = self.buildDynamicContent();
+      return ''.join(render);
 
    def getChild(self, name, request):
       child = self;
@@ -45,4 +46,20 @@ class RootPage(Resource):
    def render_POST(self, request):
       rt = 'oops, invalid post data in root_page.'
       return rt;
+   
+   def buildDynamicContent(self):
+      render = [];
+      for line in self.content:
+         if '<!--USER_PUB_DOCS-->' in line:
+            userDocs = self.secDb.GetDocsForUser(self.avatarId);
+            for doc in userDocs:
+               try:
+                  topic = self.xmlDb.GetTopicForDocId(doc[0]);
+                  for t in topic[0]:
+                     render.append(str(t) + '<br>\n');
+               except KeyError:
+                  pass;
+         else:
+            render.append(line);
+      return render;
    

@@ -20,6 +20,18 @@ class PublisherDatabase(object):
       except sqlite3.IntegrityError:
          pass;
 
+   def GetAllDocIds(self):
+      qstring = 'SELECT doc_id FROM Documents;'
+      self.cur.execute(qstring);
+      rows = self.cur.fetchall();
+      return rows;
+   
+   def GetTopicForDocId(self, doc):
+      qstring = 'SELECT topic FROM Documents WHERE doc_id=\"' + doc + '\"';
+      self.cur.execute(qstring)
+      rows = self.cur.fetchall()
+      return rows;
+
    def GetDocuments(self, topic):
       #TODO: need to verify users access level and only return docs
       #      they are allowed to access, likely another layer in between to handle this

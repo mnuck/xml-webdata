@@ -20,3 +20,15 @@ class SecurityDatabase(object):
       self.cur.execute(qstring)
       rows = self.cur.fetchall()
       return rows; 
+   
+   def GetDocsForUser(self, user):
+      qstring = 'SELECT doc_id FROM Authorizations WHERE user_id=\"' + user + '\"';
+      self.cur.execute(qstring)
+      rows = self.cur.fetchall()
+      return rows;
+   
+   def GetAuthUsers(self, doc):
+      qstring = 'SELECT user_id FROM Authorizations WHERE doc_id=\"' + doc + '\"';
+      self.cur.execute(qstring)
+      rows = self.cur.fetchall()
+      return rows;

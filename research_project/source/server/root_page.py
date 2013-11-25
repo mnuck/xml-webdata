@@ -1,6 +1,7 @@
 from twisted.web.resource import Resource
 
 from publisher.pub_page import PublisherPage
+from publisher.pub_docs import PubDocs
 from subscriber.sub_page import SubscribePage
 
 posted = '''
@@ -18,8 +19,10 @@ class RootPage(Resource):
    def __init__(self, xmlDb, secDb, authorizedUsers, avatarId):
       Resource.__init__(self);
       
-      self.children = { 'pub': PublisherPage(self),
-                        'sub': SubscribePage(self) };      
+      self.children = { 'pub'      : PublisherPage(self),
+                        'sub'      : SubscribePage(self),
+                        'pub_docs' : PubDocs(self)
+                      };      
       self.xmlDb = xmlDb;
       self.secDb = secDb;
       self.authorizedUsers = authorizedUsers;
@@ -48,18 +51,6 @@ class RootPage(Resource):
       return rt;
    
    def buildDynamicContent(self):
-      render = [];
-      for line in self.content:
-         if '<!--USER_PUB_DOCS-->' in line:
-            userDocs = self.secDb.GetDocsForUser(self.avatarId);
-            for doc in userDocs:
-               try:
-                  topic = self.xmlDb.GetTopicForDocId(doc[0]);
-                  for t in topic[0]:
-                     render.append(str(t) + '<br>\n');
-               except KeyError:
-                  pass;
-         else:
-            render.append(line);
+      render = self.content;
       return render;
    

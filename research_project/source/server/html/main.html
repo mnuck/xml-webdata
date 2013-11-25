@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html><head>
-  
+<html>
+<head>
   <style>
 <style type="text/css">
 a:link { COLOR: #FFFFFF; }
@@ -12,8 +12,44 @@ a:active { COLOR: #00CC00; }
   <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
   <title>CS437Project</title>
 
+<script language="JavaScript">
+   function loadXMLDoc(url,cfunc)
+   {
+      if (window.XMLHttpRequest)
+      {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+      }
+      else
+      {// code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      xmlhttp.onreadystatechange=cfunc;
+      xmlhttp.open("GET",url,true);
+      xmlhttp.send();
+   }
+
+   function getPubDocs()
+   {
+      loadXMLDoc("/pub_docs",function()
+      {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+          document.getElementById("pub_docs").innerHTML=xmlhttp.responseText;
+        }
+      });
+   }
+
+   function doUpdate()
+   {
+      getPubDocs();
+      setTimeout("doUpdate()", 5000);
+   }
+
+   setTimeout("doUpdate()", 5000);
+</script>
   
-</head><body>
+</head>
+<body>
 <div id="container" style="width: 800px;">
    <div id="header" style="color: rgb(255, 255, 255); background-color: rgb(0, 66, 0);">
       <h1 style="margin-bottom: 0pt;">CS437 Publisher/Subscriber Portal</h1>
@@ -26,20 +62,25 @@ a:active { COLOR: #00CC00; }
    </div>
    <div id="content" style="color: rgb(0, 0, 0); background-color: rgb(238, 238, 238); height: 400px; width: 700px; float: left;">
       <div style="height: 400px; width: 300px; float: left;">
-      <b>Your published Documents</b><br>
-      <!--USER_PUB_DOCS-->
+      <b>Your Documents</b><br>
+      <span id="pub_docs">
+         <!--USER_PUB_DOCS-->
+      </span>
       </div>
       <div style="height: 400px; width: 300px; float: left;">
       <b>Your Subscriptions</b><br>
+      <div id="sub_docs">
       <!--USER_SUB_DOCS-->
       </div>
+      </div>
       <div id="subs" style="color: rgb(255, 255, 255); background-color: rgb(0, 66, 0); height: 400px; width: 100px; float: left;">
-your subscribed items
+some other list?
       </div>
    </div>
    <div id="footer" style="color: rgb(255, 255, 255); background-color: rgb(0, 66, 0); clear: both; text-align: left;">
 The foooter!
    </div>
 </div>
+</body>
+</html>
 
-</body></html>

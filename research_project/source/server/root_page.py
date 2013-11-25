@@ -33,9 +33,7 @@ class RootPage(Resource):
       self.content = open('html/main.html', 'r').readlines();
 
    def render_GET(self, request):
-      # TODO: Display published documents
-      render = self.buildDynamicContent();
-      return ''.join(render);
+      return ''.join(self.content);
 
    def getChild(self, name, request):
       child = self;
@@ -51,6 +49,7 @@ class RootPage(Resource):
       return rt;
    
    def buildDynamicContent(self):
+      # TODO: Is this needed?  If not, delete!
       render = self.content;
       return render;
    

@@ -21,6 +21,17 @@ class EditorPage(Resource):
 
       script = "document.getElementById('xpath-input').value='" + xpath + "';\n";
       script = script + "document.getElementById('xmlarea').value='" + doc + "';\n";
+      # TODO: Fix new lines in script.  They are ok as long as the line is continued
+      #       with \ and an explict new line, \n, is added.
+      # e.g.
+      # document.getElementById('xmlarea').value="<category>\n\
+      # <item>\n\
+      # this is an item\n\
+      # </item>\n\
+      # </category>\n\
+      # <item>\n\
+      # this is an item\n\
+      # </item>";      
 
       render = [];   
       for line in self.content:

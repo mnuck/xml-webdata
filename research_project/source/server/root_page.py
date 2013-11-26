@@ -3,6 +3,7 @@ from twisted.web.resource import Resource
 from publisher.pub_page import PublisherPage
 from publisher.pub_docs import PubDocs
 from subscriber.sub_page import SubscribePage
+from editor.edit_xml import EditorPage
 
 posted = '''
 <html>
@@ -21,7 +22,8 @@ class RootPage(Resource):
       
       self.children = { 'pub'      : PublisherPage(self),
                         'sub'      : SubscribePage(self),
-                        'pub_docs' : PubDocs(self)
+                        'pub_docs' : PubDocs(self),
+                        'edit_xml' : EditorPage(self)
                       };      
       self.xmlDb = xmlDb;
       self.secDb = secDb;

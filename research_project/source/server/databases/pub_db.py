@@ -45,12 +45,19 @@ class PublisherDatabase(object):
       #get doc matching id and put it in an element tree to perform xpath query
       qstring = 'SELECT doc FROM Documents WHERE doc_id=\"' + doc_id + '\"';
       self.cur.execute(qstring);
-      doc = self.cur.fetchall();
-      root = ET.fromstring(doc);
+      xmlElementStrs = [];
+      try:
+         doc = str(self.cur.fetchall()[0][0]);
+         # root = ET.fromstring(doc);
+         xmlElementStrs = [ET.tostring(elem) for elem in ET.fromstring(doc).findall(xpath)];
+      except:
+         # TODO: Return a nice error to the user...
+         pass;
       #see http://docs.python.org/2/library/xml.etree.elementtree.html#supported-xpath-syntax
       #for supported xpath syntax
       #return a list of all subelements that match the xpath query
-      return root.findall(xpath);
+      rString = ''.join(xmlElementStrs);
+      return rString;
    
    def ReplaceDocument(self, doc_id, topic, url, document):
       data = (id, topic, document);

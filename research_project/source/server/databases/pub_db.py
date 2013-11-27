@@ -59,8 +59,8 @@ class PublisherDatabase(object):
       rString = ''.join(xmlElementStrs);
       return rString;
    
-   def ReplaceDocument(self, doc_id, topic, url, document):
-      data = (id, topic, document);
+   def ReplaceDocument(self, doc_id, topic, document):
+      data = (doc_id, topic, document);
       qstring = 'SELECT doc FROM Documents WHERE doc_id=\"' + doc_id + '\"';
       self.cur.execute(qstring);
       if len(self.cur.fetchall()) > 0:

@@ -71,18 +71,15 @@ class PublisherDatabase(object):
          self.conn.commit();
      
    def UpdateDocument(self, doc_id, xpath, document):
-      #TODO: need to actually perform replacement and use 'write' to get
-      #      a new XML string back to put back into the database
       qstring = 'SELECT doc_id, topic, doc FROM Documents WHERE doc_id=\"' + doc_id + '\"';
       self.cur.execute(qstring);
       doc = self.cur.fetchall();
       
       if len(doc) > 0:
          root = ET.fromstring(doc[0].doc);
-         xpathResults = root.findall(xpath);
 
          #set result found to data provided in new document
-         for result in xpathResults:
+         for result in root.findall(xpath):
             result = document;
             
          qstring = 'DELETE FROM Documents WHERE doc_id=\"' + doc_id + '\"';

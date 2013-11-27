@@ -17,7 +17,7 @@
     <tr>
       <td style="width: 120px;">
       <form method="post" action="./">XPath<br>
-        <input id='xpath-input' name="xpath" style="width: 300px;" value="" type="text">
+        <input id='xpath-input' name="xpath" style="width: 300px;" value="" type="text" readonly>
         <p>XML Data<br>
            <textarea id='xmlarea' name="pub-xml" cols="40" rows="15">
            </textarea>
@@ -25,6 +25,7 @@
         <table>
           <input value="Save" type="submit">
         </table>
+        <input id='doc-id' name='doc' type='hidden'>
       </form>
       </td>
     </tr>

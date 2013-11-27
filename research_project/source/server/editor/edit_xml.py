@@ -10,29 +10,25 @@ class EditorPage(Resource):
       self.content = open('html/edit.html', 'r').readlines();
 
    def render_GET(self, request):
-      # TODO: If self.content is not a list, ditch the ''.join() stuff!
       try:
          doc_id = request.args['doc'][0];
          xpath  = request.args['xpath'][0];
       except KeyError:
          pass;
 
+      # TODO: Check xpath for validity against the security database.
       doc = self.parent.xmlDb.GetPartialDoc(doc_id, xpath);
 
-      script = "document.getElementById('xpath-input').value='" + xpath + "';\n";
-      script = script + "document.getElementById('xmlarea').value='" + doc + "';\n";
-      # TODO: Fix new lines in script.  They are ok as long as the line is continued
-      #       with \ and an explict new line, \n, is added.
-      # e.g.
-      # document.getElementById('xmlarea').value="<category>\n\
-      # <item>\n\
-      # this is an item\n\
-      # </item>\n\
-      # </category>\n\
-      # <item>\n\
-      # this is an item\n\
-      # </item>";      
+      modDoc = '';
+      for c in doc:
+         if c == '\n':
+            modDoc = modDoc + '\\\n'
+         else:
+            modDoc = modDoc + c;
 
+      script = "document.getElementById('xpath-input').value='" + xpath + "';\n";
+      script = script + 'document.getElementById(\'xmlarea\').value=\"' + modDoc + '\";\n';
+ 
       render = [];   
       for line in self.content:
          if '<!--SCRIPT-->' in line:
@@ -44,6 +40,17 @@ class EditorPage(Resource):
    
    def render_POST(self, request):
       rt = 'oops, invalid post data!'
+      if 'xpath' in request.args and 'pub-xml' in request.args and 'doc' in request.args:
+         xpath  = request.args["xpath"][0];
+         pubXml = request.args["pub-xml"][0];
+         doc_id = request.args["doc"][0];
+
+         # self.parent.xmlDb.InsertDocument(doc_id, topic, xmlStr);
+         topic = self.parent.xmlDb.GetTopicForDocId(doc_id)
+         self.parent.xmlDb.ReplaceDocument(doc_id, topic, pubXml);
+         
+         rt = self.parent.postedStr % ('Document successfully posted with id: <b>' + doc_id + '</b>' );
+
       return rt;
    
    def getChild(self, name, request):

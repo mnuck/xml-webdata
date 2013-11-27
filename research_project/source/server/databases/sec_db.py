@@ -32,3 +32,9 @@ class SecurityDatabase(object):
       self.cur.execute(qstring)
       rows = self.cur.fetchall()
       return rows;
+   
+   def GetAuthPath(self, doc_id, user_id):
+      qstring = 'SELECT xpath FROM Authorizations WHERE doc_id=\"' + doc_id + '\" AND user_id=\"' + user_id + '\"';
+      self.cur.execute(qstring)
+      rows = self.cur.fetchall()
+      return rows;      

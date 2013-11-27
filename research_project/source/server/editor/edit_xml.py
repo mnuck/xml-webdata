@@ -28,6 +28,7 @@ class EditorPage(Resource):
 
       script = "document.getElementById('xpath-input').value='" + xpath + "';\n";
       script = script + 'document.getElementById(\'xmlarea\').value=\"' + modDoc + '\";\n';
+      script = script + 'document.getElementById(\'doc-id\').value=\"' + doc_id + '\";\n';
  
       render = [];   
       for line in self.content:

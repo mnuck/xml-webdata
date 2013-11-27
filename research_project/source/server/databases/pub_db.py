@@ -76,15 +76,15 @@ class PublisherDatabase(object):
       doc = self.cur.fetchall();
       
       if len(doc) > 0:
-         root = ET.fromstring(doc[0].doc);
+         root = ET.fromstring(doc[0][2]);
 
          #set result found to data provided in new document
          for result in root.findall(xpath):
-            result = document;
+            result.text = document;
             
          qstring = 'DELETE FROM Documents WHERE doc_id=\"' + doc_id + '\"';
          self.cur.execute(qstring);
-         new_data = (doc[0].doc_id, doc[0].topic, ET.tostring(root, encoding='us-ascii', method='xml' ));
+         new_data = (doc[0][0], doc[0][1], ET.tostring(root, encoding='us-ascii', method='xml' ));
          self.cur.execute("INSERT INTO Documents VALUES (?,?,?)", new_data)
          self.conn.commit();
       else:

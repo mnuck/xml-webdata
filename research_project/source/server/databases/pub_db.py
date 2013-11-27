@@ -48,11 +48,9 @@ class PublisherDatabase(object):
       xmlElementStrs = [];
       try:
          doc = str(self.cur.fetchall()[0][0]);
-         # root = ET.fromstring(doc);
          xmlElementStrs = [ET.tostring(elem) for elem in ET.fromstring(doc).findall(xpath)];
       except:
-         # TODO: Return a nice error to the user...
-         pass;
+         raise;
       #see http://docs.python.org/2/library/xml.etree.elementtree.html#supported-xpath-syntax
       #for supported xpath syntax
       #return a list of all subelements that match the xpath query

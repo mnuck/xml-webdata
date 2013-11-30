@@ -14,6 +14,7 @@ class SubscriberDatabase(object):
          self.conn.commit();
          return (0);
       except sqlite3.IntegrityError:
+         #TODO: add exception handling
          return (-1);
 
    def RemoveSubscription(self, user_id, topic):
@@ -22,6 +23,7 @@ class SubscriberDatabase(object):
          self.cur.execute(qstring)
          topics = self.cur.fetchall();
       except sqlite3.IntegrityError:
+         #TODO: add exception handling
          return 'ERROR';
          
       if len(topics) > 0:
@@ -31,18 +33,31 @@ class SubscriberDatabase(object):
             self.conn.commit();
             return 'SUCCESS';
          except sqlite3.IntegrityError:
+            #TODO: add exception handling
             return 'ERROR';
       else:
          return 'Not Found';
 
    def RemoveAllSubscriptions(self):
-      qstring = 'DELETE FROM Subscribers';
+      qstring = 'SELECT user_id FROM Subscribers';
       try:
          self.cur.execute(qstring)
-         self.conn.commit();
-         return (0);
+         users = self.cur.fetchall();
       except sqlite3.IntegrityError:
-         return (-1);
+         #TODO: add exception handling
+         return 'ERROR';
+
+      if len(users) > 0:
+         qstring = 'DELETE FROM Subscribers';
+         try:
+            self.cur.execute(qstring)
+            self.conn.commit();
+            return 'SUCCESS';
+         except sqlite3.IntegrityError:
+            #TODO: add exception handling
+            return 'ERROR';
+      else:
+         return 'Not Found'
 
    def RemoveAllTopicsForUser(self, user_id):
       qstring = 'SELECT topic FROM Subscribers WHERE user_id=\"' + user_id + '\"';
@@ -50,6 +65,7 @@ class SubscriberDatabase(object):
          self.cur.execute(qstring)
          topics = self.cur.fetchall();
       except sqlite3.IntegrityError:
+         #TODO: add exception handling
          return 'ERROR';
 
       if len(topics) > 0:
@@ -59,18 +75,31 @@ class SubscriberDatabase(object):
             self.conn.commit();
             return 'SUCCESS';
          except sqlite3.IntegrityError:
+            #TODO: add exception handling
             return 'ERROR';
       else:
          return 'Not Found';
 
    def RemoveAllUsersForTopic(self, topic):
-      qstring = 'DELETE FROM Subscribers where topic=\"' + topic + '\"';
+      qstring = 'SELECT user_id FROM Subscribers WHERE topic=\"' + topic + '\"';
       try:
          self.cur.execute(qstring)
-         self.conn.commit();
-         return (0);
+         users = self.cur.fetchall();
       except sqlite3.IntegrityError:
-         return (-1);
+         #TODO: add exception handling
+         return 'ERROR';
+
+      if len(users) > 0:
+         qstring = 'DELETE FROM Subscribers where topic=\"' + topic + '\"';
+         try:
+            self.cur.execute(qstring)
+            self.conn.commit();
+            return 'SUCCESS';
+         except sqlite3.IntegrityError:
+            #TODO: add exception handling
+            return 'ERROR';
+      else:
+         return "Not Found"
 
    def GetTopicsOfSubscriber(self, user_id):
       qstring = 'SELECT topic FROM Subscribers WHERE user_id=\"' + user_id + '\"';

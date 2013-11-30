@@ -15,6 +15,21 @@ class SecurityDatabase(object):
       except sqlite3.IntegrityError:
          pass;
 
+   def UpdateAuthorization(self, user_id, doc_id, xpath):
+      qstring = 'SELECT user_id FROM Authorizations WHERE doc_id=\"' + doc_id + '\"';
+      self.cur.execute(qstring)
+      users = self.cur.fetchall();
+      if len(users) > 0:
+         qstring = 'UPDATE Authorizations SET xpath=\"' + xpath + '\" WHERE doc_id=\"' + doc_id + '\" AND user_id=\"' + user_id + '\"';
+         try:
+            self.cur.execute(qstring)
+            self.conn.commit();
+            return 'SUCCESS'
+         except sqlite3.IntegrityError:
+            return 'ERROR';
+      else:
+         return 'Not Found';
+
    def GetAuthorization(self, doc_id):
       qstring = 'SELECT user_id,xpath FROM Authorizations WHERE doc_id=\"' + doc_id + '\"';
       self.cur.execute(qstring)

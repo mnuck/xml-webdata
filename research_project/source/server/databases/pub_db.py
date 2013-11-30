@@ -95,3 +95,46 @@ class PublisherDatabase(object):
          self.conn.commit();
       else:
          return (-1);      
+
+   def RemoveDocument(self, doc_id, currentUser):
+      qstring = 'SELECT publisher FROM Documents WHERE doc_id=\"' + doc_id + '\" AND publisher=\"' + currentUser +'\"';
+      self.cur.execute(qstring);
+      publisher = self.cur.fetchall();
+      result = 'NOT FOUND';
+   
+      if len(publisher) > 0:
+         qstring = 'DELETE FROM Documents WHERE doc_id=\"' + doc_id + '\"';
+         self.cur.execute(qstring);
+         self.conn.commit();
+         result = 'SUCCESS'
+     
+      return result;
+
+   def RemoveAllDocsByUser(self, currentUser):
+      qstring = 'SELECT doc_id FROM Documents WHERE publisher=\"' + currentUser + '\"';
+      self.cur.execute(qstring);
+      doc_ids = self.cur.fetchall();
+      result = 'NOT FOUND';
+   
+      if len(doc_ids) > 0:
+         qstring = 'DELETE FROM Documents WHERE publisher=\"' + currentUser + '\"';
+         self.cur.execute(qstring);
+         self.conn.commit();
+         result = 'SUCCESS'
+     
+      return result;
+
+   def RemoveAllDocsOfTopicByUser(self, topic, currentUser):
+      qstring = 'SELECT doc_id FROM Documents WHERE publisher=\"' + currentUser + '\" AND topic=\"' + topic +'\"';
+      self.cur.execute(qstring);
+      doc_ids = self.cur.fetchall();
+      result = 'NOT FOUND';
+   
+      if len(doc_ids) > 0:
+         qstring = 'DELETE FROM Documents WHERE publisher=\"' + currentUser + '\" AND topic=\"' + topic +'\"';
+         self.cur.execute(qstring);
+         self.conn.commit();
+         result = 'SUCCESS'
+     
+      return result;
+   

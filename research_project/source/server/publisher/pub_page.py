@@ -30,23 +30,17 @@ class PublisherPage(Resource):
    
    def render_POST(self, request):
       rt = 'oops, invalid post data!'
-      if 'pub-xml' in request.args and 'pub-topic' in request.args:
-         xmlStr = request.args["pub-xml"][0];
-         topic  = request.args["pub-topic"][0];
-
-         hasher = hashlib.md5();
-         hasher.update(topic);
-         hasher.update(xmlStr);
-         doc_id = hasher.hexdigest();
-         
-         self.parent.xmlDb.InsertDocument(doc_id, topic, xmlStr, self.parent.avatarId)
-         
-         for user_id in request.args['user']:
-            p_key = user_id + '_xpath';
-            xpath = request.args[p_key][0];
-            self.parent.secDb.InsertAuthorization(user_id, doc_id, xpath);
-      
-         rt = self.parent.postedStr % ('Document successfully posted with id: <b>' + doc_id + '</b>' );
+      if self.parent.avatarId != 'guest':
+         if 'Publish' in request.args:
+            rt = self.PublishDoc(request.args);
+         elif 'RemoveAll' in request.args:
+            rt = self.RemoveAllDocs();
+         elif 'RemoveDocID' in request.args:
+            rt = self.RemoveDocByID(request.args["remove-doc-id"][0]);
+         elif 'RemoveDocTopic' in request.args:
+            rt = self.RemoveDocByTopic(request.args["remove-doc-topic"][0]);
+      else:
+         rt = self.parent.postedStr % ('Sorry, a guest cannot publish documents.' );            
          
       return rt;
    
@@ -59,3 +53,49 @@ class PublisherPage(Resource):
       
       return child;
    
+   def PublishDoc(self, args):
+      xmlStr = args["pub-xml"][0];
+      topic  = args["pub-topic"][0];
+   
+      hasher = hashlib.md5();
+      hasher.update(topic);
+      hasher.update(xmlStr);
+      doc_id = hasher.hexdigest();
+            
+      self.parent.xmlDb.InsertDocument(doc_id, topic, xmlStr, self.parent.avatarId)
+            
+      for user_id in args['user']:
+         p_key = user_id + '_xpath';
+         xpath = args[p_key][0];
+         self.parent.secDb.InsertAuthorization(user_id, doc_id, xpath);
+         
+      return self.parent.postedStr % ('Document successfully posted with id: <b>' + doc_id + '</b>' );
+   
+   def RemoveAllDocs(self):
+      removed = self.parent.xmlDb.RemoveAllDocsByUser(self.parent.avatarId);
+      if removed == 'SUCCESS':
+         result = self.parent.postedStr % ('Successfully removed all posted documents.');
+      else:
+         result = self.parent.postedStr % ('Could not remove documents.');
+      
+      return result;
+      
+   def RemoveDocByID(self, doc_id):
+      removed = self.parent.xmlDb.RemoveDocument(doc_id, self.parent.avatarId);
+
+      if removed == 'SUCCESS':
+         result = self.parent.postedStr % ('Successfully removed document: ' + doc_id  + '.');
+      else:
+         result = self.parent.postedStr % ('Could not remove document: ' + doc_id + '.');
+      
+      return result;
+      
+   def RemoveDocByTopic(self, topic):
+      removed = self.parent.xmlDb.RemoveAllDocsOfTopicByUser(topic, self.parent.avatarId);
+
+      if removed == 'SUCCESS':
+         result = self.parent.postedStr % ('Successfully removed documents of topic: ' + topic  + '.');
+      else:
+         result = self.parent.postedStr % ('Could not remove documents of topic: ' + topic + '.');
+      
+      return result;

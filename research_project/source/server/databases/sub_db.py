@@ -17,13 +17,23 @@ class SubscriberDatabase(object):
          return (-1);
 
    def RemoveSubscription(self, user_id, topic):
-      qstring = 'DELETE FROM Subscribers WHERE user_id=\"' + user_id + '\" AND topic=\"' + topic + '\"';
+      qstring = 'SELECT topic FROM Subscribers WHERE user_id=\"' + user_id + '\" AND topic=\"' + topic + '\"';
       try:
          self.cur.execute(qstring)
-         self.conn.commit();
-         return (0);
+         topics = self.cur.fetchall();
       except sqlite3.IntegrityError:
-         return (-1);
+         return 'ERROR';
+         
+      if len(topics) > 0:
+         qstring = 'DELETE FROM Subscribers WHERE user_id=\"' + user_id + '\" AND topic=\"' + topic + '\"';
+         try:
+            self.cur.execute(qstring)
+            self.conn.commit();
+            return 'SUCCESS';
+         except sqlite3.IntegrityError:
+            return 'ERROR';
+      else:
+         return 'Not Found';
 
    def RemoveAllSubscriptions(self):
       qstring = 'DELETE FROM Subscribers';
@@ -35,13 +45,23 @@ class SubscriberDatabase(object):
          return (-1);
 
    def RemoveAllTopicsForUser(self, user_id):
-      qstring = 'DELETE FROM Subscribers where user_id=\"' + user_id + '\"';
+      qstring = 'SELECT topic FROM Subscribers WHERE user_id=\"' + user_id + '\"';
       try:
          self.cur.execute(qstring)
-         self.conn.commit();
-         return (0);
+         topics = self.cur.fetchall();
       except sqlite3.IntegrityError:
-         return (-1);
+         return 'ERROR';
+
+      if len(topics) > 0:
+         qstring = 'DELETE FROM Subscribers where user_id=\"' + user_id + '\"';
+         try:
+            self.cur.execute(qstring)
+            self.conn.commit();
+            return 'SUCCESS';
+         except sqlite3.IntegrityError:
+            return 'ERROR';
+      else:
+         return 'Not Found';
 
    def RemoveAllUsersForTopic(self, topic):
       qstring = 'DELETE FROM Subscribers where topic=\"' + topic + '\"';
@@ -53,25 +73,25 @@ class SubscriberDatabase(object):
          return (-1);
 
    def GetTopicsOfSubscriber(self, user_id):
-      qstring = 'SELECT topic FROM Documents WHERE user_id=\"' + user_id + '\"';
+      qstring = 'SELECT topic FROM Subscribers WHERE user_id=\"' + user_id + '\"';
       self.cur.execute(qstring);
       topics = self.cur.fetchall();
       return topics;
    
    def GetSubscribersOfTopic(self, topic):
-      qstring = 'SELECT user_id FROM Documents WHERE topic=\"' + topic + '\"';
+      qstring = 'SELECT user_id FROM Subscribers WHERE topic=\"' + topic + '\"';
       self.cur.execute(qstring);
       users = self.cur.fetchall();
       return users;
 
    def GetAllUsers(self):
-      qstring = 'SELECT user_id FROM Documents';
+      qstring = 'SELECT user_id FROM Subscribers';
       self.cur.execute(qstring);
       users = self.cur.fetchall();
       return users;
 
    def GetAllTopics(self):
-      qstring = 'SELECT topic FROM Documents';
+      qstring = 'SELECT topic FROM Subscribers';
       self.cur.execute(qstring);
       topics = self.cur.fetchall();
       return topics;

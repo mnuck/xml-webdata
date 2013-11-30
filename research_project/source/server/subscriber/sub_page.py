@@ -36,24 +36,24 @@ class SubscribePage(Resource):
    def Subscribe(self, topic):
       failed = self.parent.subDb.AddSubscription(self.parent.avatarId, topic);
       if failed:
-         rt = self.parent.postedStr % ('Could not subscribe to ' + topic);
+         rt = self.parent.postedStr % ('Could not subscribe to ' + topic + '.');
       else:
-         rt = self.parent.postedStr % ('Subscribed to ' + topic);
+         rt = self.parent.postedStr % ('Subscribed to ' + topic + '.');
       return rt;
 
    def Remove(self, topic):
-      failed = self.parent.subDb.RemoveSubscription(self.parent.avatarId, topic);
-      if failed:
-         rt = self.parent.postedStr % ('Could not remove subscription to ' + topic);
-      else:
-         rt = self.parent.postedStr % ('Removed subscription to ' + topic);
+      result = self.parent.subDb.RemoveSubscription(self.parent.avatarId, topic);
+      if result == 'Not Found':
+         rt = self.parent.postedStr % ('You are not subscribed to ' + topic + '.');
+      elif result == 'SUCCESS':
+         rt = self.parent.postedStr % ('Removed subscription to ' + topic + '.');
       return rt;
 
    def RemoveAll(self):
-      failed = self.parent.subDb.RemoveAllTopicsForUser(self.parent.avatarId);
-      if failed:
-         rt = self.parent.postedStr % ('Could not remove all subscriptions');
-      else:
-         rt = self.parent.postedStr % ('Removed all subscriptions');
+      result = self.parent.subDb.RemoveAllTopicsForUser(self.parent.avatarId);
+      if result == 'Not Found':
+         rt = self.parent.postedStr % ('You do not have any subscriptions to remove.');
+      elif result == 'SUCCESS':
+         rt = self.parent.postedStr % ('Removed all subscriptions.');
       return rt;
          

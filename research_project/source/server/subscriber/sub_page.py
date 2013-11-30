@@ -16,11 +16,11 @@ class SubscribePage(Resource):
    
    def render_POST(self, request):
       rt = self.parent.postedStr % ('');
-      if request.args.Subscribe == 'Subscribe':
+      if 'Subscribe' in request.args:
          rt = self.Subscribe(request.args['sub-topic'][0]);
-      elif request.args.Remove == 'Remove Subscription':
+      elif 'Remove' in request.args:
          rt = self.Remove(request.args['sub-topic'][0]);
-      elif request.args.RemoveAll == 'Remove All Subscriptions':
+      elif 'RemoveAll' in request.args:
          rt = self.RemoveAll();
       return rt;
    

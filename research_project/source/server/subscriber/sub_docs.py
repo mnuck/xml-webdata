@@ -7,7 +7,7 @@ class SubDocs(Resource):
       self.children = {};     
 
    def render_GET(self, request):
-      render = ['No Subscriptions'];
+      render = [];
       
       # Get the current user's subscribed topics
       subTopics = self.parent.subDb.GetTopicsOfSubscriber(self.parent.avatarId);
@@ -22,7 +22,7 @@ class SubDocs(Resource):
             authUsers = self.parent.secDb.GetAuthUsers(doc);
             for user in authUsers:
                if self.parent.avatarId == str(user[0]):
-                  render = topic + "<br>\n";
+                  render.append(topic + "<br>\n");
       
       # Return the set from the preceding operations.
       return ''.join(render);

@@ -5,16 +5,6 @@ from publisher.pub_docs import PubDocs
 from subscriber.sub_page import SubscribePage
 from editor.edit_xml import EditorPage
 
-posted = '''
-<html>
-<body>
-<p>
-%s
-</p>
-<a href="/">Okay...</a> 
-</body>
-</html>'''
-
 class RootPage(Resource):
    # isLeaf = True;
    def __init__(self, xmlDb, secDb, subDb, authorizedUsers, avatarId):
@@ -30,9 +20,9 @@ class RootPage(Resource):
       self.subDb = subDb;
       self.authorizedUsers = authorizedUsers;
       self.avatarId = avatarId;
-      self.postedStr = posted;
       
       # Load in the main page HTML 
+      self.postedStr = open('html/posted.html', 'r').read();
       self.content = open('html/main.html', 'r').readlines();
 
    def render_GET(self, request):

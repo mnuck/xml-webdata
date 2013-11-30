@@ -1,3 +1,4 @@
+import urllib
 from twisted.web.resource import Resource
 
 class SubDocs(Resource):
@@ -22,7 +23,10 @@ class SubDocs(Resource):
             authUsers = self.parent.secDb.GetAuthUsers(doc);
             for user in authUsers:
                if self.parent.avatarId == str(user[0]):
-                  render.append(topic + "<br>\n");
+                  path = self.parent.secDb.GetAuthPath(doc, self.parent.avatarId)[0];
+                  urlEncodedArgs = urllib.urlencode({'doc' : doc, 'xpath' : str(path[0]) });
+ 
+                  render.append("<a href='/show_xml/?" + urlEncodedArgs + "'>" + topic + "</a><br>\n");
       
       # Return the set from the preceding operations.
       return ''.join(render);

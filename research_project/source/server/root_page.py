@@ -1,10 +1,12 @@
 from twisted.web.resource import Resource
 
+from admin.admin_page import AdminPage
 from publisher.pub_page import PublisherPage
 from publisher.pub_docs import PubDocs
 from subscriber.sub_docs import SubDocs
 from subscriber.sub_page import SubscribePage
 from editor.edit_xml import EditorPage
+from editor.show_xml import DisplayPage
 
 class RootPage(Resource):
    # isLeaf = True;
@@ -15,7 +17,9 @@ class RootPage(Resource):
                         'sub'      : SubscribePage(self),
                         'pub_docs' : PubDocs(self),
                         'sub_docs' : SubDocs(self),
-                        'edit_xml' : EditorPage(self)
+                        'edit_xml' : EditorPage(self),
+                        'show_xml' : DisplayPage(self),
+                        'admin'    : AdminPage(self)
                       };      
       self.pubDb = pubdb;
       self.secDb = secDb;

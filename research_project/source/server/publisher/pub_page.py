@@ -33,18 +33,6 @@ class PublisherPage(Resource):
       if self.parent.avatarId != 'guest':
          if 'Publish' in request.args:
             rt = self.PublishDoc(request.args);
-         elif 'RemoveAll' in request.args:
-            rt = self.RemoveAllDocs();
-         elif 'RemoveDocID' in request.args:
-            rt = self.RemoveDocByID(request.args["remove-doc-id"][0]);
-         elif 'RemoveDocTopic' in request.args:
-            rt = self.RemoveDocByTopic(request.args["remove-doc-topic"][0]);
-         elif 'UpdateByDocID' in request.args:
-            rt = self.UpdateAccessDocID(request.args);
-         elif 'UpdateByTopic' in request.args:
-            rt = self.UpdateAccessByTopic(request.args);
-         elif 'UpdateAll' in request.args:
-            rt = self.UpdateAllAccess(request.args);
       else:
          rt = self.parent.postedStr % ('Sorry, a guest cannot publish documents.' );            
          
@@ -76,83 +64,3 @@ class PublisherPage(Resource):
          self.parent.secDb.InsertAuthorization(user_id, doc_id, xpath);
          
       return self.parent.postedStr % ('Document successfully posted with id: <b>' + doc_id + '</b>' );
-   
-   def RemoveAllDocs(self):
-      removed = self.parent.pubDb.RemoveAllDocsByUser(self.parent.avatarId);
-      if removed == 'SUCCESS':
-         result = self.parent.postedStr % ('Successfully removed all posted documents.');
-      else:
-         result = self.parent.postedStr % ('Could not remove documents.');
-      
-      return result;
-      
-   def RemoveDocByID(self, doc_id):
-      removed = self.parent.pubDb.RemoveDocument(doc_id, self.parent.avatarId);
-
-      if removed == 'SUCCESS':
-         result = self.parent.postedStr % ('Successfully removed document id: ' + doc_id  + '.');
-      else:
-         result = self.parent.postedStr % ('Could not remove document id: ' + doc_id + '.');
-      
-      return result;
-      
-   def RemoveDocByTopic(self, topic):
-      removed = self.parent.pubDb.RemoveAllDocsOfTopicByUser(topic, self.parent.avatarId);
-
-      if removed == 'SUCCESS':
-         result = self.parent.postedStr % ('Successfully removed documents of topic ' + topic  + '.');
-      else:
-         result = self.parent.postedStr % ('Could not remove documents of topic ' + topic + '.');
-      
-      return result;
-   
-   def UpdateAccessDocID(self, args):
-      doc_id = args["update-access-id"][0];
-      for user_id in args['user']:
-         p_key = user_id + '_xpath';
-         xpath = args[p_key][0];
-         updated = self.parent.secDb.UpdateAuthorization(user_id, doc_id, xpath);
-         
-      if updated == 'SUCCESS':  
-         result = self.parent.postedStr % ('Access levels updated for document id: ' + doc_id + '.' );
-      else:
-         result = self.parent.postedStr % ('Access levels could not be updated for document id: ' + doc_id + '.' );
-      
-      return result
-
-   def UpdateAccessByTopic(self, args):
-      topic = args["update-access-topic"][0];
-      doc_ids = self.parent.pubDb.GetAllDocsByTopicByPublisher(self.parent.avatarId, topic);
-      for user_id in args['user']:
-         p_key = user_id + '_xpath';
-         xpath = args[p_key][0];
-         updated = 'Not Found';
-         num = 0;
-         for doc_id in doc_ids:
-            updated = self.parent.secDb.UpdateAuthorization(user_id, doc_id[0], xpath);
-            num = num + 1;
-         
-      if updated == 'SUCCESS':  
-         result = self.parent.postedStr % ('Access levels updated for '+ str(num) + ' document(s) of topic ' + topic + '.' );
-      else:
-         result = self.parent.postedStr % ('Access levels could not be updated for documents of topic ' + topic + '.' );
-      
-      return result
-
-   def UpdateAllAccess(self, args):
-      doc_ids = self.parent.pubDb.GetAllDocIdsByPublisher(self.parent.avatarId);
-      for user_id in args['user']:
-         p_key = user_id + '_xpath';
-         xpath = args[p_key][0];
-         updated = 'Not Found';
-         num = 0;
-         for doc_id in doc_ids:
-            updated = self.parent.secDb.UpdateAuthorization(user_id, doc_id[0], xpath);
-            num = num + 1;
-         
-      if updated == 'SUCCESS':  
-         result = self.parent.postedStr % ('Access levels updated for ' + str(num) + ' document(s).');
-      else:
-         result = self.parent.postedStr % ('Access levels could not be updated for all documents.');
-      
-      return result

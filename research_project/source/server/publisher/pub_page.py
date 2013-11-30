@@ -39,7 +39,7 @@ class PublisherPage(Resource):
          hasher.update(xmlStr);
          doc_id = hasher.hexdigest();
          
-         self.parent.xmlDb.InsertDocument(doc_id, topic, xmlStr)
+         self.parent.xmlDb.InsertDocument(doc_id, topic, xmlStr, self.parent.avatarId)
          
          for user_id in request.args['user']:
             p_key = user_id + '_xpath';

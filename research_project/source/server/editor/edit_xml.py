@@ -46,7 +46,8 @@ class EditorPage(Resource):
          pubXml = request.args["pub-xml"][0];
          doc_id = request.args["doc"][0];
 
-         self.parent.xmlDb.UpdateDocument(doc_id, xpath, pubXml);
+         doc_publisher = self.parent.xmlDb.GetPublisherForDocId(doc_id)
+         self.parent.xmlDb.UpdateDocument(doc_id, xpath, pubXml, doc_publisher[0][0]);
          
          rt = self.parent.postedStr % ('Document successfully posted with id: <b>' + doc_id + '</b>' );
 

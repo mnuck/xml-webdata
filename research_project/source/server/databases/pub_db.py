@@ -8,14 +8,14 @@ class PublisherDatabase(object):
    def __init__(self, filename):
       self.conn = sqlite3.connect(filename)
       self.cur = self.conn.cursor()
-      self.cur.execute("CREATE TABLE IF NOT EXISTS Documents (doc_id text, topic text, doc text, primary key (doc_id))")
+      self.cur.execute("CREATE TABLE IF NOT EXISTS Documents (doc_id text, topic text, doc text, publisher text, primary key (doc_id))")
       self.conn.commit();
    
-   def InsertDocument(self, doc_id, topic, document):
-      data = (doc_id, topic, document)
+   def InsertDocument(self, doc_id, topic, document, publisher):
+      data = (doc_id, topic, document, publisher)
       try:
          #TODO: return something when doc couldn't be inserted due to duplicate key
-         self.cur.execute("INSERT INTO Documents VALUES (?,?,?)", data)
+         self.cur.execute("INSERT INTO Documents VALUES (?,?,?,?)", data)
          self.conn.commit();
       except sqlite3.IntegrityError:
          pass;
@@ -28,6 +28,12 @@ class PublisherDatabase(object):
    
    def GetTopicForDocId(self, doc):
       qstring = 'SELECT topic FROM Documents WHERE doc_id=\"' + doc + '\"';
+      self.cur.execute(qstring)
+      rows = self.cur.fetchall()
+      return rows;
+
+   def GetPublisherForDocId(self, doc):
+      qstring = 'SELECT publisher FROM Documents WHERE doc_id=\"' + doc + '\"';
       self.cur.execute(qstring)
       rows = self.cur.fetchall()
       return rows;
@@ -57,8 +63,8 @@ class PublisherDatabase(object):
       rString = ''.join(xmlElementStrs);
       return rString;
    
-   def ReplaceDocument(self, doc_id, topic, document):
-      data = (doc_id, topic, document);
+   def ReplaceDocument(self, doc_id, topic, document, publisher):
+      data = (doc_id, topic, document, publisher);
       qstring = 'SELECT doc FROM Documents WHERE doc_id=\"' + doc_id + '\"';
       self.cur.execute(qstring);
       if len(self.cur.fetchall()) > 0:
@@ -67,10 +73,10 @@ class PublisherDatabase(object):
       else:
          qstring = 'DELETE FROM Documents WHERE doc_id=\"' + doc_id + '\"';
          self.cur.execute(qstring);
-         self.cur.execute("INSERT INTO Documents VALUES (?,?,?)", data)
+         self.cur.execute("INSERT INTO Documents VALUES (?,?,?,?)", data)
          self.conn.commit();
      
-   def UpdateDocument(self, doc_id, xpath, document):
+   def UpdateDocument(self, doc_id, xpath, document, publisher):
       qstring = 'SELECT doc_id, topic, doc FROM Documents WHERE doc_id=\"' + doc_id + '\"';
       self.cur.execute(qstring);
       doc = self.cur.fetchall();
@@ -84,8 +90,8 @@ class PublisherDatabase(object):
             
          qstring = 'DELETE FROM Documents WHERE doc_id=\"' + doc_id + '\"';
          self.cur.execute(qstring);
-         new_data = (doc[0][0], doc[0][1], ET.tostring(root, encoding='us-ascii', method='xml' ));
-         self.cur.execute("INSERT INTO Documents VALUES (?,?,?)", new_data)
+         new_data = (doc[0][0], doc[0][1], ET.tostring(root, encoding='us-ascii', method='xml'), publisher);
+         self.cur.execute("INSERT INTO Documents VALUES (?,?,?,?)", new_data)
          self.conn.commit();
       else:
          return (-1);      

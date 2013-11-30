@@ -15,11 +15,13 @@ class SubscribePage(Resource):
       return self.content;
    
    def render_POST(self, request):
-      failed = self.parent.subDb.AddSubscription(self.parent.avatarId, cgi.escape(request.args['sub-topic'][0]));
-      if failed:
-         rt = self.parent.postedStr % ('Could not subscribe to ' + cgi.escape(request.args['sub-topic'][0]));
-      else:
-         rt = self.parent.postedStr % ('Subscribed to ' + cgi.escape(request.args['sub-topic'][0]));
+      rt = self.parent.postedStr % ('');
+      if request.args.Subscribe == 'Subscribe':
+         rt = self.Subscribe(request.args['sub-topic'][0]);
+      elif request.args.Remove == 'Remove Subscription':
+         rt = self.Remove(request.args['sub-topic'][0]);
+      elif request.args.RemoveAll == 'Remove All Subscriptions':
+         rt = self.RemoveAll();
       return rt;
    
    def getChild(self, name, request):
@@ -30,4 +32,28 @@ class SubscribePage(Resource):
          pass;
       
       return child;
+
+   def Subscribe(self, topic):
+      failed = self.parent.subDb.AddSubscription(self.parent.avatarId, topic);
+      if failed:
+         rt = self.parent.postedStr % ('Could not subscribe to ' + topic);
+      else:
+         rt = self.parent.postedStr % ('Subscribed to ' + topic);
+      return rt;
+
+   def Remove(self, topic):
+      failed = self.parent.subDb.RemoveSubscription(self.parent.avatarId, topic);
+      if failed:
+         rt = self.parent.postedStr % ('Could not remove subscription to ' + topic);
+      else:
+         rt = self.parent.postedStr % ('Removed subscription to ' + topic);
+      return rt;
+
+   def RemoveAll(self):
+      failed = self.parent.subDb.RemoveAllTopicsForUser(self.parent.avatarId);
+      if failed:
+         rt = self.parent.postedStr % ('Could not remove all subscriptions');
+      else:
+         rt = self.parent.postedStr % ('Removed all subscriptions');
+      return rt;
          

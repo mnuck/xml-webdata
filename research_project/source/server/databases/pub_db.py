@@ -38,6 +38,14 @@ class PublisherDatabase(object):
       rows = self.cur.fetchall()
       return rows;
 
+   def GetDocIds(self, topic):
+      #TODO: need to verify users access level and only return docs
+      #      they are allowed to access, likely another layer in between to handle this
+      qstring = 'SELECT doc_id FROM Documents WHERE topic=\"' + topic + '\"';
+      self.cur.execute(qstring)
+      rows = self.cur.fetchall()
+      return rows;
+
    def GetDocuments(self, topic):
       #TODO: need to verify users access level and only return docs
       #      they are allowed to access, likely another layer in between to handle this

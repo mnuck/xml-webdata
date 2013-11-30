@@ -14,7 +14,7 @@ class PubDocs(Resource):
          path = self.parent.secDb.GetAuthPath(doc[0], self.parent.avatarId)[0];
          urlEncodedArgs = urllib.urlencode({'doc' : doc[0], 'xpath' : str(path[0]) });
          try:
-            topic = self.parent.xmlDb.GetTopicForDocId(doc[0]);
+            topic = self.parent.pubDb.GetTopicForDocId(doc[0]);
             if len(topic) > 0:
                for t in topic[0]:
                   render.append("<a href='/edit_xml/?" + urlEncodedArgs + "'>" + str(t) + "</a><br>\n");

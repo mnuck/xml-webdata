@@ -37,18 +37,31 @@ a:active { COLOR: #00CC00; }
           document.getElementById("pub_docs").innerHTML=xmlhttp.responseText;
         }
       });
+      setTimeout("getPubDocs()", 5500);
    }
 
-   function doUpdate()
+   function getSubDocs()
    {
-      getPubDocs();
-      setTimeout("doUpdate()", 5000);
+      loadXMLDoc("/sub_docs",function()
+      {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+          document.getElementById("sub_docs").innerHTML=xmlhttp.responseText;
+        }
+      });
+      setTimeout("getSubDocs()", 5000);
+   }
+
+   function startUpdater()
+   {
+      setTimeout("getPubDocs()", 5500);
+      setTimeout("getSubDocs()", 5000);
    }
 
 </script>
   
 </head>
-<body onload="doUpdate()">
+<body onload="startUpdater()">
 <div id="container" style="width: 800px;">
    <div id="header" style="color: rgb(255, 255, 255); background-color: rgb(0, 66, 0);">
       <h1 style="margin-bottom: 0pt;">CS437 Publisher/Subscriber Portal</h1>

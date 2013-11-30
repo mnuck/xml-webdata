@@ -17,7 +17,7 @@ class EditorPage(Resource):
          pass;
 
       # TODO: Check xpath for validity against the security database.
-      doc = self.parent.xmlDb.GetPartialDoc(doc_id, xpath);
+      doc = self.parent.pubDb.GetPartialDoc(doc_id, xpath);
 
       modDoc = '';
       for c in doc:
@@ -46,8 +46,8 @@ class EditorPage(Resource):
          pubXml = request.args["pub-xml"][0];
          doc_id = request.args["doc"][0];
 
-         doc_publisher = self.parent.xmlDb.GetPublisherForDocId(doc_id)
-         self.parent.xmlDb.UpdateDocument(doc_id, xpath, pubXml, doc_publisher[0][0]);
+         doc_publisher = self.parent.pubDb.GetPublisherForDocId(doc_id)
+         self.parent.pubDb.UpdateDocument(doc_id, xpath, pubXml, doc_publisher[0][0]);
          
          rt = self.parent.postedStr % ('Document successfully posted with id: <b>' + doc_id + '</b>' );
 

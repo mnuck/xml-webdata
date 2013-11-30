@@ -7,6 +7,7 @@ class SubDocs(Resource):
       self.children = {};     
 
    def render_GET(self, request):
-      render = [];
-
+      render = ['No Subscriptions'];
+      
+      # Return the set from the preceding operations.
       return ''.join(render);

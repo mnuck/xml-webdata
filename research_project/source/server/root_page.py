@@ -2,20 +2,22 @@ from twisted.web.resource import Resource
 
 from publisher.pub_page import PublisherPage
 from publisher.pub_docs import PubDocs
+from subscriber.sub_docs import SubDocs
 from subscriber.sub_page import SubscribePage
 from editor.edit_xml import EditorPage
 
 class RootPage(Resource):
    # isLeaf = True;
-   def __init__(self, xmlDb, secDb, subDb, authorizedUsers, avatarId):
+   def __init__(self, pubdb, secDb, subDb, authorizedUsers, avatarId):
       Resource.__init__(self);
       
       self.children = { 'pub'      : PublisherPage(self),
                         'sub'      : SubscribePage(self),
                         'pub_docs' : PubDocs(self),
+                        'sub_docs' : SubDocs(self),
                         'edit_xml' : EditorPage(self)
                       };      
-      self.xmlDb = xmlDb;
+      self.pubDb = pubdb;
       self.secDb = secDb;
       self.subDb = subDb;
       self.authorizedUsers = authorizedUsers;

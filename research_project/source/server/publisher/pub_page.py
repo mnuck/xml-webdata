@@ -62,7 +62,7 @@ class PublisherPage(Resource):
       hasher.update(xmlStr);
       doc_id = hasher.hexdigest();
             
-      self.parent.xmlDb.InsertDocument(doc_id, topic, xmlStr, self.parent.avatarId)
+      self.parent.pubDb.InsertDocument(doc_id, topic, xmlStr, self.parent.avatarId)
             
       for user_id in args['user']:
          p_key = user_id + '_xpath';
@@ -72,7 +72,7 @@ class PublisherPage(Resource):
       return self.parent.postedStr % ('Document successfully posted with id: <b>' + doc_id + '</b>' );
    
    def RemoveAllDocs(self):
-      removed = self.parent.xmlDb.RemoveAllDocsByUser(self.parent.avatarId);
+      removed = self.parent.pubDb.RemoveAllDocsByUser(self.parent.avatarId);
       if removed == 'SUCCESS':
          result = self.parent.postedStr % ('Successfully removed all posted documents.');
       else:
@@ -81,7 +81,7 @@ class PublisherPage(Resource):
       return result;
       
    def RemoveDocByID(self, doc_id):
-      removed = self.parent.xmlDb.RemoveDocument(doc_id, self.parent.avatarId);
+      removed = self.parent.pubDb.RemoveDocument(doc_id, self.parent.avatarId);
 
       if removed == 'SUCCESS':
          result = self.parent.postedStr % ('Successfully removed document: ' + doc_id  + '.');
@@ -91,7 +91,7 @@ class PublisherPage(Resource):
       return result;
       
    def RemoveDocByTopic(self, topic):
-      removed = self.parent.xmlDb.RemoveAllDocsOfTopicByUser(topic, self.parent.avatarId);
+      removed = self.parent.pubDb.RemoveAllDocsOfTopicByUser(topic, self.parent.avatarId);
 
       if removed == 'SUCCESS':
          result = self.parent.postedStr % ('Successfully removed documents of topic: ' + topic  + '.');

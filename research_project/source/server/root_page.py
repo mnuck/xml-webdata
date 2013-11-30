@@ -17,7 +17,7 @@ posted = '''
 
 class RootPage(Resource):
    # isLeaf = True;
-   def __init__(self, xmlDb, secDb, authorizedUsers, avatarId):
+   def __init__(self, xmlDb, secDb, subDb, authorizedUsers, avatarId):
       Resource.__init__(self);
       
       self.children = { 'pub'      : PublisherPage(self),
@@ -27,6 +27,7 @@ class RootPage(Resource):
                       };      
       self.xmlDb = xmlDb;
       self.secDb = secDb;
+      self.subDb = subDb;
       self.authorizedUsers = authorizedUsers;
       self.avatarId = avatarId;
       self.postedStr = posted;

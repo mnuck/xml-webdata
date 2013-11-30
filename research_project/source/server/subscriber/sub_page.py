@@ -15,9 +15,11 @@ class SubscribePage(Resource):
       return self.content;
    
    def render_POST(self, request):
-      # TODO: Handle subscription here!!!
-      rt = self.parent.postedStr % ('Subscribed to ' + cgi.escape(request.args['sub-topic'][0]))      
-   
+      failed = self.parent.subDb.AddSubscription(self.parent.avatarId, cgi.escape(request.args['sub-topic'][0]));
+      if failed:
+         rt = self.parent.postedStr % ('Could not subscribe to ' + cgi.escape(request.args['sub-topic'][0]));
+      else:
+         rt = self.parent.postedStr % ('Subscribed to ' + cgi.escape(request.args['sub-topic'][0]));
       return rt;
    
    def getChild(self, name, request):

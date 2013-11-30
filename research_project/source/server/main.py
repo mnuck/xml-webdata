@@ -25,7 +25,7 @@ def main():
    authDb = AuthorizationDatabase('authorization/passwords.txt', ':')
    
    # Use 'thisIsTheVariableNameOfTheRealmThatIsInUseDuringThisRun' just for Tom! ;-)
-   thisIsTheVariableNameOfTheRealmThatIsInUseDuringThisRun = Realm(pubdb, secdb, authDb.GetUserList());
+   thisIsTheVariableNameOfTheRealmThatIsInUseDuringThisRun = Realm(pubdb, secdb, subdb, authDb.GetUserList());
    
    # Create a session wrapper for authentication
    wrapper = SessionWrapper(authDb.GetFile(), thisIsTheVariableNameOfTheRealmThatIsInUseDuringThisRun);   

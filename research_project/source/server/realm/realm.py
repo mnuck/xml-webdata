@@ -10,13 +10,14 @@ class Realm(object):
    """
    implements(IRealm)
    
-   def __init__(self, db, secDb, users):
+   def __init__(self, db, secDb, subDb, users):
       self.pubdb = db;
       self.authorizedUsers = users;
       self.secDb = secDb;
+      self.subDb = subDb;
    
    def requestAvatar(self, avatarId, mind, *interfaces):
       print "User",avatarId,"authenticated.";
       if resource.IResource in interfaces:
-         return resource.IResource, RootPage(self.pubdb, self.secDb, self.authorizedUsers, avatarId), lambda: None
+         return resource.IResource, RootPage(self.pubdb, self.secDb, self.subDb, self.authorizedUsers, avatarId), lambda: None
       raise NotImplementedError()

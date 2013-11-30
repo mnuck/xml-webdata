@@ -34,6 +34,24 @@ class SubscriberDatabase(object):
       except sqlite3.IntegrityError:
          return (-1);
 
+   def RemoveAllTopicsForUser(self, user_id):
+      qstring = 'DELETE FROM Subscribers where user_id=\"' + user_id + '\"';
+      try:
+         self.cur.execute(qstring)
+         self.conn.commit();
+         return (0);
+      except sqlite3.IntegrityError:
+         return (-1);
+
+   def RemoveAllUsersForTopic(self, topic):
+      qstring = 'DELETE FROM Subscribers where topic=\"' + topic + '\"';
+      try:
+         self.cur.execute(qstring)
+         self.conn.commit();
+         return (0);
+      except sqlite3.IntegrityError:
+         return (-1);
+
    def GetTopicsOfSubscriber(self, user_id):
       qstring = 'SELECT topic FROM Documents WHERE user_id=\"' + user_id + '\"';
       self.cur.execute(qstring);

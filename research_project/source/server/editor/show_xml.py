@@ -23,6 +23,8 @@ class DisplayPage(Resource):
       for c in doc:
          if c == '\n':
             modDoc = modDoc + '\\\n'
+         elif c == '"':
+            modDoc = modDoc + '\\"';
          else:
             modDoc = modDoc + c;
 

@@ -20,6 +20,13 @@ class DisplayPage(Resource):
       # TODO: Check xpath for validity against the security database.
       doc = self.parent.pubDb.GetPartialDoc(doc_id, xpath);
 
+      modXpath = '';
+      for x in xpath:
+         if x == '\'':
+            modXpath = modXpath + '\\\'';
+         else:
+            modXpath = modXpath + x;
+
       modDoc = '';
       for c in doc:
          if c == '\n':
@@ -29,7 +36,7 @@ class DisplayPage(Resource):
          else:
             modDoc = modDoc + c;
 
-      script = "document.getElementById('xpath-input').value='" + xpath + "';\n";
+      script = "document.getElementById('xpath-input').value='" + modXpath + "';\n";
       script = script + 'document.getElementById(\'xmlarea\').value=\"' + modDoc + '\";\n';
  
       render = [];   

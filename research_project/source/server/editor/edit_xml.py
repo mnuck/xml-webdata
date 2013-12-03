@@ -1,10 +1,11 @@
 from twisted.web.resource import Resource
 
 class EditorPage(Resource):
-   def __init__(self, parent):
+   def __init__(self, parent, path):
       Resource.__init__(self);
       self.parent = parent;
       self.children = {};
+      self.path = path;
       
       # Load in the editor page HTML       
       self.content = open('html/edit.html', 'r').readlines();

@@ -4,10 +4,11 @@ from twisted.web.resource import Resource
 
 class AdminPage(Resource):
    authFormatStr = '<tr><td><input name=\'user\' type=\'checkbox\' value=\'%s\'>%s</td><td><input name=\'%s_xpath\' type=\'text\'></td></tr>';
-   def __init__(self, parent):
+   def __init__(self, parent, path):
       Resource.__init__(self);
       self.parent = parent;
       self.children = {};
+      self.path = path;
       
       # Load in the publisher page HTML 
       self.content = open('html/admin.html', 'r').readlines();
@@ -44,7 +45,7 @@ class AdminPage(Resource):
          elif 'UpdateAll' in request.args:
             rt = self.UpdateAllAccess(request.args);
       else:
-         rt = self.parent.postedStr % ('Sorry, a guest cannot publish documents.','/' );            
+         rt = self.parent.postedStr % ('Sorry, a guest cannot publish documents.', self.path);            
          
       return rt;
    
@@ -60,7 +61,7 @@ class AdminPage(Resource):
    def RemoveAllDocs(self):
       removed = self.parent.pubDb.RemoveAllDocsByUser(self.parent.avatarId);
       if removed == 'SUCCESS':
-         result = self.parent.postedStr % ('Successfully removed all posted documents.', '/');
+         result = self.parent.postedStr % ('Successfully removed all posted documents.', self.path);
       else:
          result = self.parent.postedStr % ('Could not remove documents.', '/');
       
@@ -70,9 +71,9 @@ class AdminPage(Resource):
       removed = self.parent.pubDb.RemoveDocument(doc_id, self.parent.avatarId);
 
       if removed == 'SUCCESS':
-         result = self.parent.postedStr % ('Successfully removed document id: ' + doc_id  + '.', '/');
+         result = self.parent.postedStr % ('Successfully removed document id: ' + doc_id  + '.', self.path);
       else:
-         result = self.parent.postedStr % ('Could not remove document id: ' + doc_id + '.', '/');
+         result = self.parent.postedStr % ('Could not remove document id: ' + doc_id + '.', self.path);
       
       return result;
       
@@ -80,9 +81,9 @@ class AdminPage(Resource):
       removed = self.parent.pubDb.RemoveAllDocsOfTopicByUser(topic, self.parent.avatarId);
 
       if removed == 'SUCCESS':
-         result = self.parent.postedStr % ('Successfully removed documents of topic ' + topic  + '.', '/');
+         result = self.parent.postedStr % ('Successfully removed documents of topic ' + topic  + '.', self.path);
       else:
-         result = self.parent.postedStr % ('Could not remove documents of topic ' + topic + '.', '/');
+         result = self.parent.postedStr % ('Could not remove documents of topic ' + topic + '.', self.path);
       
       return result;
    
@@ -94,9 +95,9 @@ class AdminPage(Resource):
          updated = self.parent.secDb.UpdateAuthorization(user_id, doc_id, xpath);
          
       if updated == 'SUCCESS':  
-         result = self.parent.postedStr % ('Access levels updated for document id: ' + doc_id + '.', '/');
+         result = self.parent.postedStr % ('Access levels updated for document id: ' + doc_id + '.', self.path);
       else:
-         result = self.parent.postedStr % ('Access levels could not be updated for document id: ' + doc_id + '.', '/');
+         result = self.parent.postedStr % ('Access levels could not be updated for document id: ' + doc_id + '.', self.path);
       
       return result
 
@@ -113,9 +114,9 @@ class AdminPage(Resource):
             num = num + 1;
          
       if updated == 'SUCCESS':  
-         result = self.parent.postedStr % ('Access levels updated for '+ str(num) + ' document(s) of topic ' + topic + '.', '/');
+         result = self.parent.postedStr % ('Access levels updated for '+ str(num) + ' document(s) of topic ' + topic + '.', self.path);
       else:
-         result = self.parent.postedStr % ('Access levels could not be updated for documents of topic ' + topic + '.', '/');
+         result = self.parent.postedStr % ('Access levels could not be updated for documents of topic ' + topic + '.', self.path);
       
       return result
 
@@ -131,8 +132,8 @@ class AdminPage(Resource):
             num = num + 1;
          
       if updated == 'SUCCESS':  
-         result = self.parent.postedStr % ('Access levels updated for ' + str(num) + ' document(s).', '/');
+         result = self.parent.postedStr % ('Access levels updated for ' + str(num) + ' document(s).', self.path);
       else:
-         result = self.parent.postedStr % ('Access levels could not be updated for all documents.', '/');
+         result = self.parent.postedStr % ('Access levels could not be updated for all documents.', self.path);
       
       return result

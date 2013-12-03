@@ -2,10 +2,11 @@ import urllib
 from twisted.web.resource import Resource
 
 class PubDocs(Resource):
-   def __init__(self, parent):
+   def __init__(self, parent, path):
       Resource.__init__(self);
       self.parent = parent;
-      self.children = {};     
+      self.children = {};
+      self.path = path;
 
    def render_GET(self, request):
       render = [];

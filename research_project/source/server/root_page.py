@@ -13,13 +13,13 @@ class RootPage(Resource):
    def __init__(self, pubdb, secDb, subDb, authorizedUsers, avatarId):
       Resource.__init__(self);
       
-      self.children = { 'pub'      : PublisherPage(self),
-                        'sub'      : SubscribePage(self),
-                        'pub_docs' : PubDocs(self),
-                        'sub_docs' : SubDocs(self),
-                        'edit_xml' : EditorPage(self),
-                        'show_xml' : DisplayPage(self),
-                        'admin'    : AdminPage(self)
+      self.children = { 'pub'      : PublisherPage(self, '/pub/'),
+                        'sub'      : SubscribePage(self, '/sub/'),
+                        'pub_docs' : PubDocs(self, '/pub_docs/'),
+                        'sub_docs' : SubDocs(self, '/sub_docs/'),
+                        'edit_xml' : EditorPage(self, '/edit_xml/'),
+                        'show_xml' : DisplayPage(self, '/show_xml/'),
+                        'admin'    : AdminPage(self, '/admin/')
                       };      
       self.pubDb = pubdb;
       self.secDb = secDb;

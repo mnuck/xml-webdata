@@ -51,7 +51,7 @@ class EditorPage(Resource):
          doc_publisher = self.parent.pubDb.GetPublisherForDocId(doc_id)
          self.parent.pubDb.UpdateDocument(doc_id, xpath, pubXml, doc_publisher[0][0]);
          
-         rt = self.parent.postedStr % ('Document successfully posted with id: <b>' + doc_id + '</b>' );
+         rt = self.parent.postedStr % ('Document successfully posted with id: <b>' + doc_id + '</b>', '/' );
 
       return rt;
    

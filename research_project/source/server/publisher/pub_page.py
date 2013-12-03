@@ -34,7 +34,7 @@ class PublisherPage(Resource):
          if 'Publish' in request.args:
             rt = self.PublishDoc(request.args);
       else:
-         rt = self.parent.postedStr % ('Sorry, a guest cannot publish documents.' );            
+         rt = self.parent.postedStr % ('Sorry, a guest cannot publish documents.', '/' );            
          
       return rt;
    
@@ -63,4 +63,4 @@ class PublisherPage(Resource):
          xpath = args[p_key][0];
          self.parent.secDb.InsertAuthorization(user_id, doc_id, xpath);
          
-      return self.parent.postedStr % ('Document successfully posted with id: <b>' + doc_id + '</b>' );
+      return self.parent.postedStr % ('Document successfully posted with id: <b>' + doc_id + '</b>', '/' );

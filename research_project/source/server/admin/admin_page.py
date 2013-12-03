@@ -44,7 +44,7 @@ class AdminPage(Resource):
          elif 'UpdateAll' in request.args:
             rt = self.UpdateAllAccess(request.args);
       else:
-         rt = self.parent.postedStr % ('Sorry, a guest cannot publish documents.' );            
+         rt = self.parent.postedStr % ('Sorry, a guest cannot publish documents.','/' );            
          
       return rt;
    
@@ -60,9 +60,9 @@ class AdminPage(Resource):
    def RemoveAllDocs(self):
       removed = self.parent.pubDb.RemoveAllDocsByUser(self.parent.avatarId);
       if removed == 'SUCCESS':
-         result = self.parent.postedStr % ('Successfully removed all posted documents.');
+         result = self.parent.postedStr % ('Successfully removed all posted documents.', '/');
       else:
-         result = self.parent.postedStr % ('Could not remove documents.');
+         result = self.parent.postedStr % ('Could not remove documents.', '/');
       
       return result;
       
@@ -70,9 +70,9 @@ class AdminPage(Resource):
       removed = self.parent.pubDb.RemoveDocument(doc_id, self.parent.avatarId);
 
       if removed == 'SUCCESS':
-         result = self.parent.postedStr % ('Successfully removed document id: ' + doc_id  + '.');
+         result = self.parent.postedStr % ('Successfully removed document id: ' + doc_id  + '.', '/');
       else:
-         result = self.parent.postedStr % ('Could not remove document id: ' + doc_id + '.');
+         result = self.parent.postedStr % ('Could not remove document id: ' + doc_id + '.', '/');
       
       return result;
       
@@ -80,9 +80,9 @@ class AdminPage(Resource):
       removed = self.parent.pubDb.RemoveAllDocsOfTopicByUser(topic, self.parent.avatarId);
 
       if removed == 'SUCCESS':
-         result = self.parent.postedStr % ('Successfully removed documents of topic ' + topic  + '.');
+         result = self.parent.postedStr % ('Successfully removed documents of topic ' + topic  + '.', '/');
       else:
-         result = self.parent.postedStr % ('Could not remove documents of topic ' + topic + '.');
+         result = self.parent.postedStr % ('Could not remove documents of topic ' + topic + '.', '/');
       
       return result;
    
@@ -94,9 +94,9 @@ class AdminPage(Resource):
          updated = self.parent.secDb.UpdateAuthorization(user_id, doc_id, xpath);
          
       if updated == 'SUCCESS':  
-         result = self.parent.postedStr % ('Access levels updated for document id: ' + doc_id + '.' );
+         result = self.parent.postedStr % ('Access levels updated for document id: ' + doc_id + '.', '/');
       else:
-         result = self.parent.postedStr % ('Access levels could not be updated for document id: ' + doc_id + '.' );
+         result = self.parent.postedStr % ('Access levels could not be updated for document id: ' + doc_id + '.', '/');
       
       return result
 
@@ -113,9 +113,9 @@ class AdminPage(Resource):
             num = num + 1;
          
       if updated == 'SUCCESS':  
-         result = self.parent.postedStr % ('Access levels updated for '+ str(num) + ' document(s) of topic ' + topic + '.' );
+         result = self.parent.postedStr % ('Access levels updated for '+ str(num) + ' document(s) of topic ' + topic + '.', '/');
       else:
-         result = self.parent.postedStr % ('Access levels could not be updated for documents of topic ' + topic + '.' );
+         result = self.parent.postedStr % ('Access levels could not be updated for documents of topic ' + topic + '.', '/');
       
       return result
 
@@ -131,8 +131,8 @@ class AdminPage(Resource):
             num = num + 1;
          
       if updated == 'SUCCESS':  
-         result = self.parent.postedStr % ('Access levels updated for ' + str(num) + ' document(s).');
+         result = self.parent.postedStr % ('Access levels updated for ' + str(num) + ' document(s).', '/');
       else:
-         result = self.parent.postedStr % ('Access levels could not be updated for all documents.');
+         result = self.parent.postedStr % ('Access levels could not be updated for all documents.', '/');
       
       return result

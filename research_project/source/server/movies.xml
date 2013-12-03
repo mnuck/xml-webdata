@@ -1,0 +1,10 @@
+<MOVIES>
+<BLURAY TITLE="Star Wars" DIRECTOR="George Lucas" COMPANY="LucasFilm" YEAR="1977" />
+<DVD TITLE="The Godfather" DIRECTOR="Francis Ford Coppola" COMPANY="Paramount Pictures" YEAR="1972" />
+<BLURAY TITLE="Pulp Fiction" DIRECTOR="Quentin Tarantino" COMPANY="Miramax Films" YEAR="1994" />
+<BLURAY TITLE="The Shawshank Redemption" DIRECTOR="Frank Darabont" COMPANY="Castle Rock Entertainment" YEAR="1994" />
+<DVD TITLE="One Flew Over the Cuckoo's Nest" DIRECTOR="Milos Forman" COMPANY="Fantasy Films" YEAR="1975" />
+<BLURAY TITLE="Fellowship of the Ring" DIRECTOR="Peter Jackson" COMPANY="New Line Cinema" YEAR="2001" />
+<DVD TITLE="Forrest Gump" DIRECTOR="Robert Zemeckis" COMPANY="Paramount Pictures" YEAR="1994" />
+<VHS TITLE="The Usual Suspects" DIRECTOR="Bryan Singer" COMPANY=" PolyGram Filmed Entertainment" YEAR="1995" />
+</MOVIES>

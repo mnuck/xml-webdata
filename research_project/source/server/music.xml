@@ -1,12 +1,12 @@
-﻿<MUSIC>
+<MUSIC>
 <CD TITLE="Empire Burlesque" ARTIST="Bob Dylan" COUNTRY="USA" COMPANY="Columbia" PRICE="10.90" YEAR="1985" />
 <CD TITLE="Hide your heart" ARTIST="Bonnie Tyler" COUNTRY="UK" COMPANY="CBS Records" PRICE="9.90" YEAR="1988" />
-<CD TITLE="Greatest Hits" ARTIST="Dolly Parton" COUNTRY="USA" COMPANY="RCA" PRICE="9.90" YEAR="1982" />
+<RECORD TITLE="Greatest Hits" ARTIST="Dolly Parton" COUNTRY="USA" COMPANY="RCA" PRICE="9.90" YEAR="1982" />
 <CD TITLE="Still got the blues" ARTIST="Gary Moore" COUNTRY="UK" COMPANY="Virgin records" PRICE="10.20" YEAR="1990" />
 <CD TITLE="Maggie May" ARTIST="Rod Stewart" COUNTRY="UK" COMPANY="Pickwick" PRICE="8.50" YEAR="1990" />
 <CD TITLE="Romanza" ARTIST="Andrea Bocelli" COUNTRY="EU" COMPANY="Polydor" PRICE="10.80" YEAR="1996" />
 <CD TITLE="When a man loves a woman" ARTIST="Percy Sledge" COUNTRY="USA" COMPANY="Atlantic" PRICE="8.70" YEAR="1987" />
 <CD TITLE="Bridge of Spies" ARTIST="T'Pau" COUNTRY="UK" COMPANY="Siren" PRICE="7.90" YEAR="1987" />
-<CD TITLE="Private Dancer" ARTIST="Tina Turner" COUNTRY="UK" COMPANY="Capitol" PRICE="8.90" YEAR="1983" />
-<CD TITLE="Midt om natten" ARTIST="Kim Larsen" COUNTRY="EU" COMPANY="Medley" PRICE="7.80" YEAR="1983" />
+<RECORD TITLE="Private Dancer" ARTIST="Tina Turner" COUNTRY="UK" COMPANY="Capitol" PRICE="8.90" YEAR="1983" />
+<CASSETTE TITLE="Midt om natten" ARTIST="Kim Larsen" COUNTRY="EU" COMPANY="Medley" PRICE="7.80" YEAR="1983" />
 </MUSIC>

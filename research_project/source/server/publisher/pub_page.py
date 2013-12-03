@@ -4,10 +4,11 @@ from twisted.web.resource import Resource
 
 class PublisherPage(Resource):
    authFormatStr = '<tr><td><input name=\'user\' type=\'checkbox\' value=\'%s\'>%s</td><td><input name=\'%s_xpath\' type=\'text\'></td></tr>';
-   def __init__(self, parent):
+   def __init__(self, parent, path):
       Resource.__init__(self);
       self.parent = parent;
       self.children = {};
+      self.path = path;
       
       # Load in the publisher page HTML 
       self.content = open('html/publish.html', 'r').readlines();
@@ -34,7 +35,7 @@ class PublisherPage(Resource):
          if 'Publish' in request.args:
             rt = self.PublishDoc(request.args);
       else:
-         rt = self.parent.postedStr % ('Sorry, a guest cannot publish documents.', '/' );            
+         rt = self.parent.postedStr % ('Sorry, a guest cannot publish documents.', self.path);            
          
       return rt;
    
@@ -63,4 +64,4 @@ class PublisherPage(Resource):
          xpath = args[p_key][0];
          self.parent.secDb.InsertAuthorization(user_id, doc_id, xpath);
          
-      return self.parent.postedStr % ('Document successfully posted with id: <b>' + doc_id + '</b>', '/' );
+      return self.parent.postedStr % ('Document successfully posted with id: <b>' + doc_id + '</b>', self.path);
